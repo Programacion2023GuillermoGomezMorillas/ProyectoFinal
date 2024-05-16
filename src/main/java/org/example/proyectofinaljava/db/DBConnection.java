@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Clase para la conexion de la base de datos al proyecto
+ */
 public class DBConnection {
     // URL de conexión a la base de datos MySQL
     private static final String URL = "jdbc:mysql://localhost:3306/mi_db";

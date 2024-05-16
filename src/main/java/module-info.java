@@ -6,4 +6,6 @@ module org.example.proyectofinaljava {
 
     opens org.example.proyectofinaljava to javafx.fxml;
     exports org.example.proyectofinaljava;
+    exports org.example.proyectofinaljava.Controller;
+    opens org.example.proyectofinaljava.Controller to javafx.fxml;
 }
