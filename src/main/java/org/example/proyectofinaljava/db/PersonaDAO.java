@@ -15,7 +15,7 @@ public class PersonaDAO {
 
     // Consultas SQL para manipular la tabla Persona
     private static final String INSERT_QUERY = "INSERT INTO Persona (dni, nombre, apellido, edad) VALUES (?, ?, ?, ?)";
-    private static final String SELECT_ALL_QUERY = "SELECT * FROM Persona";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
     private static final String SELECT_BY_DNI_QUERY = "SELECT * FROM Persona WHERE dni = ?";
     private static final String UPDATE_QUERY = "UPDATE Persona SET nombre = ?, apellido = ?, edad = ? WHERE dni = ?";
     private static final String DELETE_QUERY = "DELETE FROM Persona WHERE dni = ?";
