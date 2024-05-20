@@ -1,5 +1,12 @@
 package org.example.proyectofinaljava.model;
 
+import org.example.proyectofinaljava.db.LibroDAO;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import static org.example.proyectofinaljava.db.DBConnection.getConnection;
+
 public class Libro {
     private String ISBN;
     private String titulo;
@@ -9,11 +16,11 @@ public class Libro {
     private int idAutor;
 
 
-    public Libro(String ISBN, String titulo, int anioPublicacion, int fotoLibro, String genero, int idAutor) {
+    public Libro(String ISBN, String titulo, int anioPublicacion, String genero, int idAutor) {
         this.ISBN = ISBN;
         this.titulo = titulo;
         this.anioPublicacion = anioPublicacion;
-        this.fotoLibro = fotoLibro;
+        //this.fotoLibro = fotoLibro;
         this.genero = genero;
         this.idAutor = idAutor;
     }
@@ -66,4 +73,18 @@ public class Libro {
     public void setIdAutor(int idAutor) {
         this.idAutor = idAutor;
     }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "ISBN='" + ISBN + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", anioPublicacion=" + anioPublicacion +
+                ", fotoLibro=" + fotoLibro +
+                ", genero='" + genero + '\'' +
+                ", idAutor=" + idAutor +
+                '}';
+    }
+
+
 }

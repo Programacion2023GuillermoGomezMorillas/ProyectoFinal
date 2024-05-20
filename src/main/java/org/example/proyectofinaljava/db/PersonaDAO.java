@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonaDAO {
+/*
     // Objeto de conexión a la base de datos. Recuerda el patrón singleton de DBConnection
     private Connection connection=DBConnection.getConnection();
 
@@ -80,7 +81,7 @@ public class PersonaDAO {
 
     // Método auxiliar para mapear un ResultSet en la
     //posición actual a un objeto Persona
-    private Persona resulSetToPersona(ResultSet resultSet) throws SQLException {
+    /*private Persona resulSetToPersona(ResultSet resultSet) throws SQLException {
         Persona persona = new Persona(
                 resultSet.getString("dni"),
                 resultSet.getString("nombre"),
@@ -88,4 +89,6 @@ public class PersonaDAO {
                 resultSet.getInt("edad"));
         return persona;
     }
+    */
+
 }

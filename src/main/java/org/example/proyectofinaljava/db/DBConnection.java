@@ -3,8 +3,6 @@ package org.example.proyectofinaljava.db;
 import org.example.proyectofinaljava.model.Persona;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Clase para la conexion de la base de datos al proyecto

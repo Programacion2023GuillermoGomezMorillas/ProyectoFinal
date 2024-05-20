@@ -1,7 +1,6 @@
 package org.example.proyectofinaljava.db;
 
 import org.example.proyectofinaljava.model.Libro;
-import org.example.proyectofinaljava.model.Persona;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +16,12 @@ public class LibroDAO {
     // Consultas SQL para manipular la tabla Persona
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, anioPublicacion, genero_nombre, autor_idAutor) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
-    private static final String SELECT_BY_DNI_QUERY = "SELECT * FROM Libro WHERE dni = ?";
+    private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE isbn = ?";
     private static final String UPDATE_QUERY = "UPDATE Libro SET ISBN = ?, titulo = ?, anioPublicacion = ?, genero_nombre = ?, autor_idAutor = ? WHERE dni = ?";
     private static final String DELETE_QUERY = "DELETE FROM Persona WHERE dni = ?";
 
     // Método para insertar una nueva persona en la base de datos
-    public void insertPersona(Libro libro) throws SQLException {
+    public void insertLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
             statement.setString(1, libro.getISBN());
             statement.setString(2, libro.getTitulo());
@@ -35,43 +34,42 @@ public class LibroDAO {
     }
 
     // Método para obtener todas las personas de la base de datos
-    public List<Persona> getAllPersonas() throws SQLException {
-        List<Persona> personas = new ArrayList<>();
+    public List<Libro> getAllLibros() throws SQLException {
+        List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Persona persona = resulSetToPersona(resultSet);
-                personas.add(persona);
+                Libro libro = resulSetToPersona(resultSet);
+                libros.add(libro);
             }
         }
-        return personas;
+        return libros;
     }
-
     // Método para obtener una persona por su DNI
-    public Persona getPersonaByDni(String dni) throws SQLException {
-        Persona persona = null;
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_DNI_QUERY)) {
-            statement.setString(1, dni);
+    public Libro getLibroByISbn(String isbn) throws SQLException {
+        Libro libro = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
+            statement.setString(1, isbn);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                persona = resulSetToPersona(resultSet);
+                libro = resulSetToPersona(resultSet);
             }
         }
-        return persona;
+        return libro;
     }
 
     // Método para actualizar los datos de una persona en la base de datos
-    public void updatePersona(Persona persona) throws SQLException {
+    public void updatePersona(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
-            statement.setString(1, persona.getNombre());
-            statement.setString(2, persona.getApellido());
-            statement.setInt(3, persona.getEdad());
-            statement.setString(4, persona.getDni());
+            statement.setString(1, libro.getISBN());
+            statement.setString(2, libro.getTitulo());
+            statement.setInt(3, libro.getAnioPublicacion());
+            statement.setString(4, libro.getGenero());
+            statement.setString(4, libro.getGenero());
 
             statement.executeUpdate();
         }
     }
-
     // Método para eliminar una persona de la base de datos por su DNI
     public void deletePersonaByDni(String dni) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
@@ -82,16 +80,33 @@ public class LibroDAO {
 
     // Método auxiliar para mapear un ResultSet en la
     //posición actual a un objeto Persona
-    private Persona resulSetToPersona(ResultSet resultSet) throws SQLException {
-        Persona persona = new Persona(
-                resultSet.getString("dni"),
-                resultSet.getString("nombre"),
-                resultSet.getString("apellido"),
-                resultSet.getInt("edad"));
-        return persona;
+    private Libro resulSetToPersona(ResultSet resultSet) throws SQLException {
+        Libro libro = new Libro(
+                resultSet.getString("ISBN"),
+                resultSet.getString("titulo"),
+                resultSet.getInt("anioPublicacion"),
+                resultSet.getString("genero_nombre"),
+                resultSet.getInt("autor_idAutor"));
+        return libro;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        LibroDAO libro = new LibroDAO();
 
+        List<Libro> listaLibros = libro.getAllLibros();
+        for (Libro i : listaLibros) {
+            System.out.println(i.toString());
+        }
+
+
+        System.out.println(libro.getLibroByISbn("9780747532699"));
+        Libro libroNuevo = new Libro("8945156456456", "El de mis cojones en almibar", 2000, "Fantasia", 6);
+        libro.insertLibro(libroNuevo);
+
+        List<Libro> listaLibros2 = libro.getAllLibros();
+        for (Libro i : listaLibros) {
+            System.out.println(i.toString());
+        }
     }
+
 }
