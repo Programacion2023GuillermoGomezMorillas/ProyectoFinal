@@ -14,8 +14,11 @@ public class LibroDAO {
     private Connection connection=DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Libro
+    // Insertar un nuevo libro
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, anioPublicacion, genero_nombre, autor_idAutor) VALUES (?, ?, ?, ?, ?)";
+    // Consulta de todos los libros
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
+    private static final String SELECT_BY_CATEGORY = "SELECT * FROM Libro WHERE genero_nombre = ?";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
     private static final String UPDATE_QUERY = "UPDATE Libro SET ISBN = ?, titulo = ?, anioPublicacion = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
@@ -46,10 +49,10 @@ public class LibroDAO {
         return libros;
     }
     // Método para obtener un libro por su ISNB
-    public Libro getLibroByISbn(String isbn) throws SQLException {
+    public Libro getLibroByCategory(String category) throws SQLException {
         Libro libro = null;
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
-            statement.setString(1, isbn);
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_CATEGORY)) {
+            statement.setString(1, category);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 libro = resulSetToLibro(resultSet);
@@ -92,19 +95,16 @@ public class LibroDAO {
 
     public static void main(String[] args) throws SQLException {
         LibroDAO libro = new LibroDAO();
-
+        /*
         List<Libro> listaLibros = libro.getAllLibros();
         for (Libro i : listaLibros) {
             System.out.println(i.toString());
         }
-        System.out.println(libro.getLibroByISbn("9780747532699"));
-        Libro libroNuevo = new Libro("8945153256456", "LibroPrueba2", 2000, "Fantasia", 4);
-        libro.insertLibro(libroNuevo);
 
-        listaLibros = libro.getAllLibros();
-        for (Libro i : listaLibros) {
-            System.out.println(i.toString());
-        }
+         */
+
+        libro.getLibroByCategory("Fantasia").toString();
+
 
     }
 
