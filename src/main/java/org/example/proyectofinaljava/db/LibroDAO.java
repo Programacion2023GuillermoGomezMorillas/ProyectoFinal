@@ -13,12 +13,12 @@ public class LibroDAO {
     // Objeto de conexión a la base de datos. Recuerda el patrón singleton de DBConnection
     private Connection connection=DBConnection.getConnection();
 
-    // Consultas SQL para manipular la tabla Persona
+    // Consultas SQL para manipular la tabla Libro
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, anioPublicacion, genero_nombre, autor_idAutor) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
-    private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE isbn = ?";
-    private static final String UPDATE_QUERY = "UPDATE Libro SET ISBN = ?, titulo = ?, anioPublicacion = ?, genero_nombre = ?, autor_idAutor = ? WHERE dni = ?";
-    private static final String DELETE_QUERY = "DELETE FROM Persona WHERE dni = ?";
+    private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
+    private static final String UPDATE_QUERY = "UPDATE Libro SET ISBN = ?, titulo = ?, anioPublicacion = ? WHERE isbn = ?";
+    private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 
     // Método para insertar una nueva persona en la base de datos
     public void insertLibro(Libro libro) throws SQLException {
@@ -39,26 +39,26 @@ public class LibroDAO {
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Libro libro = resulSetToPersona(resultSet);
+                Libro libro = resulSetToLibro(resultSet);
                 libros.add(libro);
             }
         }
         return libros;
     }
-    // Método para obtener una persona por su DNI
+    // Método para obtener un libro por su ISNB
     public Libro getLibroByISbn(String isbn) throws SQLException {
         Libro libro = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
             statement.setString(1, isbn);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                libro = resulSetToPersona(resultSet);
+                libro = resulSetToLibro(resultSet);
             }
         }
         return libro;
     }
 
-    // Método para actualizar los datos de una persona en la base de datos
+    // Método para actualizar los datos de un libro en la base de datos
     public void updateLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setString(1, libro.getISBN());
@@ -79,8 +79,8 @@ public class LibroDAO {
     }
 
     // Método auxiliar para mapear un ResultSet en la
-    //posición actual a un objeto Persona
-    private Libro resulSetToPersona(ResultSet resultSet) throws SQLException {
+    //posición actual a un objeto Libro
+    private Libro resulSetToLibro(ResultSet resultSet) throws SQLException {
         Libro libro = new Libro(
                 resultSet.getString("ISBN"),
                 resultSet.getString("titulo"),
