@@ -59,7 +59,7 @@ public class LibroDAO {
     }
 
     // Método para actualizar los datos de una persona en la base de datos
-    public void updatePersona(Libro libro) throws SQLException {
+    public void updateLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setString(1, libro.getISBN());
             statement.setString(2, libro.getTitulo());
@@ -71,9 +71,9 @@ public class LibroDAO {
         }
     }
     // Método para eliminar una persona de la base de datos por su DNI
-    public void deletePersonaByDni(String dni) throws SQLException {
+    public void deleteLibroByIsbn(String isbn) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
-            statement.setString(1, dni);
+            statement.setString(1, isbn);
             statement.executeUpdate();
         }
     }
@@ -100,7 +100,7 @@ public class LibroDAO {
 
 
         System.out.println(libro.getLibroByISbn("9780747532699"));
-        Libro libroNuevo = new Libro("8945156456456", "El de mis cojones en almibar", 2000, "Fantasia", 6);
+        Libro libroNuevo = new Libro("8945156456456", "LibroPrueba", 2000, "Fantasia", 6);
         libro.insertLibro(libroNuevo);
 
         List<Libro> listaLibros2 = libro.getAllLibros();

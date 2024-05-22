@@ -9,8 +9,6 @@ import java.sql.*;
  */
 public class DBConnection {
 
-    private static final String INSERT_QUERY = "select * from libro";
-
     // URL de conexión a la base de datos MySQL
     private static final String URL = "jdbc:mysql://127.0.1.1:3306/biblioteca";
     private static final String USERNAME = "root";
