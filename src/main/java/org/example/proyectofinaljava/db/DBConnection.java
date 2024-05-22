@@ -12,7 +12,7 @@ public class DBConnection {
     // URL de conexión a la base de datos MySQL
     private static final String URL = "jdbc:mysql://127.0.1.1:3306/biblioteca";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "uP53y4yD";
 
     private static Connection connection;
 

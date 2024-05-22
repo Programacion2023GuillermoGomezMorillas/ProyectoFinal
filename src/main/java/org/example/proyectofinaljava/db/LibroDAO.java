@@ -97,16 +97,15 @@ public class LibroDAO {
         for (Libro i : listaLibros) {
             System.out.println(i.toString());
         }
-
-
         System.out.println(libro.getLibroByISbn("9780747532699"));
-        Libro libroNuevo = new Libro("8945156456456", "LibroPrueba", 2000, "Fantasia", 6);
+        Libro libroNuevo = new Libro("8945153256456", "LibroPrueba2", 2000, "Fantasia", 4);
         libro.insertLibro(libroNuevo);
 
-        List<Libro> listaLibros2 = libro.getAllLibros();
+        listaLibros = libro.getAllLibros();
         for (Libro i : listaLibros) {
             System.out.println(i.toString());
         }
+
     }
 
 }

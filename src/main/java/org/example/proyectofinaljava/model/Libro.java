@@ -11,7 +11,6 @@ public class Libro {
     private String ISBN;
     private String titulo;
     private int anioPublicacion;
-    private int fotoLibro;
     private String genero;
     private int idAutor;
 
@@ -20,7 +19,6 @@ public class Libro {
         this.ISBN = ISBN;
         this.titulo = titulo;
         this.anioPublicacion = anioPublicacion;
-        //this.fotoLibro = fotoLibro;
         this.genero = genero;
         this.idAutor = idAutor;
     }
@@ -50,14 +48,6 @@ public class Libro {
         this.anioPublicacion = anioPublicacion;
     }
 
-    public int getFotoLibro() {
-        return fotoLibro;
-    }
-
-    public void setFotoLibro(int fotoLibro) {
-        this.fotoLibro = fotoLibro;
-    }
-
     public String getGenero() {
         return genero;
     }
@@ -80,7 +70,6 @@ public class Libro {
                 "ISBN='" + ISBN + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", anioPublicacion=" + anioPublicacion +
-                ", fotoLibro=" + fotoLibro +
                 ", genero='" + genero + '\'' +
                 ", idAutor=" + idAutor +
                 '}';
