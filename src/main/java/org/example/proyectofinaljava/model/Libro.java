@@ -73,7 +73,6 @@ public class Libro {
                 "ISBN='" + ISBN + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", anioPublicacion=" + anioPublicacion +
-                ", fotoLibro=" + fotoLibro +
                 ", genero='" + genero + '\'' +
                 ", idAutor=" + autor +
                 '}';

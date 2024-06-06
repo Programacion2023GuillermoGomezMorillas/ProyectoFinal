@@ -19,10 +19,10 @@ public class LibroDAO {
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
     private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE GENERO-NOMBRE = ?";
     private static final String SELECT_BY_TITULO_QUERY = "SELECT * FROM Libro WHERE TITULO = ?";
-    private static final String UPDATE_QUERY = "UPDATE Libro SET ISBN = ?, titulo = ?, anioPublicacion = ? WHERE isbn = ?";
+    private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, anioPublicacion = ?, genero_nombre = ?, autor = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 
-    // Método para insertar una nueva persona en la base de datos
+    // Método para insertar un nuevo libro en la base de datos
     public void insertLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
             statement.setString(1, libro.getISBN());
@@ -35,7 +35,7 @@ public class LibroDAO {
         }
     }
 
-    // Método para obtener todas las personas de la base de datos
+    // Método para obtener todos los libros de la base de datos
     public List<Libro> getAllLibros() throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
@@ -87,11 +87,11 @@ public class LibroDAO {
     // Método para actualizar los datos de un libro en la base de datos
     public void updateLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
-            statement.setString(1, libro.getISBN());
-            statement.setString(2, libro.getTitulo());
-            statement.setInt(3, libro.getAnioPublicacion());
-            statement.setString(4, libro.getGenero());
-            statement.setString(4, libro.getGenero());
+            statement.setString(1, libro.getTitulo());
+            statement.setInt(2, libro.getAnioPublicacion());
+            statement.setString(3, libro.getGenero());
+            statement.setString(4, libro.getAutor());
+            statement.setString(5, libro.getISBN());
 
             statement.executeUpdate();
         }
@@ -104,8 +104,7 @@ public class LibroDAO {
         }
     }
 
-    // Método auxiliar para mapear un ResultSet en la
-    //posición actual a un objeto Libro
+    // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Libro
     private Libro resulSetToLibro(ResultSet resultSet) throws SQLException {
         Libro libro = new Libro(
                 resultSet.getString("ISBN"),
@@ -115,19 +114,24 @@ public class LibroDAO {
                 resultSet.getString("autor"));
         return libro;
     }
-
+/*
     public static void main(String[] args) throws SQLException {
         LibroDAO libro = new LibroDAO();
         System.out.println(libro.getAllLibros());
+
         System.out.println("---------------------------------------------------------------------------------------------------------------");
-        System.out.println(libro.getLibroByISbn("9781234567897"));
+        System.out.println(libro.getLibroByISbn("8945156456456"));
         System.out.println("---------------------------------------------------------------------------------------------------------------");
-        //Libro libroNuevo = new Libro("8945156456456", "LibroPrueba", 2000, "Fantasia", "Jose Luis");
-        //libro.insertLibro(libroNuevo);
+        Libro libroNuevo = new Libro("8945156456456", "LibroModificado", 2005, "Fantasia", "Jose Luis");
+        libro.updateLibro(libroNuevo);
+        System.out.println(libro.getLibroByISbn("8945156456456"));
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
         System.out.println(libro.getAllLibros());
         System.out.println("---------------------------------------------------------------------------------------------------------------");
 
     }
+
+ */
 
 
 }
