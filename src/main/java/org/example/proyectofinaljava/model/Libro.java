@@ -11,7 +11,7 @@ public class Libro {
     private String isbn;
     private String titulo;
     private int anioPublicacion;
-    private int fotoLibro;
+    //private int fotoLibro;
     private String genero;
     private String autor;
 
@@ -26,12 +26,12 @@ public class Libro {
     }
 
     //**********************Getters y Setter**********************
-    public String getISBN() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.isbn = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitulo() {

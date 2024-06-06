@@ -43,7 +43,7 @@ public class LibroDAO {
     // Método para insertar un nuevo libro en la base de datos
     public void insertLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
-            statement.setString(1, libro.getISBN());
+            statement.setString(1, libro.getIsbn());
             statement.setString(2, libro.getTitulo());
             statement.setInt(3, libro.getAnioPublicacion());
             statement.setString(4, libro.getGenero());
@@ -109,7 +109,7 @@ public class LibroDAO {
             statement.setInt(2, libro.getAnioPublicacion());
             statement.setString(3, libro.getGenero());
             statement.setString(4, libro.getAutor());
-            statement.setString(5, libro.getISBN());
+            statement.setString(5, libro.getIsbn());
 
             statement.executeUpdate();
         }

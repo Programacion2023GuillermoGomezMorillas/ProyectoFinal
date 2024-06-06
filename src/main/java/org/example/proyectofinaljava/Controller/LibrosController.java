@@ -141,7 +141,7 @@ public class LibrosController implements Initializable {
         Libro libro=tvLibros.getSelectionModel().getSelectedItem();
         //si hay un alumno seleccionado mostramos los datos
         if(libro!=null){
-            tfIsbn.setText(libro.getISBN());
+            tfIsbn.setText(libro.getIsbn());
             tfTitulo.setText(libro.getTitulo());
             tfAno.setPrefColumnCount(libro.getAnioPublicacion());
             tfAutor.setText(libro.getAutor());
