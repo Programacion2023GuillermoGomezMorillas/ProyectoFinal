@@ -14,9 +14,11 @@ public class LibroDAO {
     private Connection connection=DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Libro
-    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, anioPublicacion, genero_nombre, autor_idAutor) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, anioPublicacion, genero_nombre, autor) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
+    private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE GENERO-NOMBRE = ?";
+    private static final String SELECT_BY_TITULO_QUERY = "SELECT * FROM Libro WHERE TITULO = ?";
     private static final String UPDATE_QUERY = "UPDATE Libro SET ISBN = ?, titulo = ?, anioPublicacion = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 
@@ -27,7 +29,7 @@ public class LibroDAO {
             statement.setString(2, libro.getTitulo());
             statement.setInt(3, libro.getAnioPublicacion());
             statement.setString(4, libro.getGenero());
-            statement.setInt(5, libro.getIdAutor());
+            statement.setString(5, libro.getAutor());
 
             statement.executeUpdate();
         }
@@ -45,11 +47,35 @@ public class LibroDAO {
         }
         return libros;
     }
-    // Método para obtener un libro por su ISNB
+    // Método para obtener un libro por su ISBN
     public Libro getLibroByISbn(String isbn) throws SQLException {
         Libro libro = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
             statement.setString(1, isbn);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                libro = resulSetToLibro(resultSet);
+            }
+        }
+        return libro;
+    }
+    // Método para obtener un libro por su Genero
+    public Libro getLibroByGenero(String genero) throws SQLException {
+        Libro libro = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_GENERO_QUERY)) {
+            statement.setString(1, genero);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                libro = resulSetToLibro(resultSet);
+            }
+        }
+        return libro;
+    }
+    // Método para obtener un libro por su Nombre
+    public Libro getLibroByTitulo(String titulo) throws SQLException {
+        Libro libro = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_TITULO_QUERY)) {
+            statement.setString(1, titulo);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 libro = resulSetToLibro(resultSet);
@@ -86,27 +112,22 @@ public class LibroDAO {
                 resultSet.getString("titulo"),
                 resultSet.getInt("anioPublicacion"),
                 resultSet.getString("genero_nombre"),
-                resultSet.getInt("autor_idAutor"));
+                resultSet.getString("autor"));
         return libro;
     }
 
     public static void main(String[] args) throws SQLException {
         LibroDAO libro = new LibroDAO();
+        System.out.println(libro.getAllLibros());
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+        System.out.println(libro.getLibroByISbn("9781234567897"));
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+        //Libro libroNuevo = new Libro("8945156456456", "LibroPrueba", 2000, "Fantasia", "Jose Luis");
+        //libro.insertLibro(libroNuevo);
+        System.out.println(libro.getAllLibros());
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
 
-        List<Libro> listaLibros = libro.getAllLibros();
-        for (Libro i : listaLibros) {
-            System.out.println(i.toString());
-        }
-
-
-        System.out.println(libro.getLibroByISbn("9780747532699"));
-        Libro libroNuevo = new Libro("8945156456456", "LibroPrueba", 2000, "Fantasia", 6);
-        libro.insertLibro(libroNuevo);
-
-        List<Libro> listaLibros2 = libro.getAllLibros();
-        for (Libro i : listaLibros) {
-            System.out.println(i.toString());
-        }
     }
+
 
 }

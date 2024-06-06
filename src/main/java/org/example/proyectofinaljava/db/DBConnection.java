@@ -10,9 +10,9 @@ import java.sql.*;
 public class DBConnection {
 
     // URL de conexión a la base de datos MySQL
-    private static final String URL = "jdbc:mysql://127.0.1.1:3306/biblioteca";
+    private static final String URL = "jdbc:mysql://databaseprogramacion.c30sqgs4ymao.us-east-1.rds.amazonaws.com/Biblioteca";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "root1234";
 
     private static Connection connection;
 

@@ -13,16 +13,16 @@ public class Libro {
     private int anioPublicacion;
     private int fotoLibro;
     private String genero;
-    private int idAutor;
+    private String autor;
 
 
-    public Libro(String ISBN, String titulo, int anioPublicacion, String genero, int idAutor) {
+    public Libro(String ISBN, String titulo, int anioPublicacion, String genero, String autor) {
         this.ISBN = ISBN;
         this.titulo = titulo;
         this.anioPublicacion = anioPublicacion;
         //this.fotoLibro = fotoLibro;
         this.genero = genero;
-        this.idAutor = idAutor;
+        this.autor = autor;
     }
 
     //**********************Getters y Setter**********************
@@ -50,13 +50,6 @@ public class Libro {
         this.anioPublicacion = anioPublicacion;
     }
 
-    public int getFotoLibro() {
-        return fotoLibro;
-    }
-
-    public void setFotoLibro(int fotoLibro) {
-        this.fotoLibro = fotoLibro;
-    }
 
     public String getGenero() {
         return genero;
@@ -66,23 +59,23 @@ public class Libro {
         this.genero = genero;
     }
 
-    public int getIdAutor() {
-        return idAutor;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setIdAutor(int idAutor) {
-        this.idAutor = idAutor;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     @Override
     public String toString() {
-        return "Libro{" +
+        return  "\nLibro{" +
                 "ISBN='" + ISBN + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", anioPublicacion=" + anioPublicacion +
                 ", fotoLibro=" + fotoLibro +
                 ", genero='" + genero + '\'' +
-                ", idAutor=" + idAutor +
+                ", idAutor=" + autor +
                 '}';
     }
 
