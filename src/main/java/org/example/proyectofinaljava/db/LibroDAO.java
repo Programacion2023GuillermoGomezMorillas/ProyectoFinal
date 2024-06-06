@@ -22,6 +22,24 @@ public class LibroDAO {
     private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, anioPublicacion = ?, genero_nombre = ?, autor = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 
+    // Clase singleton
+    public static LibroDAO instance;
+    // Constructor privado para evitar instancias directas
+    private LibroDAO() {}
+    // Método estático para obtener la instancia única de la conexión
+    public static LibroDAO getConnection() {
+        if (instance == null) {
+            // Bloqueo sincronizado para evitar concurrencia
+            synchronized (LibroDAO.class) {
+                if (instance == null) {
+                    // Generamos la clase
+                    instance = new LibroDAO();
+                }
+            }
+        }
+        return instance;
+    }
+
     // Método para insertar un nuevo libro en la base de datos
     public void insertLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {

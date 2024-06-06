@@ -16,6 +16,7 @@ public class InicioController {
 
     @FXML
     void onClickLibros(ActionEvent event) {
+        //es necesario el control de excepciones
         try {
             //Cargamos la ventana de la gestion de los libros
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("libros-view.fxml"));
@@ -42,7 +43,7 @@ public class InicioController {
             Stage stage = new Stage();
             stage.setTitle("Gestion de socios");
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         }catch (IOException e){
             System.err.println(e.getMessage());
         }
@@ -59,7 +60,7 @@ public class InicioController {
             Stage stage = new Stage();
             stage.setTitle("Gestion de socios");
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         }catch (IOException e){
             System.err.println(e.getMessage());
         }

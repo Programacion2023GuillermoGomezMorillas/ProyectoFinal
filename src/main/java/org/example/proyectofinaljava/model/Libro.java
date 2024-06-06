@@ -8,7 +8,7 @@ import java.util.List;
 import static org.example.proyectofinaljava.db.DBConnection.getConnection;
 
 public class Libro {
-    private String ISBN;
+    private String isbn;
     private String titulo;
     private int anioPublicacion;
     private int fotoLibro;
@@ -16,8 +16,8 @@ public class Libro {
     private String autor;
 
 
-    public Libro(String ISBN, String titulo, int anioPublicacion, String genero, String autor) {
-        this.ISBN = ISBN;
+    public Libro(String isbn, String titulo, int anioPublicacion, String genero, String autor) {
+        this.isbn = isbn;
         this.titulo = titulo;
         this.anioPublicacion = anioPublicacion;
         //this.fotoLibro = fotoLibro;
@@ -27,11 +27,11 @@ public class Libro {
 
     //**********************Getters y Setter**********************
     public String getISBN() {
-        return ISBN;
+        return isbn;
     }
 
     public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+        this.isbn = ISBN;
     }
 
     public String getTitulo() {
@@ -70,7 +70,7 @@ public class Libro {
     @Override
     public String toString() {
         return  "\nLibro{" +
-                "ISBN='" + ISBN + '\'' +
+                "ISBN='" + isbn + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", anioPublicacion=" + anioPublicacion +
                 ", genero='" + genero + '\'' +

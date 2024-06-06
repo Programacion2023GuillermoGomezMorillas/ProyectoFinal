@@ -15,7 +15,25 @@ public class GeneroDAO {
     private Connection connection = DBConnection.getConnection();
 
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Genero";
+    // Clase singleton
+    public static GeneroDAO instance;
 
+    // Constructor privado para evitar instancias directas
+    private GeneroDAO() {}
+
+    // Método estático para obtener la instancia única de la conexión
+    public static GeneroDAO getConnection() {
+        if (instance == null) {
+            // Bloqueo sincronizado para evitar concurrencia
+            synchronized (GeneroDAO.class) {
+                if (instance == null) {
+                    // Generamos la clase
+                    instance = new GeneroDAO();
+                }
+            }
+        }
+        return instance;
+    }
 
     // Método para obtener todos los generos de la base de datos
     public List<String> getAllGeneros() throws SQLException {

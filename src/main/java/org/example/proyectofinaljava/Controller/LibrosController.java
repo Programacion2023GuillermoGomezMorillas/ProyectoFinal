@@ -1,6 +1,9 @@
 package org.example.proyectofinaljava.Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.proyectofinaljava.db.GeneroDAO;
 import org.example.proyectofinaljava.db.LibroDAO;
 import org.example.proyectofinaljava.model.Libro;
@@ -12,11 +15,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+
 import java.net.URL;
+import java.util.List;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
 public class LibrosController implements Initializable {
+    private ObservableList<Libro> listaLibros;
     private LibroDAO libroDAO;
     private GeneroDAO generoDAO;
     @FXML
@@ -87,8 +94,33 @@ public class LibrosController implements Initializable {
     @FXML
     private TableView<Libro> tvLibros;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        generoDAO = GeneroDAO.getConnection();
+        libroDAO = LibroDAO.getConnection();
+        actualizarTvLibros();
 
+    }
 
+    public void actualizarTvLibros(){
+        try{
+            listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
+        }
+        catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+
+        //asociamos las columnas con los datos indicando el nombre del campo de la clase
+        tcIsbn.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
+        tcTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
+        tcAutor.setCellValueFactory(new PropertyValueFactory("autor"));
+        tcAno.setCellValueFactory(new PropertyValueFactory("ano"));
+        tcGenero.setCellValueFactory(new PropertyValueFactory("genero"));
+
+        //Asociamos la lista a la tabla
+        tvLibros.setItems(listaLibros);
+        tvLibros.refresh();
+    }
 
     /**
      *
@@ -135,5 +167,6 @@ public class LibrosController implements Initializable {
     void onClickModificar(MouseEvent event) {
 
     }
+
 
 }
