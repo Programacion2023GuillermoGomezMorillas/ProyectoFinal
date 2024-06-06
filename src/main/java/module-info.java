@@ -8,4 +8,5 @@ module org.example.proyectofinaljava {
     exports org.example.proyectofinaljava.db;
     exports org.example.proyectofinaljava.Controller;
     opens org.example.proyectofinaljava.Controller to javafx.fxml;
+    exports org.example.proyectofinaljava;
 }
