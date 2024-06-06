@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="model prestamo genero">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/InicioController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/inicio-view.fxml" afterDir="false" />
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="escena Libro">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/InicioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/InicioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -68,6 +64,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\guigommor\IdeaProjects\ProyectoFinalJava\src\main\java\org\example\proyectofinaljava" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.example.proyectofinaljava" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Launcher">
@@ -229,7 +228,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717684626039</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Inicio JavaFx-Primera ventana">
+      <option name="closed" value="true" />
+      <created>1717687409639</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1717687409639</updated>
+    </task>
+    <task id="LOCAL-00009" summary="escena Libro">
+      <option name="closed" value="true" />
+      <created>1717695475489</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1717695475489</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -239,6 +254,8 @@
     <MESSAGE value="Pruebas" />
     <MESSAGE value="LibroDAO" />
     <MESSAGE value="model prestamo genero" />
-    <option name="LAST_COMMIT_MESSAGE" value="model prestamo genero" />
+    <MESSAGE value="Inicio JavaFx-Primera ventana" />
+    <MESSAGE value="escena Libro" />
+    <option name="LAST_COMMIT_MESSAGE" value="escena Libro" />
   </component>
 </project>

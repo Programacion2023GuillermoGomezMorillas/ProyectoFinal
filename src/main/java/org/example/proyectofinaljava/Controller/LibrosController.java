@@ -1,13 +1,24 @@
 package org.example.proyectofinaljava.Controller;
 
+import javafx.fxml.Initializable;
+import org.example.proyectofinaljava.db.GeneroDAO;
+import org.example.proyectofinaljava.db.LibroDAO;
+import org.example.proyectofinaljava.model.Libro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
-public class LibrosController {
+import java.net.URL;
+import java.util.ResourceBundle;
 
+
+public class LibrosController implements Initializable {
+    private LibroDAO libroDAO;
+    private GeneroDAO generoDAO;
     @FXML
     private Button btBorrar;
 
@@ -21,28 +32,28 @@ public class LibrosController {
     private Button btModificar;
 
     @FXML
-    private ChoiceBox<?> cbBuscar;
+    private ComboBox<String> cbBuscar;
 
     @FXML
-    private ChoiceBox<?> cbGenero;
+    private ComboBox<String> cbGenero;
 
     @FXML
-    private ChoiceBox<?> cbGeneroModif;
+    private ComboBox<String> cbGeneroModif;
 
     @FXML
-    private TableColumn<?, ?> tcAno;
+    private TableColumn<Libro, String> tcAno;
 
     @FXML
-    private TableColumn<?, ?> tcAutor;
+    private TableColumn<Libro, String> tcAutor;
 
     @FXML
-    private TableColumn<?, ?> tcGenero;
+    private TableColumn<Libro, String> tcGenero;
 
     @FXML
-    private TableColumn<?, ?> tcIsbn;
+    private TableColumn<Libro, String> tcIsbn;
 
     @FXML
-    private TableColumn<?, ?> tcTitulo;
+    private TableColumn<Libro, String> tcTitulo;
 
     @FXML
     private TextField tfAno;
@@ -73,5 +84,56 @@ public class LibrosController {
 
     @FXML
     private TextField tfTituloModif;
+    @FXML
+    private TableView<Libro> tvLibros;
+
+
+
+
+    /**
+     *
+     * @param event para borrar un libro
+     */
+    @FXML
+    void onClickBorrar(MouseEvent event) {
+
+    }
+
+    /**
+     *
+     * @param event para buscar un libro
+     */
+    @FXML
+    void onClickBuscar(MouseEvent event) {
+        //buscamos el alumno seleccionado
+        Libro libro=tvLibros.getSelectionModel().getSelectedItem();
+        //si hay un alumno seleccionado mostramos los datos
+        if(libro!=null){
+            tfIsbn.setText(libro.getISBN());
+            tfTitulo.setText(libro.getTitulo());
+            tfAno.setPrefColumnCount(libro.getAnioPublicacion());
+            tfAutor.setText(libro.getAutor());
+            cbGenero.setValue(libro.getGenero());
+        }
+    }
+
+
+    /**
+     *
+     * @param event para insertar un libro
+     */
+    @FXML
+    void onClickInsertar(MouseEvent event) {
+
+    }
+
+    /**
+     *
+     * @param event para modificar un libro
+     */
+    @FXML
+    void onClickModificar(MouseEvent event) {
+
+    }
 
 }

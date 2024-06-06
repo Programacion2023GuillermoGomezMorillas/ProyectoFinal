@@ -11,7 +11,7 @@ public class Launcher extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("inicio-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("Hello!");
+        stage.setTitle("Gestion de biblioteca");
         stage.setScene(scene);
         stage.show();
     }
