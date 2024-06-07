@@ -14,12 +14,12 @@ public class LibroDAO {
     private Connection connection=DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Libro
-    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, anioPublicacion, genero_nombre, autor) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
-    private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE GENERO-NOMBRE = ?";
+    private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE GENERO = ?";
     private static final String SELECT_BY_TITULO_QUERY = "SELECT * FROM Libro WHERE TITULO = ?";
-    private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, anioPublicacion = ?, genero_nombre = ?, autor = ? WHERE isbn = ?";
+    private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, autor = ?, anio = ?, genero = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 
     // Clase singleton
@@ -45,9 +45,9 @@ public class LibroDAO {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
             statement.setString(1, libro.getIsbn());
             statement.setString(2, libro.getTitulo());
-            statement.setInt(3, libro.getAnioPublicacion());
-            statement.setString(4, libro.getGenero());
-            statement.setString(5, libro.getAutor());
+            statement.setString(3, libro.getAutor());
+            statement.setString(4, libro.getAnio());
+            statement.setString(5, libro.getGenero());
 
             statement.executeUpdate();
         }
@@ -78,16 +78,17 @@ public class LibroDAO {
         return libro;
     }
     // Método para obtener un libro por su Genero
-    public Libro getLibroByGenero(String genero) throws SQLException {
-        Libro libro = null;
+    public List<Libro> getLibroByGenero(String genero) throws SQLException {
+        List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_GENERO_QUERY)) {
             statement.setString(1, genero);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                libro = resulSetToLibro(resultSet);
+            while (resultSet.next()) {
+                Libro libro = resulSetToLibro(resultSet);
+                libros.add(libro);
             }
         }
-        return libro;
+        return libros;
     }
     // Método para obtener un libro por su Nombre
     public Libro getLibroByTitulo(String titulo) throws SQLException {
@@ -106,9 +107,9 @@ public class LibroDAO {
     public void updateLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setString(1, libro.getTitulo());
-            statement.setInt(2, libro.getAnioPublicacion());
-            statement.setString(3, libro.getGenero());
-            statement.setString(4, libro.getAutor());
+            statement.setString(2, libro.getAutor());
+            statement.setString(3, libro.getAnio());
+            statement.setString(4, libro.getGenero());
             statement.setString(5, libro.getIsbn());
 
             statement.executeUpdate();
@@ -127,29 +128,29 @@ public class LibroDAO {
         Libro libro = new Libro(
                 resultSet.getString("ISBN"),
                 resultSet.getString("titulo"),
-                resultSet.getInt("anioPublicacion"),
-                resultSet.getString("genero_nombre"),
-                resultSet.getString("autor"));
+                resultSet.getString("autor"),
+                resultSet.getString("anio"),
+                resultSet.getString("genero"));
         return libro;
     }
-/*
+
     public static void main(String[] args) throws SQLException {
         LibroDAO libro = new LibroDAO();
-        System.out.println(libro.getAllLibros());
+       //System.out.println(libro.getAllLibros());
 
         System.out.println("---------------------------------------------------------------------------------------------------------------");
-        System.out.println(libro.getLibroByISbn("8945156456456"));
+        //Libro libroNuevo = new Libro("8945156456456", "LibroNuevo", "Jose Luis", "2005", "Fantasia");
+        //libro.insertLibro(libroNuevo);
+        System.out.println(libro.getLibroByGenero("Misterio"));
         System.out.println("---------------------------------------------------------------------------------------------------------------");
-        Libro libroNuevo = new Libro("8945156456456", "LibroModificado", 2005, "Fantasia", "Jose Luis");
-        libro.updateLibro(libroNuevo);
-        System.out.println(libro.getLibroByISbn("8945156456456"));
-        System.out.println("---------------------------------------------------------------------------------------------------------------");
-        System.out.println(libro.getAllLibros());
-        System.out.println("---------------------------------------------------------------------------------------------------------------");
+        //System.out.println(libro.getAllLibros());
+        //System.out.println("---------------------------------------------------------------------------------------------------------------");
 
     }
 
- */
+
+
+
 
 
 }

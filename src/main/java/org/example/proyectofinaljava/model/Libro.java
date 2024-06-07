@@ -1,28 +1,19 @@
 package org.example.proyectofinaljava.model;
 
-import org.example.proyectofinaljava.db.LibroDAO;
-
-import java.sql.SQLException;
-import java.util.List;
-
-import static org.example.proyectofinaljava.db.DBConnection.getConnection;
-
 public class Libro {
     private String isbn;
     private String titulo;
-    private int anioPublicacion;
-    //private int fotoLibro;
+    private String anio;
     private String genero;
     private String autor;
 
 
-    public Libro(String isbn, String titulo, int anioPublicacion, String genero, String autor) {
+    public Libro(String isbn, String titulo, String autor, String anio, String genero) {
         this.isbn = isbn;
         this.titulo = titulo;
-        this.anioPublicacion = anioPublicacion;
-        //this.fotoLibro = fotoLibro;
-        this.genero = genero;
         this.autor = autor;
+        this.anio = anio;
+        this.genero = genero;
     }
 
     //**********************Getters y Setter**********************
@@ -42,12 +33,12 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public int getAnioPublicacion() {
-        return anioPublicacion;
+    public String getAnio() {
+        return anio;
     }
 
-    public void setAnioPublicacion(int anioPublicacion) {
-        this.anioPublicacion = anioPublicacion;
+    public void setAnio(String anio) {
+        this.anio = anio;
     }
 
 
@@ -72,9 +63,9 @@ public class Libro {
         return  "\nLibro{" +
                 "ISBN='" + isbn + '\'' +
                 ", titulo='" + titulo + '\'' +
-                ", anioPublicacion=" + anioPublicacion +
+                ", autor=" + autor +
+                ", anio=" + anio +
                 ", genero='" + genero + '\'' +
-                ", idAutor=" + autor +
                 '}';
     }
 

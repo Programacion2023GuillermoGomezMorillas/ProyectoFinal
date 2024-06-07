@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Ya se ven los libros en la ventana cuando se inicia">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Libro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Libro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,19 +84,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Launcher">
-    <configuration name="GeneroDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.db.GeneroDAO" />
-      <module name="ProyectoFinalJava" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.proyectofinaljava.db.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.HelloApplication" />
       <module name="ProyectoFinalJava" />
@@ -135,6 +123,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LibroDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.db.LibroDAO" />
+      <module name="ProyectoFinalJava" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.proyectofinaljava.db.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="org.example.proyectofinaljava.Lanzador" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.Lanzador" />
       <module name="ProyectoFinalJava" />
@@ -162,10 +163,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.LibroDAO" />
         <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.org.example.proyectofinaljava.Lanzador" />
         <item itemvalue="Application.Lanzador" />
-        <item itemvalue="Application.GeneroDAO" />
       </list>
     </recent_temporary>
   </component>
@@ -289,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717755978077</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Ya se ven los libros en la ventana cuando se inicia">
+      <option name="closed" value="true" />
+      <created>1717761254181</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1717761254181</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
