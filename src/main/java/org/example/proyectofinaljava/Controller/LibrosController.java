@@ -105,15 +105,16 @@ public class LibrosController implements Initializable {
         catch (SQLException e){
             System.err.println(e.getMessage());
         }
-        /*
+        //tcIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         tcIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        tcTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
-        tcAutor.setCellValueFactory(new PropertyValueFactory("autor"));
-        tcAno.setCellValueFactory(new PropertyValueFactory("ano"));
-        tcGenero.setCellValueFactory(new PropertyValueFactory("genero"));
+        tcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        tcAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+        tcAno.setCellValueFactory(new PropertyValueFactory<>("ano"));
+        tcGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
 
 
-         */
+
+
         //Asociamos la lista a la tabla
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
@@ -129,7 +130,7 @@ public class LibrosController implements Initializable {
             System.err.println(e.getMessage());
         }
 
-            tvLibros.setItems(listaLibros);
+            //tvLibros.setItems(listaLibros);
 
     }
 
@@ -150,11 +151,12 @@ public class LibrosController implements Initializable {
     void onClickBuscar(MouseEvent event) {
         //buscamos el libro seleccionado
         Libro libro=tvLibros.getSelectionModel().getSelectedItem();
+        System.out.println(libro);
         //si hay un libro seleccionado mostramos los datos
         if(libro!=null){
             tfIsbn.setText(libro.getIsbn());
             tfTitulo.setText(libro.getTitulo());
-            tfAno.setPrefColumnCount(libro.getAnioPublicacion());
+            tfAno.setText(String.valueOf(libro.getAnioPublicacion()));
             tfAutor.setText(libro.getAutor());
             cbGenero.setValue(libro.getGenero());
         }

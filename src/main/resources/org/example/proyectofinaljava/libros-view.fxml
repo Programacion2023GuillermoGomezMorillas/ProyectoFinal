@@ -12,81 +12,85 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="400.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.LibrosController">
+<HBox prefHeight="567.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.LibrosController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="207.0" style="-fx-background-color: LightCyan;">
+      <AnchorPane prefHeight="566.0" prefWidth="214.0" style="-fx-background-color: LightCyan;">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Gestor de Libros">
+            <Label layoutX="14.0" text="Gestor de Libros">
                <font>
-                  <Font size="25.0" />
+                  <Font size="28.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="50.0" prefHeight="25.0" prefWidth="96.0" text="Insertar Libro">
+            <Label layoutX="29.0" layoutY="69.0" prefHeight="34.0" prefWidth="142.0" text="Insertar Libro">
                <font>
-                  <Font size="15.0" />
+                  <Font size="23.0" />
                </font>
             </Label>
-            <TextField fx:id="tfIsbn" layoutX="14.0" layoutY="112.0" promptText="ISBN" />
-            <Label layoutX="14.0" layoutY="95.0" text="ISBN" />
-            <Label layoutX="17.0" layoutY="238.0" text="Autor" />
-            <Label layoutX="16.0" layoutY="191.0" text="Año de publicación" />
-            <Label layoutX="16.0" layoutY="147.0" text="Título" />
-            <Label layoutX="16.0" layoutY="291.0" text="Género" />
-            <TextField fx:id="tfTitulo" layoutX="15.0" layoutY="163.0" promptText="Título" />
-            <TextField fx:id="tfAno" layoutX="14.0" layoutY="209.0" promptText="Año" />
-            <TextField fx:id="tfAutor" layoutX="15.0" layoutY="256.0" promptText="Autor" />
-            <Button fx:id="btInsertar" layoutX="110.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#onClickInsertar" text="Insertar" />
-            <ComboBox fx:id="cbGenero" layoutX="14.0" layoutY="308.0" prefWidth="150.0" />
+            <TextField fx:id="tfIsbn" layoutX="29.0" layoutY="143.0" prefHeight="25.0" prefWidth="142.0" promptText="ISBN" />
+            <Label layoutX="81.0" layoutY="126.0" text="ISBN" />
+            <Label layoutX="85.0" layoutY="270.0" text="Autor" />
+            <Label layoutX="43.0" layoutY="219.0" text="Año de publicación" />
+            <Label layoutX="85.0" layoutY="177.0" text="Título" />
+            <Label layoutX="81.0" layoutY="322.0" text="Género" />
+            <TextField fx:id="tfTitulo" layoutX="30.0" layoutY="194.0" prefHeight="25.0" prefWidth="142.0" promptText="Título" />
+            <TextField fx:id="tfAno" layoutX="29.0" layoutY="239.0" prefWidth="142.0" promptText="Año" />
+            <TextField fx:id="tfAutor" layoutX="30.0" layoutY="287.0" prefHeight="25.0" prefWidth="142.0" promptText="Autor" />
+            <Button fx:id="btInsertar" layoutX="122.0" layoutY="515.0" mnemonicParsing="false" onMouseClicked="#onClickInsertar" text="Insertar" />
+            <ComboBox fx:id="cbGenero" layoutX="30.0" layoutY="339.0" prefHeight="25.0" prefWidth="142.0" />
          </children>
       </AnchorPane>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="891.0">
          <children>
-            <TableView fx:id="tvLibros" prefHeight="232.0" prefWidth="450.0" style="-fx-background-color: CadetBlue;">
+            <TableView fx:id="tvLibros" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="377.0" prefWidth="891.0" style="-fx-background-color: CadetBlue;">
               <columns>
-                <TableColumn fx:id="tcIsbn" prefWidth="79.0" text="ISBN" />
-                <TableColumn fx:id="tcTitulo" prefWidth="71.0" text="Título" />
-                  <TableColumn fx:id="tcAno" prefWidth="91.0" text="Año" />
-                  <TableColumn fx:id="tcAutor" prefWidth="119.0" text="Autor" />
-                  <TableColumn fx:id="tcGenero" prefWidth="89.0" text="Género" />
+                <TableColumn fx:id="tcIsbn" prefWidth="154.0" text="ISBN" />
+                <TableColumn fx:id="tcTitulo" prefWidth="240.0" text="Título" />
+                  <TableColumn fx:id="tcAno" prefWidth="132.0" text="Año" />
+                  <TableColumn fx:id="tcAutor" prefWidth="226.0" text="Autor" />
+                  <TableColumn fx:id="tcGenero" prefWidth="138.0" text="Género" />
               </columns>
             </TableView>
-            <AnchorPane prefHeight="190.0" prefWidth="436.0" style="-fx-background-color: LightCyan;">
+            <AnchorPane prefHeight="280.0" prefWidth="891.0" style="-fx-background-color: LightCyan;">
                <children>
-                  <Label layoutX="257.0" layoutY="82.0" text="Buscar Libro">
+                  <Label layoutX="437.0" layoutY="17.0" text="Buscar Libro">
                      <font>
-                        <Font size="17.0" />
+                        <Font size="25.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfBuscar" layoutX="353.0" layoutY="120.0" prefHeight="25.0" prefWidth="96.0" />
-                  <Label layoutX="9.0" layoutY="1.0" prefHeight="30.0" prefWidth="149.0" text="Modificar Libro">
+                  <TextField fx:id="tfBuscar" layoutX="532.0" layoutY="66.0" prefHeight="25.0" prefWidth="96.0" />
+                  <Label layoutX="85.0" layoutY="13.0" prefHeight="36.0" prefWidth="170.0" text="Modificar Libro">
                      <font>
-                        <Font size="17.0" />
+                        <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="258.0" layoutY="1.0" text="Borrar Libro">
+                  <Label layoutX="710.0" layoutY="17.0" text="Borrar Libro">
                      <font>
-                        <Font size="17.0" />
+                        <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="44.0" text="Introduca el ISBN" />
-                  <TextField fx:id="tfIsbnModif" layoutX="14.0" layoutY="61.0" prefHeight="25.0" prefWidth="108.0" promptText="ISBN a modificar" />
-                  <Label layoutX="261.0" layoutY="32.0" text="Introduca el ISBN" />
-                  <TextField fx:id="tfIsbnBor" layoutX="261.0" layoutY="49.0" prefHeight="25.0" prefWidth="119.0" promptText="ISBN a eliminar" />
-                  <Label layoutX="133.0" layoutY="44.0" text="Autor" />
-                  <Label layoutX="17.0" layoutY="139.0" text="Año de publicación" />
-                  <Label layoutX="15.0" layoutY="90.0" text="Título" />
-                  <Label layoutX="133.0" layoutY="89.0" text="Género" />
-                  <TextField fx:id="tfTituloModif" layoutX="14.0" layoutY="106.0" prefHeight="25.0" prefWidth="108.0" promptText="Título" />
-                  <TextField fx:id="tfAnoModif" layoutX="15.0" layoutY="157.0" prefHeight="25.0" prefWidth="108.0" promptText="Año" />
-                  <TextField fx:id="tfAutorModif" layoutX="128.0" layoutY="61.0" prefHeight="25.0" prefWidth="108.0" promptText="Autor" />
-                  <Line endX="-31.0" endY="103.0" layoutX="280.0" layoutY="86.0" startX="-31.0" startY="-86.0" />
-                  <Line endX="184.0" endY="6.0" layoutX="264.0" layoutY="76.0" startX="-13.5" startY="6.0" />
-                  <Line startY="189.0" AnchorPane.leftAnchor="-0.5" />
-                  <Button fx:id="btModificar" layoutX="130.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#onClickModificar" text="Modificar" />
-                  <Button fx:id="btBorrar" layoutX="394.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#onClickBorrar" text="Borrar" />
-                  <Button fx:id="btBuscar" layoutX="320.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" text="Buscar" />
-                  <ComboBox fx:id="cbGeneroModif" layoutX="128.0" layoutY="107.0" prefHeight="25.0" prefWidth="108.0" />
-                  <ComboBox fx:id="cbBuscar" layoutX="255.0" layoutY="120.0" prefHeight="25.0" prefWidth="92.0" />
+                  <Label layoutX="32.0" layoutY="68.0" text="Introduca el ISBN" />
+                  <TextField fx:id="tfIsbnModif" layoutX="199.0" layoutY="67.0" prefHeight="25.0" prefWidth="108.0" promptText="ISBN a modificar" />
+                  <Label layoutX="724.0" layoutY="68.0" text="Introduca el ISBN" />
+                  <TextField fx:id="tfIsbnBor" layoutX="711.0" layoutY="119.0" prefHeight="25.0" prefWidth="119.0" promptText="ISBN a eliminar" />
+                  <Label layoutX="32.0" layoutY="100.0" text="Autor" />
+                  <Label layoutX="32.0" layoutY="169.0" text="Año de publicación" />
+                  <Label layoutX="33.0" layoutY="135.0" text="Título" />
+                  <Label layoutX="34.0" layoutY="201.0" text="Género" />
+                  <TextField fx:id="tfTituloModif" layoutX="199.0" layoutY="134.0" prefHeight="25.0" prefWidth="108.0" promptText="Título" />
+                  <TextField fx:id="tfAnoModif" layoutX="199.0" layoutY="168.0" prefHeight="25.0" prefWidth="108.0" promptText="Año" />
+                  <TextField fx:id="tfAutorModif" layoutX="198.0" layoutY="100.0" prefHeight="25.0" prefWidth="108.0" promptText="Autor" />
+                  <Line endX="-31.0" endY="250.0" layoutX="391.0" layoutY="13.0" startX="-31.0" startY="-13.0" />
+                  <Button fx:id="btModificar" layoutX="137.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickModificar" text="Modificar" />
+                  <Button fx:id="btBorrar" layoutX="751.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#onClickBorrar" text="Borrar" />
+                  <Button fx:id="btBuscar" layoutX="468.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" text="Buscar" />
+                  <ComboBox fx:id="cbGeneroModif" layoutX="200.0" layoutY="200.0" prefHeight="25.0" prefWidth="108.0" />
+                  <Line endX="-30.0" endY="180.0" layoutX="694.0" layoutY="86.0" startX="-30.0" startY="-86.0" />
+                  <Line endX="-290.0" endY="164.0" layoutX="290.0" layoutY="96.0" startX="-290.0" startY="-96.0" />
+                  <Label layoutX="374.0" layoutY="66.0" text="Por ISBN" />
+                  <Label layoutX="374.0" layoutY="121.0" text="Por Título" />
+                  <Label layoutX="374.0" layoutY="173.0" text="Por ISBN" />
+                  <TextField fx:id="tfBuscar1" layoutX="532.0" layoutY="116.0" prefHeight="25.0" prefWidth="96.0" />
+                  <TextField fx:id="tfBuscar2" layoutX="532.0" layoutY="169.0" prefHeight="25.0" prefWidth="96.0" />
                </children>
             </AnchorPane>
          </children>
