@@ -26,12 +26,11 @@ public class InicioController {
             Stage stage = new Stage();
             stage.setTitle("Gestion de biblioteca");
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         }catch (IOException e){
             System.err.println(e.getMessage());
         }
     }
-
     @FXML
     void onClickPrestamos(ActionEvent event) {
         try {

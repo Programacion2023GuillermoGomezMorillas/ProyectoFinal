@@ -99,27 +99,38 @@ public class LibrosController implements Initializable {
         generoDAO = GeneroDAO.getConnection();
         libroDAO = LibroDAO.getConnection();
         actualizarTvLibros();
-
-    }
-
-    public void actualizarTvLibros(){
         try{
             listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
         }
         catch (SQLException e){
             System.err.println(e.getMessage());
         }
-
-        //asociamos las columnas con los datos indicando el nombre del campo de la clase
-        tcIsbn.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
+        /*
+        tcIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         tcTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
         tcAutor.setCellValueFactory(new PropertyValueFactory("autor"));
         tcAno.setCellValueFactory(new PropertyValueFactory("ano"));
         tcGenero.setCellValueFactory(new PropertyValueFactory("genero"));
 
+
+         */
         //Asociamos la lista a la tabla
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
+
+    }
+
+    public void actualizarTvLibros(){
+        try{
+            listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
+
+        }
+        catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+
+            tvLibros.setItems(listaLibros);
+
     }
 
     /**
@@ -137,9 +148,9 @@ public class LibrosController implements Initializable {
      */
     @FXML
     void onClickBuscar(MouseEvent event) {
-        //buscamos el alumno seleccionado
+        //buscamos el libro seleccionado
         Libro libro=tvLibros.getSelectionModel().getSelectedItem();
-        //si hay un alumno seleccionado mostramos los datos
+        //si hay un libro seleccionado mostramos los datos
         if(libro!=null){
             tfIsbn.setText(libro.getIsbn());
             tfTitulo.setText(libro.getTitulo());
