@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Inicio Prestamos">
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Funcionabilidad Prestamos">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SeleccionarLibroController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/seleccionarLibro-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SociosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SociosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Prestamo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Prestamo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/elegirLibro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/elegirLibro.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/prestamos-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/prestamos-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -325,7 +321,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717861870034</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Funcionabilidad Prestamos">
+      <option name="closed" value="true" />
+      <created>1717871797246</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1717871797246</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -345,6 +349,7 @@
     <MESSAGE value="Final Gestion de Libros" />
     <MESSAGE value="Gestion de Socios 80%" />
     <MESSAGE value="Inicio Prestamos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inicio Prestamos" />
+    <MESSAGE value="Funcionabilidad Prestamos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Funcionabilidad Prestamos" />
   </component>
 </project>
