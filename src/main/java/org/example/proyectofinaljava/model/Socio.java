@@ -1,13 +1,13 @@
 package org.example.proyectofinaljava.model;
 
 public class Socio {
-    private int numeroSocio;
+    private long numeroSocio;
     private String nombreSocio;
     private String direccionSocio;
     private String telefonoSocio;
     private String emailSocio;
 
-    public Socio(int numeroSocio, String nombreSocio, String direccionSocio, String telefonoSocio, String emailSocio) {
+    public Socio(long numeroSocio, String nombreSocio, String direccionSocio, String telefonoSocio, String emailSocio) {
         this.numeroSocio = numeroSocio;
         this.nombreSocio = nombreSocio;
         this.direccionSocio = direccionSocio;
@@ -15,7 +15,7 @@ public class Socio {
         this.emailSocio = emailSocio;
     }
 
-    public int getNumeroSocio() {
+    public long getNumeroSocio() {
         return numeroSocio;
     }
 

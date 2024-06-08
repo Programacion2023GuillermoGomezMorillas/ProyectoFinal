@@ -46,11 +46,5 @@ public class GeneroDAO {
         }
         return generos;
     }
-/*
-    public static void main(String[] args) throws SQLException {
-        GeneroDAO a = new GeneroDAO();
-        System.out.println(a.getAllGeneros());
-    }
 
- */
 }

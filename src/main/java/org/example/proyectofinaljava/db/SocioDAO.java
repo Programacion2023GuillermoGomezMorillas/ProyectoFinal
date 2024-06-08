@@ -12,6 +12,24 @@ import java.util.List;
 
 public class SocioDAO {
 
+    public static SocioDAO instance;
+
+    // Constructor privado para evitar instancias directas
+    private SocioDAO() {}
+
+    // Método estático para obtener la instancia única de la conexión
+    public static SocioDAO getConnection() {
+        if (instance == null) {
+            // Bloqueo sincronizado para evitar concurrencia
+            synchronized (GeneroDAO.class) {
+                if (instance == null) {
+                    // Generamos la clase
+                    instance = new SocioDAO();
+                }
+            }
+        }
+        return instance;
+    }
     private Connection connection=DBConnection.getConnection();
     private static final String INSERT_QUERY = "INSERT INTO Socio (numeroSocio, nombreSocio, direccionSocio, telefonoSocio, emailSocio) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Socio";
@@ -21,9 +39,9 @@ public class SocioDAO {
     private static final String DELETE_QUERY = "DELETE FROM Socio WHERE numeroSocio = ?";
 
     // Método para insertar un socio en base de datos
-    public void insertLibro(Socio socio) throws SQLException {
+    public void insertSocio(Socio socio) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
-            statement.setInt(1, socio.getNumeroSocio());
+            statement.setLong(1, socio.getNumeroSocio());
             statement.setString(2, socio.getNombreSocio());
             statement.setString(3, socio.getDireccionSocio());
             statement.setString(4, socio.getTelefonoSocio());
@@ -79,7 +97,7 @@ public class SocioDAO {
             statement.setString(2, socio.getDireccionSocio());
             statement.setString(3, socio.getTelefonoSocio());
             statement.setString(4, socio.getEmailSocio());
-            statement.setInt(5, socio.getNumeroSocio());
+            statement.setLong(5, socio.getNumeroSocio());
 
             statement.executeUpdate();
         }
@@ -94,7 +112,7 @@ public class SocioDAO {
     // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Socio
     private Socio resulSetToSocio(ResultSet resultSet) throws SQLException {
         Socio socio = new Socio(
-                resultSet.getInt("numeroSocio"),
+                resultSet.getLong("numeroSocio"),
                 resultSet.getString("nombreSocio"),
                 resultSet.getString("direccionSocio"),
                 resultSet.getString("telefonoSocio"),
