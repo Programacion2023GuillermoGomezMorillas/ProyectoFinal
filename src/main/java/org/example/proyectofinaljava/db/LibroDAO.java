@@ -115,7 +115,7 @@ public class LibroDAO {
             statement.executeUpdate();
         }
     }
-    // Método para eliminar una persona de la base de datos por su DNI
+    // Método para eliminar un libro de la base de datos por su DNI
     public void deleteLibroByIsbn(String isbn) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
             statement.setString(1, isbn);

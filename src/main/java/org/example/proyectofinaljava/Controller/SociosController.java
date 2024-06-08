@@ -41,19 +41,19 @@ public class SociosController implements Initializable {
     private ComboBox<String> cbGeneroModif;
 
     @FXML
-    private TableColumn<Libro, String> tcAno;
+    private TableColumn<Socio, String> tcAno;
 
     @FXML
-    private TableColumn<Libro, String> tcAutor;
+    private TableColumn<Socio, String> tcAutor;
 
     @FXML
-    private TableColumn<Libro, String> tcGenero;
+    private TableColumn<Socio, String> tcGenero;
 
     @FXML
-    private TableColumn<Libro, String> tcIsbn;
+    private TableColumn<Socio, String> tcIsbn;
 
     @FXML
-    private TableColumn<Libro, String> tcTitulo;
+    private TableColumn<Socio, String> tcTitulo;
 
     @FXML
     private TextField tfTelefono;
@@ -96,12 +96,12 @@ public class SociosController implements Initializable {
     @FXML
     void onClickTvLibros(MouseEvent event) {
         Socio socio = tvLibros.getSelectionModel().getSelectedItem();
-        //si hay un libro seleccionado mostramos los datos
+        //si hay un socio seleccionado mostramos los datos
         if (socio != null) {
             tfNumeroModif.setText(String.valueOf(socio.getNumeroSocio()));
             tfNombreModif.setText(socio.getNombreSocio());
-            tfTelefonoModif.setText(socio.getDireccionSocio());
-            tfDireccionModif.setText(socio.getTelefonoSocio());
+            tfTelefonoModif.setText(socio.getTelefonoSocio());
+            tfDireccionModif.setText(socio.getDireccionSocio());
             tfEmailModif.setText(socio.getEmailSocio());
             tfNumeroBor.setText(String.valueOf(socio.getNumeroSocio()));
         }

@@ -69,8 +69,9 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "\nPrestamo{" +
-                "fechaInicio=" + fechaInicio +
+        return "Prestamo{" +
+                "numReserva='" + numReserva + '\'' +
+                ", fechaInicio=" + fechaInicio +
                 ", fechaFin=" + fechaFin +
                 ", estado='" + estado + '\'' +
                 ", isbnLibro='" + isbnLibro + '\'' +
