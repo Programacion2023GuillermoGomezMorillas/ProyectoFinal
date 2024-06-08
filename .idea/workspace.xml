@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Funcionabilidad Prestamos">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SeleccionarLibroController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/seleccionarLibro-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
-    </list>
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Selecionar Libro y Socio para hacer prestamo" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -329,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717871797246</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Selecionar Libro y Socio para hacer prestamo">
+      <option name="closed" value="true" />
+      <created>1717873725725</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1717873725725</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -350,6 +353,7 @@
     <MESSAGE value="Gestion de Socios 80%" />
     <MESSAGE value="Inicio Prestamos" />
     <MESSAGE value="Funcionabilidad Prestamos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Funcionabilidad Prestamos" />
+    <MESSAGE value="Selecionar Libro y Socio para hacer prestamo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Selecionar Libro y Socio para hacer prestamo" />
   </component>
 </project>
