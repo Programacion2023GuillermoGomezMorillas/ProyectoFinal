@@ -56,16 +56,16 @@ public class SociosController implements Initializable {
     private TableColumn<Libro, String> tcTitulo;
 
     @FXML
-    private TextField tfAno;
+    private TextField tfTelefono;
 
     @FXML
-    private TextField tfAnoModif;
+    private TextField tfTelefonoModif;
 
     @FXML
-    private TextField tfAutor;
+    private TextField tfDireccion;
 
     @FXML
-    private TextField tfAutorModif;
+    private TextField tfDireccionModif;
 
     @FXML
     private TextField tfEmail;
@@ -77,19 +77,19 @@ public class SociosController implements Initializable {
     private TextField tfBuscar;
 
     @FXML
-    private TextField tfIsbn;
+    private TextField tfNumero;
 
     @FXML
-    private TextField tfIsbnBor;
+    private TextField tfNumeroBor;
 
     @FXML
-    private TextField tfIsbnModif;
+    private TextField tfNumeroModif;
 
     @FXML
-    private TextField tfTitulo;
+    private TextField tfNombre;
 
     @FXML
-    private TextField tfTituloModif;
+    private TextField tfNombreModif;
     @FXML
     private TableView<Socio> tvLibros;
 
@@ -98,12 +98,12 @@ public class SociosController implements Initializable {
         Socio socio = tvLibros.getSelectionModel().getSelectedItem();
         //si hay un libro seleccionado mostramos los datos
         if (socio != null) {
-            tfIsbnModif.setText(String.valueOf(socio.getNumeroSocio()));
-            tfTituloModif.setText(socio.getNombreSocio());
-            tfAnoModif.setText(socio.getDireccionSocio());
-            tfAutorModif.setText(socio.getTelefonoSocio());
+            tfNumeroModif.setText(String.valueOf(socio.getNumeroSocio()));
+            tfNombreModif.setText(socio.getNombreSocio());
+            tfTelefonoModif.setText(socio.getDireccionSocio());
+            tfDireccionModif.setText(socio.getTelefonoSocio());
             tfEmailModif.setText(socio.getEmailSocio());
-            tfIsbnBor.setText(String.valueOf(socio.getNumeroSocio()));
+            tfNumeroBor.setText(String.valueOf(socio.getNumeroSocio()));
         }
     }
 
@@ -147,11 +147,11 @@ public class SociosController implements Initializable {
             alertaDeError("Selecciona un libro que quieras eliminar");
         } else {
             try {
-                socioDAO.deleteLibroByNumeroSocio(tfIsbnBor.getText());
-                tfIsbn.setText("");
-                tfTitulo.setText("");
-                tfAno.setText("");
-                tfAutor.setText("");
+                socioDAO.deleteLibroByNumeroSocio(tfNumeroBor.getText());
+                tfNumero.setText("");
+                tfNombre.setText("");
+                tfTelefono.setText("");
+                tfDireccion.setText("");
                 actualizarTvLibros();
 
             } catch (SQLException e) {
@@ -179,7 +179,7 @@ public class SociosController implements Initializable {
                 if (cbBuscar.getValue().equals("NUMERO")) {
                     libros = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
                 } else {
-                    libros = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfIsbn.getText()));
+                    libros = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfNumero.getText()));
                 }
 
                 //Asociamos la lista a la tabla
@@ -198,12 +198,12 @@ public class SociosController implements Initializable {
     void onClickInsertar(MouseEvent event) {
         Socio socio = null;
 
-        if (comprobarDatos()) {
+        if (comprobarDatosInsert()) {
             socio = new Socio(
-                    Integer.parseInt(tfIsbn.getText()),
-                    tfTitulo.getText(),
-                    tfAutor.getText(),
-                    tfAno.getText(),
+                    Integer.parseInt(tfNumero.getText()),
+                    tfNombre.getText(),
+                    tfDireccion.getText(),
+                    tfTelefono.getText(),
                     tfEmail.getText()
             );
         }
@@ -217,11 +217,41 @@ public class SociosController implements Initializable {
                     actualizarTvLibros();
                     limpiarDatosModif();
                 } catch (SQLException e) {
-                    System.out.printf("Error al guardar: " + socio);
+                    System.out.println("Error al guardar: " + socio);
                 }
             }
         }
     }
+
+    private boolean comprobarDatosInsert() {
+        boolean bool = true;
+
+        if (!tfNumero.getText().matches("^[0-9]+$")) {
+            alertaDeError("El numero es incorrecto o esta vacio");
+            tfNumero.requestFocus();
+            bool = false;
+        } else if (tfNombre.getText().isEmpty()) {
+            alertaDeError("El nombre no puede ser un campo vacio");
+            tfNombre.requestFocus();
+        } else if (!tfTelefono.getText().matches("^[0-9]+$")) {
+            alertaDeError("El Teléfono no es correcto o esta vacio ");
+            tfTelefono.requestFocus();
+            bool = false;
+        } else if (tfDireccion.getText().isEmpty()) {
+            alertaDeError("La dirección no puede estar vacia");
+            tfDireccion.requestFocus();
+            bool = false;
+        }
+        else if (tfEmailModif.getText().matches("^(\\.+)@(\\S+)$")) {
+            alertaDeError("El email no es correcto");
+            tfEmailModif.requestFocus();
+            bool = false;
+        }
+
+
+        return bool;
+    }
+
 
     /**
      * @param event para modificar un libro
@@ -232,10 +262,10 @@ public class SociosController implements Initializable {
 
         if (comprobarDatos()) {
             socio = new Socio(
-                    Integer.parseInt(tfIsbnModif.getText()),
-                    tfTituloModif.getText(),
-                    tfAutorModif.getText(),
-                    tfAnoModif.getText(),
+                    Integer.parseInt(tfNumeroModif.getText()),
+                    tfNombreModif.getText(),
+                    tfDireccionModif.getText(),
+                    tfTelefonoModif.getText(),
                     tfEmailModif.getText()
 
             );
@@ -274,27 +304,29 @@ public class SociosController implements Initializable {
     public boolean comprobarDatos() {
         boolean bool = true;
 
-        if (!tfIsbnModif.getText().matches("^[0-9]+$")) {
+        if (!tfNumeroModif.getText().matches("^[0-9]+$")) {
             alertaDeError("El numero es incorrecto o esta vacio");
-            tfIsbnModif.requestFocus();
+            tfNumeroModif.requestFocus();
             bool = false;
-        } else if (tfTituloModif.getText().isEmpty()) {
+        } else if (tfNombreModif.getText().isEmpty()) {
             alertaDeError("El nombre no puede ser un campo vacio");
-            tfTituloModif.requestFocus();
-        } else if (!tfAnoModif.getText().matches("^[0-9]+$")) {
+            tfNombreModif.requestFocus();
+        } else if (!tfDireccionModif.getText().matches("^[0-9]+$")) {
             alertaDeError("El Teléfono no es correcto o esta vacio ");
-            tfAnoModif.requestFocus();
+            tfDireccionModif.requestFocus();
             bool = false;
-        } else if (tfAutorModif.getText().isEmpty()) {
+        } else if (tfTelefonoModif.getText().isEmpty()) {
             alertaDeError("La dirección no puede estar vacia");
-            tfAutorModif.requestFocus();
+            tfTelefonoModif.requestFocus();
             bool = false;
         }
          else if (tfEmailModif.getText().matches("^(.+)@(\\S+)$")) {
             alertaDeError("El email no es correcto");
-            tfAutorModif.requestFocus();
+            tfDireccionModif.requestFocus();
             bool = false;
          }
+
+
         return bool;
     }
 
@@ -315,17 +347,17 @@ public class SociosController implements Initializable {
      * Metodo para limpiar los campos
      */
     public void limpiarDatosModif() {
-        tfIsbnModif.setText("");
-        tfTituloModif.setText("");
-        tfAnoModif.setText("");
-        tfAutorModif.setText("");
-        cbGeneroModif.setValue("");
-        tfIsbn.setText("");
-        tfTitulo.setText("");
-        tfAno.setText("");
-        tfAutor.setText("");
-        cbGenero.setValue("");
-        tfIsbnBor.setText("");
+        tfNumeroModif.setText("");
+        tfNombreModif.setText("");
+        tfTelefonoModif.setText("");
+        tfDireccionModif.setText("");
+        tfEmail.setText("");
+        tfEmailModif.setText("");
+        tfNumero.setText("");
+        tfNombre.setText("");
+        tfTelefono.setText("");
+        tfDireccion.setText("");
+        tfNumeroBor.setText("");
 
     }
 }

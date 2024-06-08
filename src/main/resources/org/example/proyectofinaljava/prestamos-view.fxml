@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="567.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.LibrosController">
+    <children>
+        <AnchorPane prefHeight="566.0" prefWidth="214.0" style="-fx-background-color: LightCyan;">
+            <children>
+                <Label layoutX="7.0" layoutY="14.0" text="Gestor de Prestamos">
+                    <font>
+                        <Font size="28.0" />
+                    </font>
+                </Label>
+                <Label layoutX="50.0" layoutY="74.0" prefHeight="34.0" prefWidth="164.0" text="Hacer Prestamo">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="72.0" layoutY="377.0" text="Fecha de devolución" />
+                <Label fx:id="tf" layoutX="83.0" layoutY="316.0" text="Fecha de inicio" />
+                <TextField fx:id="tfAno" layoutX="56.0" layoutY="344.0" prefWidth="142.0" promptText="Fecha Inicio" />
+                <TextField fx:id="tfAutor" layoutX="55.0" layoutY="405.0" prefHeight="25.0" prefWidth="142.0" promptText="Fecha de devolcución" />
+                <Button fx:id="btInsertar" layoutX="81.0" layoutY="463.0" mnemonicParsing="false" onMouseClicked="#onClickInsertar" text="Prestar Libro" />
+            <Button layoutX="60.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Seleccionar libro" />
+            <Button layoutX="60.0" layoutY="215.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Seleccionar socio" />
+            <Label fx:id="lbIsbn" layoutX="9.0" layoutY="162.0" prefHeight="25.0" prefWidth="113.0" />
+            <Label fx:id="lbTitulo" layoutX="141.0" layoutY="162.0" prefHeight="25.0" prefWidth="113.0" />
+            <Label fx:id="lbNumero" layoutX="13.0" layoutY="264.0" prefHeight="25.0" prefWidth="113.0" />
+            <Label fx:id="lbNombre" layoutX="145.0" layoutY="264.0" prefHeight="25.0" prefWidth="113.0" />
+            </children>
+        </AnchorPane>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="891.0">
+            <children>
+                <TableView fx:id="tvLibros" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClickTvLibros" prefHeight="377.0" prefWidth="891.0" style="-fx-background-color: CadetBlue;">
+                    <columns>
+                        <TableColumn fx:id="tcIsbn" prefWidth="154.0" text="ISBN" />
+                        <TableColumn fx:id="tcTitulo" prefWidth="240.0" text="Título" />
+                        <TableColumn fx:id="tcAno" prefWidth="132.0" text="Año" />
+                        <TableColumn fx:id="tcAutor" prefWidth="226.0" text="Autor" />
+                        <TableColumn fx:id="tcGenero" prefWidth="138.0" text="Género" />
+                    </columns>
+                </TableView>
+                <AnchorPane prefHeight="280.0" prefWidth="891.0" style="-fx-background-color: LightCyan;">
+                    <children>
+                        <Label layoutX="428.0" layoutY="17.0" text="Buscar Prestamo">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="60.0" layoutY="17.0" prefHeight="36.0" prefWidth="222.0" text="Modificar Prestamo">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="702.0" layoutY="17.0" text="Devoluciones">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="32.0" layoutY="68.0" text="Introduca el ISBN" />
+                        <TextField fx:id="tfIsbnModif" layoutX="199.0" layoutY="67.0" prefHeight="25.0" prefWidth="108.0" promptText="ISBN a modificar" />
+                        <Label layoutX="32.0" layoutY="100.0" text="Autor" />
+                        <Label layoutX="32.0" layoutY="169.0" text="Año de publicación" />
+                        <Label layoutX="33.0" layoutY="135.0" text="Título" />
+                        <Label layoutX="34.0" layoutY="201.0" text="Género" />
+                        <TextField fx:id="tfTituloModif" layoutX="199.0" layoutY="134.0" prefHeight="25.0" prefWidth="108.0" promptText="Título" />
+                        <TextField fx:id="tfAnoModif" layoutX="199.0" layoutY="168.0" prefHeight="25.0" prefWidth="108.0" promptText="Año" />
+                        <TextField fx:id="tfAutorModif" layoutX="198.0" layoutY="100.0" prefHeight="25.0" prefWidth="108.0" promptText="Autor" />
+                        <Line endX="-31.0" endY="250.0" layoutX="391.0" layoutY="13.0" startX="-31.0" startY="-13.0" />
+                        <Button fx:id="btModificar" layoutX="137.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickModificar" text="Modificar" />
+                        <Button fx:id="btBorrar" layoutX="751.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickBorrar" text="Borrar" />
+                        <Button fx:id="btBuscar" layoutX="468.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" text="Buscar" />
+                        <ComboBox fx:id="cbGeneroModif" layoutX="200.0" layoutY="200.0" prefHeight="25.0" prefWidth="108.0" />
+                        <Line endX="-30.0" endY="180.0" layoutX="694.0" layoutY="86.0" startX="-30.0" startY="-86.0" />
+                        <Line endX="-290.0" endY="164.0" layoutX="290.0" layoutY="96.0" startX="-290.0" startY="-96.0" />
+                        <Label layoutX="374.0" layoutY="80.0" text="Busqueda Por :">
+                            <font>
+                                <Font size="17.0" />
+                            </font></Label>
+                        <ComboBox fx:id="cbBuscar" layoutX="505.0" layoutY="80.0" prefWidth="150.0" />
+                        <TextField fx:id="tfBuscar" layoutX="419.0" layoutY="156.0" promptText="Valor" />
+                        <Text layoutX="691.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona un libro para devolverlo" textAlignment="CENTER" wrappingWidth="170.0" />
+                        <TextField fx:id="tfIsbnBor" layoutX="701.0" layoutY="157.0" promptText="Valor" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+</HBox>

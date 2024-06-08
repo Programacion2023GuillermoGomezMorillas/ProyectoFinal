@@ -1,13 +1,11 @@
 package org.example.proyectofinaljava.Controller;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.proyectofinaljava.HelloApplication;
 import org.example.proyectofinaljava.Launcher;
 
 import java.io.IOException;

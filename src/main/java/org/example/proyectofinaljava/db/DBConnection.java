@@ -1,7 +1,5 @@
 package org.example.proyectofinaljava.db;
 
-import org.example.proyectofinaljava.model.Persona;
-
 import java.sql.*;
 
 /**

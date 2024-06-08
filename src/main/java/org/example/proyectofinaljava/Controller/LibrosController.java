@@ -217,7 +217,7 @@ public class LibrosController implements Initializable {
                     actualizarTvLibros();
                     limpiarDatosModif();
                 } catch (SQLException e) {
-                    System.out.printf("Error al guardar: " + libro);
+                    System.out.println("Error al guardar: " + libro);
                 }
             }
         }

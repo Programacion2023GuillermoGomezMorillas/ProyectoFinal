@@ -121,7 +121,12 @@ public class SocioDAO {
     }
 
     public static void main(String[] args) throws SQLException {
-        SocioDAO socio= new SocioDAO();
-        System.out.println(socio.getAllSocios());
+        SocioDAO sociodao= new SocioDAO();
+        System.out.println(sociodao.getAllSocios());
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        Socio socio = new Socio(6,"Guillermo", "Calle ocho, Madrid", "123123123","guillermo@gmail.com");
+        sociodao.insertSocio(socio);
+        System.out.println(sociodao.getAllSocios());
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
