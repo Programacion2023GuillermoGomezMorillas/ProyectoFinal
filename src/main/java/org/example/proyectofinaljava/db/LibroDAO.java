@@ -66,7 +66,7 @@ public class LibroDAO {
         return libros;
     }
     // Método para obtener un libro por su ISBN
-    public Libro getLibroByISbn(String isbn) throws SQLException {
+    public Libro getLibroByIsbn(String isbn) throws SQLException {
         Libro libro = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
             statement.setString(1, isbn);

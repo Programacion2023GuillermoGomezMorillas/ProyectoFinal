@@ -283,13 +283,15 @@ public class PrestamosController implements Initializable {
     void onClickSelecLibro(MouseEvent event) {
         try {
             //Cargamos la ventana de la gestion de los Prestamos
-            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("seleccionarLibros-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("seleccionarLibro-view.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            SeleccionarLibroController seleccionarLibroController= loader.getController();
 
+            Scene scene = new Scene(root);
             Stage stage = new Stage();
-            stage.setTitle("Gestion de socios");
+            stage.setTitle("Elegir libro para prestar");
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
             System.err.println(e.getMessage());

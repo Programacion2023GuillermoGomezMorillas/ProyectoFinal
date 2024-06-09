@@ -119,6 +119,9 @@ public class LibrosController implements Initializable {
 
     }
 
+    /**
+     * Actualiza la tabla para que se visualicen los libros en la tabla
+     */
     public void actualizarTvLibros() {
         try {
             listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
@@ -177,10 +180,13 @@ public class LibrosController implements Initializable {
 
                 if (cbBuscar.getValue().equals("GENERO")) {
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
+                    System.out.println(libros);
                 } else if (cbBuscar.getValue().equals("ISBN")) {
-                    libros = FXCollections.observableArrayList(libroDAO.getLibroByISbn(tfIsbn.getText()));
+                    libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
+                    System.out.println(libros);
                 } else
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
+                System.out.println(libros);
 
                 //Asociamos la lista a la tabla
                 tvLibros.setItems(libros);
