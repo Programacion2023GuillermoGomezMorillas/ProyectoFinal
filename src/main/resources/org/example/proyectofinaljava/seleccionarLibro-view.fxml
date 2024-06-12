@@ -12,20 +12,20 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="567.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.SeleccionarLibroController">
+<HBox prefHeight="733.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.SeleccionarLibroController">
     <children>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="1105.0">
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="1105.0">
             <children>
                 <TableView fx:id="tvLibros" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClickTvLibros" prefHeight="421.0" prefWidth="1105.0" style="-fx-background-color: CadetBlue;">
                     <columns>
                         <TableColumn fx:id="tcIsbn" prefWidth="206.0" text="ISBN" />
                         <TableColumn fx:id="tcTitulo" prefWidth="265.0" text="Título" />
-                        <TableColumn fx:id="tcAno" prefWidth="176.0" text="Año" />
                         <TableColumn fx:id="tcAutor" prefWidth="210.0" text="Autor" />
+                        <TableColumn fx:id="tcAno" prefWidth="176.0" text="Año" />
                         <TableColumn fx:id="tcGenero" prefWidth="247.0" text="Género" />
                     </columns>
                 </TableView>
-                <AnchorPane prefHeight="221.0" prefWidth="1105.0" style="-fx-background-color: LightCyan;">
+                <AnchorPane prefHeight="320.0" prefWidth="1105.0" style="-fx-background-color: LightCyan;">
                     <children>
                         <Label layoutX="756.0" layoutY="16.0" text="Buscar Libro">
                             <font>
@@ -47,7 +47,7 @@
                         <TextField fx:id="tfAnoModif" layoutX="335.0" layoutY="169.0" prefHeight="25.0" prefWidth="108.0" promptText="Año" />
                         <TextField fx:id="tfAutorModif" layoutX="334.0" layoutY="101.0" prefHeight="25.0" prefWidth="108.0" promptText="Autor" />
                         <Line endX="-30.5" endY="233.0" layoutX="583.0" layoutY="25.0" startX="-30.5" startY="-25.0" />
-                        <Button fx:id="btModificar" layoutX="260.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#onClickModificar" text="Modificar" />
+                        <Button fx:id="btSelecLibro" layoutX="260.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#onClickSeleccionar" text="Seleccionar" />
                         <Button fx:id="btBuscar" layoutX="798.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" text="Buscar" />
                         <ComboBox fx:id="cbGeneroModif" layoutX="336.0" layoutY="201.0" prefHeight="25.0" prefWidth="108.0" />
                         <Line endX="-290.0" endY="164.0" layoutX="290.0" layoutY="96.0" startX="-290.0" startY="-96.0" />

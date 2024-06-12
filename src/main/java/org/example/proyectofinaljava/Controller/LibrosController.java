@@ -35,6 +35,9 @@ public class LibrosController implements Initializable {
     private Button btModificar;
 
     @FXML
+    private Button btVolver;
+
+    @FXML
     private ComboBox<String> cbBuscar;
 
     @FXML
@@ -230,7 +233,8 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * @param event para modificar un libro
+     * para modificar un libro
+     * @param event
      */
     @FXML
     void onClickModificar(MouseEvent event) {
@@ -256,6 +260,15 @@ public class LibrosController implements Initializable {
                 System.err.println(e.getMessage());
             }
         }
+
+    }
+
+    /**
+     * Si se pincha el botón se vuelve a la anterior ventana
+     * @param event
+     */
+    @FXML
+    void onClickVolver(MouseEvent event) {
 
     }
 

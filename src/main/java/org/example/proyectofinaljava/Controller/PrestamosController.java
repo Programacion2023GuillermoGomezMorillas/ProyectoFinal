@@ -285,7 +285,14 @@ public class PrestamosController implements Initializable {
             //Cargamos la ventana de la gestion de los Prestamos
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("seleccionarLibro-view.fxml"));
             Parent root = loader.load();
+
             SeleccionarLibroController seleccionarLibroController= loader.getController();
+
+            seleccionarLibroController.setOnGetLibro(libro -> {
+                lbTitulo.setText(libro.getTitulo());
+                lbIsbn.setText(libro.getIsbn());
+            });
+
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
