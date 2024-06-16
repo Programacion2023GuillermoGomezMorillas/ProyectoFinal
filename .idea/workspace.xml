@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Buscar libros para los prestamos">
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Buscar libros para los prestamos V2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SeleccionarLibroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SeleccionarLibroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/seleccionarLibro-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/seleccionarLibro-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,7 +353,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717899539704</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Buscar libros para los prestamos V2">
+      <option name="closed" value="true" />
+      <created>1718197511142</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1718197511142</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -382,6 +385,7 @@
     <MESSAGE value="Selecionar Libro y Socio para hacer prestamo" />
     <MESSAGE value="Base de Datos en README.md" />
     <MESSAGE value="Buscar libros para los prestamos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Buscar libros para los prestamos" />
+    <MESSAGE value="Buscar libros para los prestamos V2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Buscar libros para los prestamos V2" />
   </component>
 </project>

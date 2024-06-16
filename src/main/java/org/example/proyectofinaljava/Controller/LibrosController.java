@@ -194,6 +194,7 @@ public class LibrosController implements Initializable {
                 //Asociamos la lista a la tabla
                 tvLibros.setItems(libros);
                 tvLibros.refresh();
+
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }

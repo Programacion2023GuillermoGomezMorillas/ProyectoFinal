@@ -15,29 +15,31 @@
 
 <HBox prefHeight="817.0" prefWidth="1316.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.LibrosController">
    <children>
-      <AnchorPane prefHeight="661.0" prefWidth="273.0" style="-fx-background-color: LightCyan;">
+      <AnchorPane prefHeight="817.0" prefWidth="230.0" style="-fx-background-color: LightCyan;">
          <children>
-            <Label layoutX="7.0" layoutY="14.0" text="Gestor de Libros">
+            <Label layoutX="-1.0" layoutY="14.0" text="Gestor de Libros">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <Label layoutX="29.0" layoutY="69.0" prefHeight="34.0" prefWidth="142.0" text="Insertar Libro">
+            <Label layoutX="34.0" layoutY="382.0" prefHeight="34.0" prefWidth="142.0" text="Insertar Libro">
                <font>
                   <Font size="23.0" />
                </font>
             </Label>
-            <TextField fx:id="tfIsbn" layoutX="29.0" layoutY="143.0" prefHeight="25.0" prefWidth="142.0" promptText="ISBN" />
-            <Label layoutX="81.0" layoutY="126.0" text="ISBN" />
-            <Label layoutX="85.0" layoutY="270.0" text="Autor" />
-            <Label layoutX="43.0" layoutY="219.0" text="Año de publicación" />
-            <Label layoutX="85.0" layoutY="177.0" text="Título" />
-            <Label layoutX="81.0" layoutY="322.0" text="Género" />
-            <TextField fx:id="tfTitulo" layoutX="30.0" layoutY="194.0" prefHeight="25.0" prefWidth="142.0" promptText="Título" />
-            <TextField fx:id="tfAno" layoutX="29.0" layoutY="239.0" prefWidth="142.0" promptText="Año" />
-            <TextField fx:id="tfAutor" layoutX="30.0" layoutY="287.0" prefHeight="25.0" prefWidth="142.0" promptText="Autor" />
-            <Button fx:id="btInsertar" layoutX="118.0" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#onClickInsertar" text="Insertar" />
-            <ComboBox fx:id="cbGenero" layoutX="30.0" layoutY="339.0" prefHeight="25.0" prefWidth="142.0" />
+            <TextField fx:id="tfIsbn" layoutX="34.0" layoutY="456.0" prefHeight="25.0" prefWidth="142.0" promptText="ISBN" />
+            <Label layoutX="86.0" layoutY="439.0" text="ISBN" />
+            <Label layoutX="90.0" layoutY="583.0" text="Autor" />
+            <Label layoutX="48.0" layoutY="532.0" text="Año de publicación" />
+            <Label layoutX="90.0" layoutY="490.0" text="Título" />
+            <Label layoutX="86.0" layoutY="635.0" text="Género" />
+            <TextField fx:id="tfTitulo" layoutX="35.0" layoutY="507.0" prefHeight="25.0" prefWidth="142.0" promptText="Título" />
+            <TextField fx:id="tfAno" layoutX="34.0" layoutY="552.0" prefWidth="142.0" promptText="Año" />
+            <TextField fx:id="tfAutor" layoutX="35.0" layoutY="600.0" prefHeight="25.0" prefWidth="142.0" promptText="Autor" />
+            <Button fx:id="btInsertar" layoutX="123.0" layoutY="709.0" mnemonicParsing="false" onMouseClicked="#onClickInsertar" text="Insertar" />
+            <ComboBox fx:id="cbGenero" layoutX="35.0" layoutY="652.0" prefHeight="25.0" prefWidth="142.0" />
+            <Button fx:id="btAniadir" layoutX="14.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#onClickVolver" prefHeight="34.0" prefWidth="92.0" text="Añadir libro" />
+            <Button fx:id="btAniadir1" layoutX="120.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#onClickVolver" prefHeight="34.0" prefWidth="92.0" text="Añadir socio" />
          </children>
       </AnchorPane>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="813.0" prefWidth="1115.0">
