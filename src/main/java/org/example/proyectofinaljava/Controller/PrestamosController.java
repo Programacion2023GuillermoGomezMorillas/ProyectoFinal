@@ -33,6 +33,10 @@ public class PrestamosController implements Initializable {
     private PrestamoDAO prestamoDAO;
     private LibroDAO libroDAO;
     private SocioDAO socioDAO;
+
+    @FXML
+    private Button BtNuevoPrest;
+
     @FXML
     private Button btBorrar;
 
@@ -286,7 +290,7 @@ public class PrestamosController implements Initializable {
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("seleccionarLibro-view.fxml"));
             Parent root = loader.load();
 
-            SeleccionarLibroController seleccionarLibroController= loader.getController();
+            SeleccionarLibroController seleccionarLibroController = loader.getController();
 
             seleccionarLibroController.setOnGetLibro(libro -> {
                 lbTitulo.setText(libro.getTitulo());
@@ -306,7 +310,6 @@ public class PrestamosController implements Initializable {
     }
 
 
-
     //TODO: Meter la ventana segundaria
     @FXML
     void onClickSelecSocio(MouseEvent event) {
@@ -314,24 +317,53 @@ public class PrestamosController implements Initializable {
 
     }
 
-    /**
-     * Actualiza el comboBox de estado
-     */
-    public void actualizarCbEstado() {
+    @FXML
+    void onClickNuevoPrest(MouseEvent event) {
+
         try {
-            List<Prestamo> listaPrestamo = prestamoDAO.getAllPrestamos();
-            //Añadimos el valor al comboBox
-            cbBuscar.getItems().add("DEVUELTO");
-            cbBuscar.getItems().add("PENDIENTE");
-            cbBuscar.getItems().add("VENCIDO");
-        } catch (SQLException e) {
+            //Cargamos la ventana de la gestion de los Prestamos
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamo-view.fxml"));
+            Parent root = loader.load();
+
+            NuevoPrestamoController nuevoPrestamoController= loader.getController();
+
+            nuevoPrestamoController.setOnGetLibro(libro -> {
+                lbTitulo.setText(libro.getTitulo());
+                lbIsbn.setText(libro.getIsbn());
+            });
+
+
+
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Elegir libro para prestar");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    /**
-     * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
-     */
+        /**
+         * Actualiza el comboBox de estado
+         */
+        public void actualizarCbEstado () {
+            try {
+                List<Prestamo> listaPrestamo = prestamoDAO.getAllPrestamos();
+                //Añadimos el valor al comboBox
+                cbBuscar.getItems().add("DEVUELTO");
+                cbBuscar.getItems().add("PENDIENTE");
+                cbBuscar.getItems().add("VENCIDO");
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+        /**
+         * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
+         */
        /*public boolean comprobarDatos() {
                 boolean bool = true;
 
@@ -355,41 +387,42 @@ public class PrestamosController implements Initializable {
         }
         */
 
-    /**
-     * @param mensaje Muestra el mensaje en forma de error
-     */
-    private void alertaDeError(String mensaje) {
-        //creamos la alerta de tipo Error
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(null);
-        alert.setTitle("Error");
-        //Mostramos el mensaje por pantalla
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+        /**
+         * @param mensaje Muestra el mensaje en forma de error
+         */
+        private void alertaDeError (String mensaje){
+            //creamos la alerta de tipo Error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            //Mostramos el mensaje por pantalla
+            alert.setContentText(mensaje);
+            alert.showAndWait();
+        }
+
+        /**
+         * Metodo para limpiar los campos
+         */
+        public void limpiarDatosModif () {
+            tfNumRefModif.setText("");
+            tfNumSocioModif.setText("");
+            tfFechaInicio.setText("");
+            tfFechaInicioModif.setText("");
+            tfNumRef.setText("");
+            tfNumRefModif.setText("");
+            tfFechaFin.setText("");
+            tfFechaFinModif.setText("");
+            lbNumero.setText("");
+            lbIsbn.setText("");
+            lbTitulo.setText("");
+            lbNombre.setText("");
+
+
+        }
+
+
     }
 
-    /**
-     * Metodo para limpiar los campos
-     */
-    public void limpiarDatosModif() {
-        tfNumRefModif.setText("");
-        tfNumSocioModif.setText("");
-        tfFechaInicio.setText("");
-        tfFechaInicioModif.setText("");
-        tfNumRef.setText("");
-        tfNumRefModif.setText("");
-        tfFechaFin.setText("");
-        tfFechaFinModif.setText("");
-        lbNumero.setText("");
-        lbIsbn.setText("");
-        lbTitulo.setText("");
-        lbNombre.setText("");
-
-
-    }
-
-
-}
 
 
 
