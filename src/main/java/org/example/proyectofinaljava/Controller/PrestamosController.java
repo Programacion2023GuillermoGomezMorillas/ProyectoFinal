@@ -2,7 +2,6 @@ package org.example.proyectofinaljava.Controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -281,7 +280,7 @@ public class PrestamosController implements Initializable {
         }
 
     }
-
+/*
     //TODO: Meter la ventana segundaria
     @FXML
     void onClickSelecLibro(MouseEvent event) {
@@ -309,6 +308,8 @@ public class PrestamosController implements Initializable {
         }
     }
 
+ */
+
 
     //TODO: Meter la ventana segundaria
     @FXML
@@ -322,18 +323,17 @@ public class PrestamosController implements Initializable {
 
         try {
             //Cargamos la ventana de la gestion de los Prestamos
-            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamo-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamoSeleccionarLibro-view.fxml"));
             Parent root = loader.load();
 
-            NuevoPrestamoController nuevoPrestamoController= loader.getController();
+            NuevoPrestamoSeleccionarLibroController nuevoPrestamoSeleccionarLibroController = loader.getController();
 
-            nuevoPrestamoController.setOnGetLibro(libro -> {
-                lbTitulo.setText(libro.getTitulo());
-                lbIsbn.setText(libro.getIsbn());
+            nuevoPrestamoSeleccionarLibroController.setOnGetLibro(libro -> {
+                Libro libroPrest = new Libro(libro.getIsbn(), libro.getTitulo(), libro.getAnio(), libro.getAutor(), libro.getGenero());
+                alertaDeError(libroPrest.toString());
+                //lbTitulo.setText(libro.getTitulo());
+                //lbIsbn.setText(libro.getIsbn());
             });
-
-
-
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -344,6 +344,30 @@ public class PrestamosController implements Initializable {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        try {
+            //Cargamos la ventana de la gestion de los Prestamos
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("socios-view.fxml"));
+            Parent root = loader.load();
+
+            NuevoPrestamoSeleccionarLibroController nuevoPrestamoSeleccionarLibroController = loader.getController();
+
+            nuevoPrestamoSeleccionarLibroController.setOnGetLibro(socio -> {
+                Libro libroPrest = new Libro(socio.getIsbn(), socio.getTitulo(), socio.getAnio(), socio.getAutor(), socio.getGenero());
+                alertaDeError(libroPrest.toString());
+                //lbTitulo.setText(libro.getTitulo());
+                //lbIsbn.setText(libro.getIsbn());
+            });
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Elegir libro para prestar");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
         /**

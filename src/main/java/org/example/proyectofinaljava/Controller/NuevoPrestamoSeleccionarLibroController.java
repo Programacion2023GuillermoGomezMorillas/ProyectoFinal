@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.example.proyectofinaljava.db.GeneroDAO;
 import org.example.proyectofinaljava.db.LibroDAO;
 import org.example.proyectofinaljava.model.Libro;
@@ -16,7 +18,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class NuevoPrestamoController implements Initializable {
+/**
+ * Esta clase es para seleccionar un libro a la hora de elegir un nuevo prestamo
+ */
+public class NuevoPrestamoSeleccionarLibroController implements Initializable {
 
     private ObservableList<Libro> listaLibros;
     private LibroDAO libroDAO;
@@ -27,6 +32,9 @@ public class NuevoPrestamoController implements Initializable {
 
     @FXML
     private Button btNuevoLibro;
+
+    @FXML
+    private Button btRefrescar;
 
     @FXML
     private Button btVolver;
@@ -72,13 +80,72 @@ public class NuevoPrestamoController implements Initializable {
 
     @FXML
     void onClickBuscar(MouseEvent event) {
+        if (tfBuscar.getText().isEmpty()) {
+            alertaDeError("Introduce una busqueda");
+        } else {
+            try {
+                ObservableList<Libro> libros;
+
+                if (cbBuscar.getValue().equals("GENERO")) {
+                    libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
+
+
+                } else if (cbBuscar.getValue().matches("ISBN")) {
+                    libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
+                } else {
+                    libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
+
+
+                }
+
+                //Asociamos la lista a la tabla
+                tvLibros.setItems(libros);
+                tvLibros.refresh();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
 
     }
 
     @FXML
-    void onClickTvLibros(MouseEvent event) {
-
+    void onClickRefrescar(MouseEvent event) {
+        actualizarTvLibros();
     }
+
+
+    @FXML
+    void onClickTvLibros(MouseEvent event) {
+        // Evento para que cuando el usuario haga doble click en la algun libro de la tabla se guarden los valores para despues llevar a cabo el prestamo
+        tvLibros.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                //cuando el usuario acepte, llamamos a la acción definida en la ventana principal y salimos
+                if (onGetLibro != null) {
+                    onGetLibro.obtenLibro(tvLibros.getSelectionModel().getSelectedItem());
+                    /*
+                    Libro libro;
+                    libro = new Libro(
+                            tfIsbnModif.getText(),
+                            tfTituloModif.getText(),
+                            tfAutorModif.getText(),
+                            tfAnoModif.getText(),
+                            cbGeneroModif.getValue()
+                    );
+
+                     */
+                    //cerramos la ventana
+                    Stage stage = (Stage) tvLibros.getScene().getWindow();
+                    stage.close();
+                } else {
+                    alertaDeError("Seleccione un libro");
+                }
+
+            }
+
+        });
+    }
+
+
     /**
      * Al iniciar la ventana se ejecutará el siguiente método
      */
@@ -109,6 +176,7 @@ public class NuevoPrestamoController implements Initializable {
             System.err.println(e.getMessage());
         }
     }
+
     public void actualizarTvLibros() {
         try {
             listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
@@ -139,6 +207,7 @@ public class NuevoPrestamoController implements Initializable {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
     //esta interface nos permite asignar la acción cuando volvamos de llamar a la ventana secundaria
     public interface OnGetLibro {
         void obtenLibro(Libro libro);
@@ -151,6 +220,10 @@ public class NuevoPrestamoController implements Initializable {
     public void setOnGetLibro(SeleccionarLibroController.OnGetLibro onGetLibro) {
         this.onGetLibro = onGetLibro;
     }
+
+    public void seleccionarLibro() {
+    }
+
 }
 
 

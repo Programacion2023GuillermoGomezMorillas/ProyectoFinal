@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Buscar libros para los prestamos V2">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/nuevoPrestamo-view.fxml" afterDir="false" />
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Cambios">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/nuevoPrestamoSeleccionarSocio.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoSeleccionarLibroController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/prestamos-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/prestamos-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/SocioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/SocioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/nuevoPrestamo-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/nuevoPrestamoSeleccionarLibro-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -66,19 +67,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DBConnection.executor": "Run",
-    "Application.LibroDAO.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Programas/ProyectoFinal",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DBConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LibroDAO.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programas/ProyectoFinal&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\guigommor\IdeaProjects\ProyectoFinalJava\src\main\java\org\example\proyectofinaljava" />
@@ -374,7 +375,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718579463100</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Cambios">
+      <option name="closed" value="true" />
+      <created>1718959457057</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1718959457057</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -399,6 +408,7 @@
     <MESSAGE value="Base de Datos en README.md" />
     <MESSAGE value="Buscar libros para los prestamos" />
     <MESSAGE value="Buscar libros para los prestamos V2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Buscar libros para los prestamos V2" />
+    <MESSAGE value="Cambios" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios" />
   </component>
 </project>

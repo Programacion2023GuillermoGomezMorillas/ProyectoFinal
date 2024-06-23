@@ -16,9 +16,9 @@ public class LibroDAO {
     // Consultas SQL para manipular la tabla Libro
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
-    private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
-    private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE GENERO = ?";
-    private static final String SELECT_BY_TITULO_QUERY = "SELECT * FROM Libro WHERE TITULO = ?";
+    private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN RLIKE ?";
+    private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE genero RLIKE ?";
+    private static final String SELECT_BY_TITULO_QUERY = "SELECT * FROM Libro WHERE titulo RLIKE ?";
     private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, autor = ?, anio = ?, genero = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 

@@ -34,7 +34,7 @@ public class SocioDAO {
     private static final String INSERT_QUERY = "INSERT INTO Socio (numeroSocio, nombreSocio, direccionSocio, telefonoSocio, emailSocio) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Socio";
     private static final String SELECT_BY_NUMEROSOCIO_QUERY = "SELECT * FROM Socio WHERE numeroSocio = ?";
-    private static final String SELECT_BY_NOMBRE_QUERY = "SELECT * FROM Socio WHERE nombreSocio = ?";
+    private static final String SELECT_BY_NOMBRE_QUERY = "SELECT * FROM Socio WHERE nombreSocio RLIKE ?";
     private static final String UPDATE_QUERY = "UPDATE Socio SET nombreSocio = ?, direccionSocio = ?, telefonoSocio = ?, emailSocio = ? WHERE numeroSocio = ?";
     private static final String DELETE_QUERY = "DELETE FROM Socio WHERE numeroSocio = ?";
 
