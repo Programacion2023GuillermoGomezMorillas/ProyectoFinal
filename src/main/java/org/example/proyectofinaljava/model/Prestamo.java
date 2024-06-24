@@ -7,16 +7,16 @@ public class Prestamo {
     private Date fechaInicio;
     private Date fechaFin;
     private String estado;
-    private String isbnLibro;
-    private long numeroSocio;
+    private String titulo;
+    private String nombreSocio;
 
-    public Prestamo(String numReserva, Date fechaInicio, Date fechaFin, String estado, String isbnLibro, long numeroSocio) {
+    public Prestamo(String numReserva, Date fechaInicio, Date fechaFin, String estado, String titulo, String nombreSocio) {
         this.numReserva=numReserva;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estado = estado;
-        this.isbnLibro = isbnLibro;
-        this.numeroSocio = numeroSocio;
+        this.titulo = titulo;
+        this.nombreSocio = nombreSocio;
     }
 
     public String getNumReserva() {
@@ -27,8 +27,8 @@ public class Prestamo {
         this.numReserva = numReserva;
     }
 
-    public void setNumeroSocio(long numeroSocio) {
-        this.numeroSocio = numeroSocio;
+    public void setNombreSocio(String nombreSocio) {
+        this.nombreSocio = nombreSocio;
     }
 
     public Date getFechaInicio() {
@@ -55,16 +55,16 @@ public class Prestamo {
         this.estado = estado;
     }
 
-    public String getIsbnLibro() {
-        return isbnLibro;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setIsbnLibro(String isbnLibro) {
-        this.isbnLibro = isbnLibro;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public long getNumeroSocio() {
-        return numeroSocio;
+    public String getNombreSocio() {
+        return nombreSocio;
     }
 
     @Override
@@ -74,8 +74,8 @@ public class Prestamo {
                 ", fechaInicio=" + fechaInicio +
                 ", fechaFin=" + fechaFin +
                 ", estado='" + estado + '\'' +
-                ", isbnLibro='" + isbnLibro + '\'' +
-                ", numeroSocio=" + numeroSocio +
+                ", titulo='" + titulo + '\'' +
+                ", numeroSocio=" + nombreSocio +
                 '}';
     }
 }

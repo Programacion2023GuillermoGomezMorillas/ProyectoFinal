@@ -124,9 +124,9 @@ public class SocioDAO {
         SocioDAO sociodao= new SocioDAO();
         System.out.println(sociodao.getAllSocios());
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-        Socio socio = new Socio(6,"Guillermo", "Calle ocho, Madrid", "123123123","guillermo@gmail.com");
-        sociodao.insertSocio(socio);
-        System.out.println(sociodao.getAllSocios());
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        //Socio socio = new Socio(6,"Guillermo", "Calle ocho, Madrid", "123123123","guillermo@gmail.com");
+        //sociodao.insertSocio(socio);
+        //System.out.println(sociodao.getAllSocios());
+        //System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }

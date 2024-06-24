@@ -20,8 +20,8 @@
                 <TableView fx:id="tvPrestamos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClicktvPrestamos" prefHeight="447.0" prefWidth="1225.0" style="-fx-background-color: CadetBlue;">
                     <columns>
                         <TableColumn fx:id="tcNumRef" prefWidth="132.0" text="Nº Referencia" />
-                        <TableColumn fx:id="tcIsbn" prefWidth="239.0" text="ISBN" />
-                        <TableColumn fx:id="tcNumSocio" prefWidth="218.0" text="Socio" />
+                        <TableColumn fx:id="tcTitulo" prefWidth="239.0" text="Titulo" />
+                        <TableColumn fx:id="tcNomSocio" prefWidth="218.0" text="Nombre Socio" />
                         <TableColumn fx:id="tcFechaInicio" prefWidth="170.0" text="Fecha de inicio" />
                         <TableColumn fx:id="tcFechaFin" prefWidth="209.0" text="Fecha de devolución" />
                   <TableColumn fx:id="tcEstado" prefWidth="256.0" text="Estado" />

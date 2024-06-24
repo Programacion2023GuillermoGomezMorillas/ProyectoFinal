@@ -1,6 +1,5 @@
 package org.example.proyectofinaljava.db;
 
-import org.example.proyectofinaljava.model.Libro;
 import org.example.proyectofinaljava.model.Prestamo;
 
 import java.sql.Connection;
@@ -8,18 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PrestamoDAO {
     private Connection connection=DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Prestamo
-    private static final String INSERT_QUERY = "INSERT INTO Prestamo (numReserva, fechaInicio, fechaFin, estado, isbnLibro, numeroSocio) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO Prestamo (numReserva, fechaInicio, fechaFin, estado, titulo, nombreSocio) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Prestamo";
     private static final String SELECT_BY_FECHAINICIO_QUERY = "SELECT * FROM Prestamo WHERE fechaInicio > ? ";
     private static final String SELECT_BY_ESTADO_QUERY = "SELECT * FROM Prestamo WHERE estado = ?";
-    private static final String UPDATE_QUERY = "UPDATE Prestamo SET fechaInicio = ?, fechaFin = ?, estado = ?, isbnLibro = ?, numeroSocio = ?  WHERE numReferencia = ?";
+    private static final String UPDATE_QUERY = "UPDATE Prestamo SET fechaInicio = ?, fechaFin = ?, estado = ?, titulo = ?, nombreSocio = ?  WHERE numReferencia = ?";
     private static final String DELETE_QUERY = "DELETE FROM Prestamo WHERE numReferencia = ?";
 
     // Clase singleton
@@ -47,8 +45,8 @@ public class PrestamoDAO {
             statement.setDate(2, prestamo.getFechaInicio());
             statement.setDate(3, prestamo.getFechaFin());
             statement.setString(4, prestamo.getEstado());
-            statement.setString(5, prestamo.getIsbnLibro());
-            statement.setLong(5, prestamo.getNumeroSocio());
+            statement.setString(5, prestamo.getTitulo());
+            statement.setString(5, prestamo.getNombreSocio());
 
             statement.executeUpdate();
         }
@@ -87,8 +85,8 @@ public class PrestamoDAO {
             statement.setDate(1, prestamo.getFechaInicio());
             statement.setDate(2, prestamo.getFechaFin());
             statement.setString(3, prestamo.getEstado());
-            statement.setString(4, prestamo.getIsbnLibro());
-            statement.setLong(5, prestamo.getNumeroSocio());
+            statement.setString(4, prestamo.getTitulo());
+            statement.setString(5, prestamo.getNombreSocio());
             statement.setString(6, prestamo.getNumReserva());
 
             statement.executeUpdate();
@@ -109,17 +107,17 @@ public class PrestamoDAO {
                 resultSet.getDate("fechaInicio"),
                 resultSet.getDate("fechaFin"),
                 resultSet.getString("estado"),
-                resultSet.getString("isbnLibro"),
-                resultSet.getLong("numeroSocio"));
+                resultSet.getString("tituloLibro"),
+                resultSet.getString("socio"));
         return prestamo;
     }
 
     public static void main(String[] args) throws SQLException {
         PrestamoDAO prestamo = new PrestamoDAO();
-        //System.out.println(libro.getAllLibros());
+        System.out.println(prestamo.getAllPrestamos());
 
         System.out.println("---------------------------------------------------------------------------------------------------------------");
-        System.out.println(prestamo.getLibroByEstado("Devuelto"));
+        //System.out.println(prestamo.getLibroByEstado("Devuelto"));
         //Libro libroNuevo = new Libro("8945156456456", "LibroNuevo", "Jose Luis", "2005", "Fantasia");
         //libro.insertLibro(libroNuevo);
         //System.out.println(prestamo.getPrestamoByFechaInicio("Misterio"));

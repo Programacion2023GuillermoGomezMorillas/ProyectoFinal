@@ -17,11 +17,11 @@ import org.example.proyectofinaljava.model.Libro;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import org.example.proyectofinaljava.model.Prestamo;
+import org.example.proyectofinaljava.model.Socio;
 
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,6 +32,9 @@ public class PrestamosController implements Initializable {
     private PrestamoDAO prestamoDAO;
     private LibroDAO libroDAO;
     private SocioDAO socioDAO;
+    private Libro libroPrest;
+    private Socio socioPrest;
+    private long cont = 26;
 
     @FXML
     private Button BtNuevoPrest;
@@ -72,7 +75,7 @@ public class PrestamosController implements Initializable {
     private TableColumn<Prestamo, String> tcEstado;
 
     @FXML
-    private TableColumn<Prestamo, String> tcNumSocio;
+    private TableColumn<Prestamo, String> tcNomSocio;
 
     @FXML
     private TableColumn<Prestamo, String> tcFechaInicio;
@@ -84,7 +87,7 @@ public class PrestamosController implements Initializable {
     private TableColumn<Prestamo, String> tcNumRef;
 
     @FXML
-    private TableColumn<Prestamo, String> tcIsbn;
+    private TableColumn<Prestamo, String> tcTitulo;
 
     @FXML
     private Label tf;
@@ -127,8 +130,8 @@ public class PrestamosController implements Initializable {
         Prestamo prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
         //si hay un prestamo seleccionado mostramos los datos
         if (prestamo != null) {
-            tfIsbnModif.setText(prestamo.getIsbnLibro());
-            tfNumSocioModif.setText(Long.toString(prestamo.getNumeroSocio()));
+            tfIsbnModif.setText(prestamo.getTitulo());
+            tfNumSocioModif.setText(prestamo.getNombreSocio());
             tfNumRefModif.setText(prestamo.getNumReserva());
             tfFechaInicioModif.setText(String.valueOf(prestamo.getFechaInicio()));
             tfFechaFinModif.setText(String.valueOf(prestamo.getFechaFin()));
@@ -150,27 +153,6 @@ public class PrestamosController implements Initializable {
 
     }
 
-    /**
-     * Actualiza la tabla de prestamos por si se añade o se quita alguno
-     */
-    public void actualizartvPrestamos() {
-        try {
-            listaPrestamos = FXCollections.observableArrayList(prestamoDAO.getAllPrestamos());
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        //Con esto se asocia la lista a la tabla
-        tcNumRef.setCellValueFactory(new PropertyValueFactory<>("numReserva"));
-        tcIsbn.setCellValueFactory(new PropertyValueFactory<>("isbnLibro"));
-        tcFechaInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
-        tcNumSocio.setCellValueFactory(new PropertyValueFactory<>("numeroSocio"));
-        tcFechaFin.setCellValueFactory(new PropertyValueFactory<>("fechaFin"));
-        tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        tvPrestamos.setItems(listaPrestamos);
-        tvPrestamos.refresh();
-
-    }
 
     /**
      * @param event para borrar un Prestamo
@@ -216,10 +198,10 @@ public class PrestamosController implements Initializable {
         }
     }
 
-
     /**
      * @param event para insertar un prestamo
      */
+/*
     @FXML
     void onClickInsertar(MouseEvent event) {
         Prestamo prestamo = null;
@@ -249,75 +231,14 @@ public class PrestamosController implements Initializable {
             }
         }
     }
+    */
 
     /**
-     * @param event para modificar un libro
+     * Este metodo abre primero la ventana de libros para elegir alguno de los que hay en la tabla, seguidamente,
+     * cuando se hace doble click a algun libro se cierra y se abre la ventana de socios para escoger el socio al que se le va a hacer el prestamo.
+     *
+     * @param event
      */
-    @FXML
-    void onClickModificar(MouseEvent event) {
-        Prestamo prestamo = null;
-
-        //if (comprobarDatos()) {
-        prestamo = new Prestamo(
-                tfNumRefModif.getText(),
-                Date.valueOf(tfFechaInicioModif.getText()),
-                Date.valueOf(tfFechaFinModif.getText()),
-                "Pendiente",
-                tfIsbnModif.getText(),
-                Integer.parseInt(tfNumSocioModif.getText())
-
-        );
-        // }
-
-        if (prestamo != null) {
-            try {
-                prestamoDAO.updatePrestamo(prestamo);
-                actualizartvPrestamos();
-                limpiarDatosModif();
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-
-    }
-/*
-    //TODO: Meter la ventana segundaria
-    @FXML
-    void onClickSelecLibro(MouseEvent event) {
-        try {
-            //Cargamos la ventana de la gestion de los Prestamos
-            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("seleccionarLibro-view.fxml"));
-            Parent root = loader.load();
-
-            SeleccionarLibroController seleccionarLibroController = loader.getController();
-
-            seleccionarLibroController.setOnGetLibro(libro -> {
-                lbTitulo.setText(libro.getTitulo());
-                lbIsbn.setText(libro.getIsbn());
-            });
-
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("Elegir libro para prestar");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.showAndWait();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
- */
-
-
-    //TODO: Meter la ventana segundaria
-    @FXML
-    void onClickSelecSocio(MouseEvent event) {
-        alertaDeError("a");
-
-    }
-
     @FXML
     void onClickNuevoPrest(MouseEvent event) {
 
@@ -330,9 +251,7 @@ public class PrestamosController implements Initializable {
 
             nuevoPrestamoSeleccionarLibroController.setOnGetLibro(libro -> {
                 Libro libroPrest = new Libro(libro.getIsbn(), libro.getTitulo(), libro.getAnio(), libro.getAutor(), libro.getGenero());
-                alertaDeError(libroPrest.toString());
-                //lbTitulo.setText(libro.getTitulo());
-                //lbIsbn.setText(libro.getIsbn());
+                this.libroPrest = libroPrest;
             });
 
             Scene scene = new Scene(root);
@@ -341,53 +260,149 @@ public class PrestamosController implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.showAndWait();
+
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
         try {
             //Cargamos la ventana de la gestion de los Prestamos
-            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("socios-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamoSeleccionarSocio-view.fxml"));
             Parent root = loader.load();
 
-            NuevoPrestamoSeleccionarLibroController nuevoPrestamoSeleccionarLibroController = loader.getController();
+            NuevoPrestamoSeleccionarSocioController nuevoPrestamoSeleccionarSocioController = loader.getController();
 
-            nuevoPrestamoSeleccionarLibroController.setOnGetLibro(socio -> {
-                Libro libroPrest = new Libro(socio.getIsbn(), socio.getTitulo(), socio.getAnio(), socio.getAutor(), socio.getGenero());
-                alertaDeError(libroPrest.toString());
-                //lbTitulo.setText(libro.getTitulo());
-                //lbIsbn.setText(libro.getIsbn());
+            nuevoPrestamoSeleccionarSocioController.setOnGetSocio(socio -> {
+                Socio socioPrest = new Socio(socio.getNumeroSocio(), socio.getNombreSocio(), socio.getDireccionSocio(), socio.getTelefonoSocio(), socio.getEmailSocio());
+                this.socioPrest = socioPrest;
             });
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
-            stage.setTitle("Elegir libro para prestar");
+            stage.setTitle("Elegir socio para prestar");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.showAndWait();
+
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+/*
+        try {
+            Libro libro = null;
+
+            if (comprobarDatos()) {
+                libro = new Libro(
+                        tfIsbn.getText(),
+                        tfTitulo.getText(),
+                        tfAutor.getText(),
+                        tfAno.getText(),
+                        cbGenero.getValue()
+                );
+            }
+
+            if (libro != null) {
+                if (listaLibros.contains(libro)) {
+                    alertaDeError("Ya existe un libro con ese ISBN");
+                } else {
+                    try {
+                        libroDAO.insertLibro(libro);
+                        actualizarTvLibros();
+                        limpiarDatosModif();
+                    } catch (SQLException e) {
+                        System.out.println("Error al guardar: " + libro);
+                    }
+                }
+            }
+ */
+        //----------------------------------------------------------------
+/*
+        Prestamo prestamo = null;
+
+        if (comprobarDatos()) {
+            prestamo = new Prestamo(
+                    cont,
+                    libroPrest.getIsbn(),
+                    tfAutor.getText(),
+                    tfAno.getText(),
+                    cbGenero.getValue()
+            );
+            cont++;
+        }
+
+        if (libro != null) {
+            if (listaLibros.contains(libro)) {
+                alertaDeError("Ya existe un libro con ese ISBN");
+            } else {
+                try {
+                    libroDAO.insertLibro(libro);
+                    actualizarTvLibros();
+                    limpiarDatosModif();
+                } catch (SQLException e) {
+                    System.out.println("Error al guardar: " + libro);
+                }
+            }
+        }
+    } catch(
+    IOException e)
+
+    {
+        System.err.println(e.getMessage());
+    }
+
+ */
+
+
+}
+
+    private void seleccionarSocio() {
 
     }
 
-        /**
-         * Actualiza el comboBox de estado
-         */
-        public void actualizarCbEstado () {
-            try {
-                List<Prestamo> listaPrestamo = prestamoDAO.getAllPrestamos();
-                //Añadimos el valor al comboBox
-                cbBuscar.getItems().add("DEVUELTO");
-                cbBuscar.getItems().add("PENDIENTE");
-                cbBuscar.getItems().add("VENCIDO");
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            }
-        }
+    /**
+     * Actualiza la tabla de prestamos por si se añade o se quita alguno
+     */
+    public void actualizartvPrestamos() {
 
-        /**
-         * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
-         */
+        try {
+            listaPrestamos = FXCollections.observableArrayList(prestamoDAO.getAllPrestamos());
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        //Con esto se asocia la lista a la tabla
+        tcNumRef.setCellValueFactory(new PropertyValueFactory<>("numReserva"));
+        tcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        tcNomSocio.setCellValueFactory(new PropertyValueFactory<>("nombreSocio"));
+        tcFechaInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+        tcFechaFin.setCellValueFactory(new PropertyValueFactory<>("fechaFin"));
+        tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        tvPrestamos.setItems(listaPrestamos);
+        tvPrestamos.refresh();
+
+
+
+    }
+
+    /**
+     * Actualiza el comboBox de estado
+     */
+    public void actualizarCbEstado() {
+        try {
+            List<Prestamo> listaPrestamo = prestamoDAO.getAllPrestamos();
+            //Añadimos el valor al comboBox
+            cbBuscar.getItems().add("DEVUELTO");
+            cbBuscar.getItems().add("PENDIENTE");
+            cbBuscar.getItems().add("VENCIDO");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    /**
+     * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
+     */
        /*public boolean comprobarDatos() {
                 boolean bool = true;
 
@@ -411,41 +426,41 @@ public class PrestamosController implements Initializable {
         }
         */
 
-        /**
-         * @param mensaje Muestra el mensaje en forma de error
-         */
-        private void alertaDeError (String mensaje){
-            //creamos la alerta de tipo Error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            //Mostramos el mensaje por pantalla
-            alert.setContentText(mensaje);
-            alert.showAndWait();
-        }
+    /**
+     * @param mensaje Muestra el mensaje en forma de error
+     */
+    private void alertaDeError(String mensaje) {
+        //creamos la alerta de tipo Error
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setTitle("Error");
+        //Mostramos el mensaje por pantalla
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 
-        /**
-         * Metodo para limpiar los campos
-         */
-        public void limpiarDatosModif () {
-            tfNumRefModif.setText("");
-            tfNumSocioModif.setText("");
-            tfFechaInicio.setText("");
-            tfFechaInicioModif.setText("");
-            tfNumRef.setText("");
-            tfNumRefModif.setText("");
-            tfFechaFin.setText("");
-            tfFechaFinModif.setText("");
-            lbNumero.setText("");
-            lbIsbn.setText("");
-            lbTitulo.setText("");
-            lbNombre.setText("");
-
-
-        }
+    /**
+     * Metodo para limpiar los campos
+     */
+    public void limpiarDatosModif() {
+        tfNumRefModif.setText("");
+        tfNumSocioModif.setText("");
+        tfFechaInicio.setText("");
+        tfFechaInicioModif.setText("");
+        tfNumRef.setText("");
+        tfNumRefModif.setText("");
+        tfFechaFin.setText("");
+        tfFechaFinModif.setText("");
+        lbNumero.setText("");
+        lbIsbn.setText("");
+        lbTitulo.setText("");
+        lbNombre.setText("");
 
 
     }
+
+
+}
 
 
 

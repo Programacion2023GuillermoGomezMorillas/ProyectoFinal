@@ -46,19 +46,19 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
     private ComboBox<String> cbGeneroModif;
 
     @FXML
-    private TableColumn<?, ?> tcAno;
+    private TableColumn<Libro, String> tcAno;
 
     @FXML
-    private TableColumn<?, ?> tcAutor;
+    private TableColumn<Libro, String> tcAutor;
 
     @FXML
-    private TableColumn<?, ?> tcGenero;
+    private TableColumn<Libro, String> tcGenero;
 
     @FXML
-    private TableColumn<?, ?> tcIsbn;
+    private TableColumn<Libro, String> tcIsbn;
 
     @FXML
-    private TableColumn<?, ?> tcTitulo;
+    private TableColumn<Libro, String> tcTitulo;
 
     @FXML
     private TextField tfAnoModif;
@@ -122,17 +122,6 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
                 //cuando el usuario acepte, llamamos a la acción definida en la ventana principal y salimos
                 if (onGetLibro != null) {
                     onGetLibro.obtenLibro(tvLibros.getSelectionModel().getSelectedItem());
-                    /*
-                    Libro libro;
-                    libro = new Libro(
-                            tfIsbnModif.getText(),
-                            tfTituloModif.getText(),
-                            tfAutorModif.getText(),
-                            tfAnoModif.getText(),
-                            cbGeneroModif.getValue()
-                    );
-
-                     */
                     //cerramos la ventana
                     Stage stage = (Stage) tvLibros.getScene().getWindow();
                     stage.close();
@@ -214,10 +203,10 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
     }
 
     //la instancia  a la que llamaremos cuando el usuario pulse a aceptar
-    private SeleccionarLibroController.OnGetLibro onGetLibro;
+    private NuevoPrestamoSeleccionarLibroController.OnGetLibro onGetLibro;
 
     //nos permitirá asignar la lambda en la principal con la acción que realizaremos
-    public void setOnGetLibro(SeleccionarLibroController.OnGetLibro onGetLibro) {
+    public void setOnGetLibro(NuevoPrestamoSeleccionarLibroController.OnGetLibro onGetLibro) {
         this.onGetLibro = onGetLibro;
     }
 

@@ -65,6 +65,7 @@ public class LibroDAO {
         }
         return libros;
     }
+
     // Método para obtener un libro por su ISBN
     public Libro getLibroByIsbn(String isbn) throws SQLException {
         Libro libro = null;
@@ -123,6 +124,7 @@ public class LibroDAO {
         }
     }
 
+
     // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Libro
     private Libro resulSetToLibro(ResultSet resultSet) throws SQLException {
         Libro libro = new Libro(
@@ -134,21 +136,19 @@ public class LibroDAO {
         return libro;
     }
 
+
     public static void main(String[] args) throws SQLException {
         LibroDAO libro = new LibroDAO();
-       //System.out.println(libro.getAllLibros());
-
+        //System.out.println(libro.getAllLibros());
+        System.out.println(libro.getAllLibros());
         System.out.println("---------------------------------------------------------------------------------------------------------------");
         //Libro libroNuevo = new Libro("8945156456456", "LibroNuevo", "Jose Luis", "2005", "Fantasia");
         //libro.insertLibro(libroNuevo);
-        System.out.println(libro.getLibroByGenero("Misterio"));
         System.out.println("---------------------------------------------------------------------------------------------------------------");
         //System.out.println(libro.getAllLibros());
         //System.out.println("---------------------------------------------------------------------------------------------------------------");
 
     }
-
-
 
 
 
