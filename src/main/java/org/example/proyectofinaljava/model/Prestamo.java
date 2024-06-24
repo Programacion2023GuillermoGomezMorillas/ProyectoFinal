@@ -3,14 +3,14 @@ package org.example.proyectofinaljava.model;
 import java.sql.Date;
 
 public class Prestamo {
-    private String numReserva;
+    private long numReserva;
     private Date fechaInicio;
     private Date fechaFin;
     private String estado;
     private String titulo;
     private String nombreSocio;
 
-    public Prestamo(String numReserva, Date fechaInicio, Date fechaFin, String estado, String titulo, String nombreSocio) {
+    public Prestamo(long numReserva, Date fechaInicio, Date fechaFin, String estado, String titulo, String nombreSocio) {
         this.numReserva=numReserva;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -19,11 +19,11 @@ public class Prestamo {
         this.nombreSocio = nombreSocio;
     }
 
-    public String getNumReserva() {
+    public long getNumReserva() {
         return numReserva;
     }
 
-    public void setNumReserva(String numReserva) {
+    public void setNumReserva(long numReserva) {
         this.numReserva = numReserva;
     }
 
@@ -75,7 +75,7 @@ public class Prestamo {
                 ", fechaFin=" + fechaFin +
                 ", estado='" + estado + '\'' +
                 ", titulo='" + titulo + '\'' +
-                ", numeroSocio=" + nombreSocio +
+                ", nombreSocio=" + nombreSocio +
                 '}';
     }
 }

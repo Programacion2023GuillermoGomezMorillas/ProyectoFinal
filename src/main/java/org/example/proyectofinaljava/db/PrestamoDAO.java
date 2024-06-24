@@ -13,12 +13,12 @@ public class PrestamoDAO {
     private Connection connection=DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Prestamo
-    private static final String INSERT_QUERY = "INSERT INTO Prestamo (numReserva, fechaInicio, fechaFin, estado, titulo, nombreSocio) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO Prestamo (numReserva, fechaInicio, fechaFin, estado, tituloLibro, socio) VALUES (?, ?, ?, ?, ?, '?')";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Prestamo";
     private static final String SELECT_BY_FECHAINICIO_QUERY = "SELECT * FROM Prestamo WHERE fechaInicio > ? ";
     private static final String SELECT_BY_ESTADO_QUERY = "SELECT * FROM Prestamo WHERE estado = ?";
-    private static final String UPDATE_QUERY = "UPDATE Prestamo SET fechaInicio = ?, fechaFin = ?, estado = ?, titulo = ?, nombreSocio = ?  WHERE numReferencia = ?";
-    private static final String DELETE_QUERY = "DELETE FROM Prestamo WHERE numReferencia = ?";
+    private static final String UPDATE_QUERY = "UPDATE Prestamo SET fechaInicio = ?, fechaFin = ?, estado = ?, tituloLibro = ?, socio = ?  WHERE numReserva = ?";
+    private static final String DELETE_QUERY = "DELETE FROM Prestamo WHERE numReserva = ?";
 
     // Clase singleton
     public static PrestamoDAO instance;
@@ -41,7 +41,7 @@ public class PrestamoDAO {
     // Método para insertar un nuevo prestamo en la base de datos
     public void insertPrestamo(Prestamo prestamo) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
-            statement.setString(1, prestamo.getNumReserva());
+            statement.setLong(1, prestamo.getNumReserva());
             statement.setDate(2, prestamo.getFechaInicio());
             statement.setDate(3, prestamo.getFechaFin());
             statement.setString(4, prestamo.getEstado());
@@ -87,7 +87,7 @@ public class PrestamoDAO {
             statement.setString(3, prestamo.getEstado());
             statement.setString(4, prestamo.getTitulo());
             statement.setString(5, prestamo.getNombreSocio());
-            statement.setString(6, prestamo.getNumReserva());
+            statement.setLong(6, prestamo.getNumReserva());
 
             statement.executeUpdate();
         }
@@ -103,7 +103,7 @@ public class PrestamoDAO {
     // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Prestamo
     private Prestamo resulSetToPrestamo(ResultSet resultSet) throws SQLException {
         Prestamo prestamo = new Prestamo(
-                resultSet.getString("numReserva"),
+                resultSet.getLong("numReserva"),
                 resultSet.getDate("fechaInicio"),
                 resultSet.getDate("fechaFin"),
                 resultSet.getString("estado"),
