@@ -67,16 +67,17 @@ public class LibroDAO {
     }
 
     // Método para obtener un libro por su ISBN
-    public Libro getLibroByIsbn(String isbn) throws SQLException {
-        Libro libro = null;
+    public List<Libro> getLibroByIsbn(String isbn) throws SQLException {
+        List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
             statement.setString(1, isbn);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                libro = resulSetToLibro(resultSet);
+            while (resultSet.next()) {
+                Libro libro = resulSetToLibro(resultSet);
+                libros.add(libro);
             }
         }
-        return libro;
+        return libros;
     }
     // Método para obtener un libro por su Genero
     public List<Libro> getLibroByGenero(String genero) throws SQLException {
@@ -92,16 +93,17 @@ public class LibroDAO {
         return libros;
     }
     // Método para obtener un libro por su Nombre
-    public Libro getLibroByTitulo(String titulo) throws SQLException {
-        Libro libro = null;
+    public List<Libro> getLibroByTitulo(String titulo) throws SQLException {
+        List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_TITULO_QUERY)) {
             statement.setString(1, titulo);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                libro = resulSetToLibro(resultSet);
+            while (resultSet.next()) {
+                Libro libro = resulSetToLibro(resultSet);
+                libros.add(libro);
             }
         }
-        return libro;
+        return libros;
     }
 
     // Método para actualizar los datos de un libro en la base de datos

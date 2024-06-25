@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.example.proyectofinaljava.db.GeneroDAO;
 import org.example.proyectofinaljava.db.LibroDAO;
 import org.example.proyectofinaljava.model.Libro;
@@ -35,13 +36,13 @@ public class LibrosController implements Initializable {
     private Button btModificar;
 
     @FXML
+    private Button btQuitarFiltro;
+
+    @FXML
     private Button btVolver;
 
     @FXML
     private ComboBox<String> cbBuscar;
-
-    @FXML
-    private ComboBox<String> cbGenero;
 
     @FXML
     private ComboBox<String> cbGeneroModif;
@@ -62,13 +63,8 @@ public class LibrosController implements Initializable {
     private TableColumn<Libro, String> tcTitulo;
 
     @FXML
-    private TextField tfAno;
-
-    @FXML
     private TextField tfAnoModif;
 
-    @FXML
-    private TextField tfAutor;
 
     @FXML
     private TextField tfAutorModif;
@@ -77,22 +73,19 @@ public class LibrosController implements Initializable {
     private TextField tfBuscar;
 
     @FXML
-    private TextField tfIsbn;
-
-    @FXML
-    private TextField tfIsbnBor;
-
-    @FXML
     private TextField tfIsbnModif;
-
-    @FXML
-    private TextField tfTitulo;
 
     @FXML
     private TextField tfTituloModif;
     @FXML
     private TableView<Libro> tvLibros;
 
+    /**
+     * Metodo para cuando se haga click en la tabla
+     * En este caso rellenará ciertos campos de texto con los valores de la tabla
+     *
+     * @param event
+     */
     @FXML
     void onClickTvLibros(MouseEvent event) {
         Libro libro = tvLibros.getSelectionModel().getSelectedItem();
@@ -103,19 +96,23 @@ public class LibrosController implements Initializable {
             tfAnoModif.setText(libro.getAnio());
             tfAutorModif.setText(libro.getAutor());
             cbGeneroModif.setValue(libro.getGenero());
-            tfIsbnBor.setText(libro.getIsbn());
         }
     }
 
+    /**
+     * Este metodo se ejecutará cuando se abra la ventana
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generoDAO = GeneroDAO.getConnection();
         libroDAO = LibroDAO.getConnection();
         actualizarTvLibros();
         //Metemos en los combobox
-        actualizarCbGenero();
         actualizarCbBuscar();
-
+        actualizarCbGenero();
         //Asociamos la lista a la tabla
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
@@ -144,7 +141,9 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * @param event para borrar un libro
+     * Método para borrar un libro
+     *
+     * @param event
      */
     @FXML
     void onClickBorrar(MouseEvent event) {
@@ -152,11 +151,8 @@ public class LibrosController implements Initializable {
             alertaDeError("Selecciona un libro que quieras eliminar");
         } else {
             try {
-                libroDAO.deleteLibroByIsbn(tfIsbnBor.getText());
-                tfIsbn.setText("");
-                tfTitulo.setText("");
-                tfAno.setText("");
-                tfAutor.setText("");
+                libroDAO.deleteLibroByIsbn(tfIsbnModif.getText());
+                limpiarDatosModif();
                 actualizarTvLibros();
 
             } catch (SQLException e) {
@@ -169,7 +165,9 @@ public class LibrosController implements Initializable {
 
 
     /**
-     * @param event para buscar un libro
+     * Método para buscar un libro
+     *
+     * @param event
      */
     @FXML
     void onClickBuscar(MouseEvent event) {
@@ -177,20 +175,21 @@ public class LibrosController implements Initializable {
 
         if (tfBuscar.getText().isEmpty()) {
             alertaDeError("Introduce una busqueda");
-        } else {
+        }
+        else {
             try {
-                ObservableList<Libro> libros;
-
-                if (cbBuscar.getValue().equals("GENERO")) {
-                    libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
-                    System.out.println(libros);
-                } else if (cbBuscar.getValue().equals("ISBN")) {
-                    libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
-                    System.out.println(libros);
-                } else
-                    libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
-                System.out.println(libros);
-
+                ObservableList<Libro> libros = FXCollections.observableArrayList(libroDAO.getAllLibros());
+                if (cbBuscar.getValue() == null) {
+                    alertaDeError("Seleccione un método de busqueda");
+                } else {
+                    if (cbBuscar.getValue().equals("GENERO")) {
+                        libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
+                    } else if (cbBuscar.getValue().equals("ISBN")) {
+                        libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
+                    } else if (cbBuscar.getValue().equals("TITULO")) {
+                        libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
+                    }
+                }
                 //Asociamos la lista a la tabla
                 tvLibros.setItems(libros);
                 tvLibros.refresh();
@@ -202,7 +201,9 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * @param event para insertar un libro
+     * Método para insertar un libro
+     *
+     * @param event
      */
     @FXML
     void onClickInsertar(MouseEvent event) {
@@ -210,11 +211,11 @@ public class LibrosController implements Initializable {
 
         if (comprobarDatos()) {
             libro = new Libro(
-                    tfIsbn.getText(),
-                    tfTitulo.getText(),
-                    tfAutor.getText(),
-                    tfAno.getText(),
-                    cbGenero.getValue()
+                    tfIsbnModif.getText(),
+                    tfTituloModif.getText(),
+                    tfAutorModif.getText(),
+                    tfAnoModif.getText(),
+                    cbGeneroModif.getValue()
             );
         }
 
@@ -234,7 +235,8 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * para modificar un libro
+     * Método para modificar un libro
+     *
      * @param event
      */
     @FXML
@@ -265,12 +267,23 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * Si se pincha el botón se vuelve a la anterior ventana
+     * Metodo para quitar los filtros puestos en Buscar Libro
+     * @param event
+     */
+    @FXML
+    void onClickQuitarFiltro(MouseEvent event) {
+        actualizarTvLibros();
+    }
+
+    /**
+     * Método para volver a la anterior ventana
+     *
      * @param event
      */
     @FXML
     void onClickVolver(MouseEvent event) {
-
+        Stage stage = (Stage) btVolver.getScene().getWindow();
+        stage.close();
     }
 
     /**
@@ -281,11 +294,9 @@ public class LibrosController implements Initializable {
             List<String> listaGeneros = generoDAO.getAllGeneros();
             for (String genero : listaGeneros) {
                 //Añadimos el valor al comboBox
-                cbGenero.getItems().add(genero);
                 cbGeneroModif.getItems().add(genero);
             }
             //seleccionamos el primero
-            cbGenero.setValue(listaGeneros.get(0));
             cbGeneroModif.setValue(listaGeneros.get(0));
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -351,13 +362,6 @@ public class LibrosController implements Initializable {
         tfAnoModif.setText("");
         tfAutorModif.setText("");
         cbGeneroModif.setValue("");
-        tfIsbn.setText("");
-        tfTitulo.setText("");
-        tfAno.setText("");
-        tfAutor.setText("");
-        cbGenero.setValue("");
-        tfIsbnBor.setText("");
-
     }
 
 

@@ -25,6 +25,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 
@@ -35,16 +36,19 @@ public class PrestamosController implements Initializable {
     private SocioDAO socioDAO;
     private Libro libroPrest;
     private Socio socioPrest;
-    private long cont = 26;
+    private long cont;
 
     @FXML
     private Button BtNuevoPrest;
 
     @FXML
-    private Button btBorrar;
+    private Button btDevolver;
 
     @FXML
     private Button btBuscar;
+
+    @FXML
+    private Button btDelete;
 
     @FXML
     private Button btNuevoLibro;
@@ -105,22 +109,40 @@ public class PrestamosController implements Initializable {
 
     }
 
-
-    /**
-     * @param event para borrar un Prestamo
-     */
     @FXML
-    void onClickBorrar(MouseEvent event) {
-        if (tvPrestamos.getSelectionModel().isEmpty()) {
-            alertaDeError("Selecciona un prestamo que quieras eliminar");
-        } else {
+    void OnClickDelete(MouseEvent event) {
+        if (comprobarDatos()) {
             try {
                 prestamoDAO.deletePrestamoByReferencia(tfNumRefBor.getText());
                 actualizartvPrestamos();
 
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("No se ha podido borrar ese prestamo");
             }
+        } else {
+            alertaDeError("Tiene que ser un número de referencia válido");
+
+        }
+    }
+
+    /**
+     * Metodo para devolver un libro
+     *
+     * @param event
+     */
+    @FXML
+    void onClickDevolver(MouseEvent event) {
+        if (comprobarDatos()) {
+            try {
+                Prestamo prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
+                prestamoDAO.updatePrestamo(prestamo);
+                actualizartvPrestamos();
+
+            } catch (SQLException e) {
+                alertaDeError("No se ha podido devolver ese libro");
+            }
+        } else {
+            alertaDeError("Tiene que ser un número de referencia válido");
 
         }
 
@@ -208,104 +230,94 @@ public class PrestamosController implements Initializable {
                 System.err.println(e.getMessage());
             }
             if (libroPrest != null && socioPrest != null) {
-                Prestamo prestamo = new Prestamo(
-                        cont,
-                        Date.valueOf(String.valueOf(dpFechaInicio.getValue())),
-                        Date.valueOf(String.valueOf(dpFechaFin.getValue())),
-                        "Prestado",
-                        libroPrest.getTitulo(),
-                        socioPrest.getNombreSocio());
-                cont++;
-                if (listaPrestamos.contains(prestamo)) {
-                    alertaDeError("Ya existe un prestamo con ese Libro y ese Socio");
-                } else {
-                    try {
-                        prestamoDAO.insertPrestamo(prestamo);
-                        actualizartvPrestamos();
-                    } catch (SQLException e) {
-                        System.err.println("Error al guardar el prestamo: " + prestamo.toString());
-                    }
-                }
-/*
-        try {
-            Libro libro = null;
-
-            if (comprobarDatos()) {
-                libro = new Libro(
-                        tfIsbn.getText(),
-                        tfTitulo.getText(),
-                        tfAutor.getText(),
-                        tfAno.getText(),
-                        cbGenero.getValue()
-                );
-            }
-
-            if (libro != null) {
-                if (listaLibros.contains(libro)) {
-                    alertaDeError("Ya existe un libro con ese ISBN");
-                } else {
-                    try {
-                        libroDAO.insertLibro(libro);
-                        actualizarTvLibros();
-                        limpiarDatosModif();
-                    } catch (SQLException e) {
-                        System.out.println("Error al guardar: " + libro);
-                    }
-                }
-            }
- */
-                //----------------------------------------------------------------
-/*
-        Prestamo prestamo = null;
-
-        if (comprobarDatos()) {
-            prestamo = new Prestamo(
-                    cont,
-                    libroPrest.getIsbn(),
-                    tfAutor.getText(),
-                    tfAno.getText(),
-                    cbGenero.getValue()
-            );
-            cont++;
-        }
-
-        if (libro != null) {
-            if (listaLibros.contains(libro)) {
-                alertaDeError("Ya existe un libro con ese ISBN");
-            } else {
                 try {
-                    libroDAO.insertLibro(libro);
-                    actualizarTvLibros();
-                    limpiarDatosModif();
+                    cont = prestamoDAO.getNumeroReserva() + 1;
+                    Prestamo prestamo = new Prestamo(
+                            cont,
+                            Date.valueOf(String.valueOf(dpFechaInicio.getValue())),
+                            Date.valueOf(String.valueOf(dpFechaFin.getValue())),
+                            "Pendiente",
+                            libroPrest.getTitulo(),
+                            socioPrest.getNombreSocio());
+
+                    if (listaPrestamos.contains(prestamo)) {
+                        alertaDeError("Ya existe un prestamo con ese Libro y ese Socio");
+                    } else {
+                        try {
+                            prestamoDAO.insertPrestamo(prestamo);
+                            actualizartvPrestamos();
+                        } catch (SQLException e) {
+                            alertaDeError("No se ha podido hacer el prestamo");
+                        }
+                    }
                 } catch (SQLException e) {
-                    System.out.println("Error al guardar: " + libro);
+                    System.out.println(e.getMessage());
                 }
-            }
-        }
-    } catch(
-    IOException e)
 
-    {
-        System.err.println(e.getMessage());
-    }
-
- */
 
             }
         }
 
     }
 
+    /**
+     * Metodo para refresar la tabla
+     *
+     * @param event
+     */
     @FXML
     void onClickRefrescar(MouseEvent event) {
         actualizartvPrestamos();
     }
 
+    /**
+     * Metodo para cuando se haga click en la tabla aparezca el Numero de Referencia en un campo de texto para poder devolverlo sin tener que escribir el número
+     *
+     * @param event
+     */
     @FXML
     void onClicktvPrestamos(MouseEvent event) {
         Prestamo prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
-        if (prestamo != null){
-        tfNumRefBor.setText(String.valueOf(prestamo.getTitulo()));
+        if (prestamo != null) {
+            tfNumRefBor.setText(String.valueOf(prestamo.getNumReserva()));
+        }
+    }
+
+    @FXML
+    void onClickNuevoLibro(MouseEvent event) {
+        try {
+            //Cargamos la ventana de la gestion de los Prestamos
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("libros-view.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Añadir Libros");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void onClickNuevoSocio(MouseEvent event) {
+        try {
+            //Cargamos la ventana de la gestion de los Prestamos
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("socios-view.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Añadir Socios");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -352,28 +364,15 @@ public class PrestamosController implements Initializable {
     /**
      * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
      */
-       /*public boolean comprobarDatos() {
-                boolean bool = true;
-
-                if (!tfNumRefModif.getText().matches("^[0-9]{10,13}$")) {
-                        alertaDeError("El ISBN es incorrecto o esta vacio");
-                        tfNumRefModif.requestFocus();
-                        bool = false;
-                } else if (tfNumSocioModif.getText().isEmpty()) {
-                        alertaDeError("El título no peude ser un campo vacio");
-                        tfNumSocioModif.requestFocus();
-                } else if (!tfFechaInicioModif.getText().matches("^[0-9]{1,4}$")) {
-                        alertaDeError("El año no es correcto o esta vacio ");
-                        tfFechaInicioModif.requestFocus();
-                        bool = false;
-                } else if (tfFechaDinModif.getText().isEmpty()) {
-                        alertaDeError("El autor no puede ser un campo vacio");
-                        tfFechaDinModif.requestFocus();
-                        bool = false;
-                }
-                return bool;
+    public boolean comprobarDatos() {
+        boolean bool = true;
+        if (!tfNumRefBor.getText().matches("^[0-9]+$")) {
+            tfNumRefBor.requestFocus();
+            bool = false;
         }
-        */
+        return bool;
+    }
+
 
     /**
      * @param mensaje Muestra el mensaje en forma de error
@@ -386,6 +385,10 @@ public class PrestamosController implements Initializable {
         //Mostramos el mensaje por pantalla
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    public static void main(String[] args) {
+
     }
 }
 

@@ -1,6 +1,7 @@
 package org.example.proyectofinaljava.db;
 
 import org.example.proyectofinaljava.model.Prestamo;
+import org.example.proyectofinaljava.model.Socio;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class PrestamoDAO {
     private static final String SELECT_BY_ESTADO_QUERY = "SELECT * FROM Prestamo WHERE estado = ?";
     private static final String UPDATE_QUERY = "UPDATE Prestamo SET fechaInicio = ?, fechaFin = ?, estado = ?, tituloLibro = ?, socio = ?  WHERE numReserva = ?";
     private static final String DELETE_QUERY = "DELETE FROM Prestamo WHERE numReserva = ?";
+    private static final String SELECT_MAX_NUMREF = "SELECT max(numReserva) from Prestamo";
 
     // Clase singleton
     public static PrestamoDAO instance;
@@ -62,6 +64,18 @@ public class PrestamoDAO {
         return prestamos;
     }
 
+    public long getNumeroReserva() throws SQLException {
+        long numRef = 0;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_MAX_NUMREF)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+             numRef = resultSet.getLong(1);
+            }
+        }
+        return numRef;
+    }
+
+
     // Método para obtener un prestamo por su Estado
     public List<Prestamo> getLibroByEstado(String estado) throws SQLException {
         List<Prestamo> prestamos = new ArrayList<>();
@@ -81,7 +95,7 @@ public class PrestamoDAO {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setDate(1, prestamo.getFechaInicio());
             statement.setDate(2, prestamo.getFechaFin());
-            statement.setString(3, prestamo.getEstado());
+            statement.setString(3, "Devuelto");
             statement.setString(4, prestamo.getTitulo());
             statement.setString(5, prestamo.getNombreSocio());
             statement.setLong(6, prestamo.getNumReserva());
@@ -111,13 +125,8 @@ public class PrestamoDAO {
 
     public static void main(String[] args) throws SQLException {
         PrestamoDAO prestamo = new PrestamoDAO();
-        System.out.println(prestamo.getAllPrestamos());
+        System.out.println(prestamo.getNumeroReserva());
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-        Prestamo prestamo2 = new Prestamo(26, Date.valueOf("2024-06-25"), Date.valueOf("2024-06-30"), "Prestado", "Matar a un ruiseñor", "Juan Pérez");
-        prestamo.insertPrestamo(prestamo2);
-        System.out.println(prestamo.getAllPrestamos());
-
-
         System.out.println("---------------------------------------------------------------------------------------------------------------");
         //System.out.println(prestamo.getLibroByEstado("Devuelto"));
         //Libro libroNuevo = new Libro("8945156456456", "LibroNuevo", "Jose Luis", "2005", "Fantasia");

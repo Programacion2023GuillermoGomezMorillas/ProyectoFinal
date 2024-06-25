@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Fallo al guardar el prestamo">
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Completa la funcion prestar un libro a un socio">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Prestamo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Prestamo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/libros-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/prestamos-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/prestamos-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,12 +115,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NuevoPrestamoSeleccionarLibroController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.Controller.NuevoPrestamoSeleccionarLibroController" />
+    <configuration name="PrestamoDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.db.PrestamoDAO" />
       <module name="ProyectoFinalJava" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.proyectofinaljava.Controller.*" />
+          <option name="PATTERN" value="org.example.proyectofinaljava.db.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -126,12 +128,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PrestamoDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.db.PrestamoDAO" />
+    <configuration name="PrestamosController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.proyectofinaljava.Controller.PrestamosController" />
       <module name="ProyectoFinalJava" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.proyectofinaljava.db.*" />
+          <option name="PATTERN" value="org.example.proyectofinaljava.Controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -167,9 +169,9 @@
       <list>
         <item itemvalue="Application.Launcher" />
         <item itemvalue="Application.PrestamoDAO" />
+        <item itemvalue="Application.PrestamosController" />
         <item itemvalue="Application.LibroDAO" />
         <item itemvalue="Application.SocioDAO" />
-        <item itemvalue="Application.NuevoPrestamoSeleccionarLibroController" />
       </list>
     </recent_temporary>
   </component>
@@ -397,7 +399,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719260919367</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Completa la funcion prestar un libro a un socio">
+      <option name="closed" value="true" />
+      <created>1719318468040</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1719318468040</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -448,7 +458,8 @@
     <MESSAGE value="Cambios" />
     <MESSAGE value="Arreglos y mejoras" />
     <MESSAGE value="Fallo al guardar el prestamo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fallo al guardar el prestamo" />
+    <MESSAGE value="Completa la funcion prestar un libro a un socio" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completa la funcion prestar un libro a un socio" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
