@@ -53,6 +53,9 @@ public class PrestamosController implements Initializable {
     private Button btNuevoSocio;
 
     @FXML
+    private Button btRefrescar;
+
+    @FXML
     private ComboBox<String> cbBuscar;
 
     @FXML
@@ -154,10 +157,9 @@ public class PrestamosController implements Initializable {
      */
     @FXML
     void onClickNuevoPrest(MouseEvent event) {
-        if (dpFechaInicio.getValue()==null || dpFechaFin.getValue()==null) {
+        if (dpFechaInicio.getValue() == null || dpFechaFin.getValue() == null) {
             alertaDeError("Debe elegir la fecha de inicio y fin del prestamo");
-        }
-        else {
+        } else {
 
             try {
                 //Cargamos la ventana de la gestion de los Prestamos
@@ -208,8 +210,8 @@ public class PrestamosController implements Initializable {
             if (libroPrest != null && socioPrest != null) {
                 Prestamo prestamo = new Prestamo(
                         cont,
-                        Date.valueOf(dpFechaInicio.getValue()),
-                        Date.valueOf(dpFechaFin.getValue()),
+                        Date.valueOf(String.valueOf(dpFechaInicio.getValue())),
+                        Date.valueOf(String.valueOf(dpFechaFin.getValue())),
                         "Prestado",
                         libroPrest.getTitulo(),
                         socioPrest.getNombreSocio());
@@ -292,10 +294,19 @@ public class PrestamosController implements Initializable {
             }
         }
 
-        }
+    }
+
+    @FXML
+    void onClickRefrescar(MouseEvent event) {
+        actualizartvPrestamos();
+    }
+
     @FXML
     void onClicktvPrestamos(MouseEvent event) {
-        tfNumRefBor.setText(tcNumRef.getText());
+        Prestamo prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
+        if (prestamo != null){
+        tfNumRefBor.setText(String.valueOf(prestamo.getTitulo()));
+        }
     }
 
 
@@ -319,7 +330,6 @@ public class PrestamosController implements Initializable {
         tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tvPrestamos.setItems(listaPrestamos);
         tvPrestamos.refresh();
-
 
 
     }

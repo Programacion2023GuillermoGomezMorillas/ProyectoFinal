@@ -41,7 +41,7 @@
                             </font>
                         </Label>
                         <Line endX="834.0" endY="201.0" layoutX="391.0" layoutY="9.0" startX="-649.0" startY="201.0" />
-                        <Button fx:id="btBuscar" layoutX="588.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" text="Buscar" />
+                        <Button fx:id="btBuscar" layoutX="546.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" text="Buscar" />
                         <Label layoutX="534.0" layoutY="60.0" text="Busqueda Por Estado">
                             <font>
                                 <Font size="17.0" />
@@ -77,6 +77,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btRefrescar" layoutX="614.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onClickRefrescar" text="Refrescar" />
                     </children>
                 </AnchorPane>
             </children>

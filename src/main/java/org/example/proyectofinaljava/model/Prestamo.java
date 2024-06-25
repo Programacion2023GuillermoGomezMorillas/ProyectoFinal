@@ -75,7 +75,7 @@ public class Prestamo {
                 ", fechaFin=" + fechaFin +
                 ", estado='" + estado + '\'' +
                 ", titulo='" + titulo + '\'' +
-                ", nombreSocio=" + nombreSocio +
+                ", socio=" + nombreSocio +
                 '}';
     }
 }

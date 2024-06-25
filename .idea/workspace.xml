@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Arreglos y mejoras">
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Fallo al guardar el prestamo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" afterDir="false" />
@@ -389,7 +389,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719250662463</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fallo al guardar el prestamo">
+      <option name="closed" value="true" />
+      <created>1719260919367</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1719260919367</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -439,7 +447,8 @@
     <MESSAGE value="Buscar libros para los prestamos V2" />
     <MESSAGE value="Cambios" />
     <MESSAGE value="Arreglos y mejoras" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglos y mejoras" />
+    <MESSAGE value="Fallo al guardar el prestamo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fallo al guardar el prestamo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

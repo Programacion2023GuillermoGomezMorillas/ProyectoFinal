@@ -2,10 +2,7 @@ package org.example.proyectofinaljava.db;
 
 import org.example.proyectofinaljava.model.Prestamo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +10,7 @@ public class PrestamoDAO {
     private Connection connection=DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Prestamo
-    private static final String INSERT_QUERY = "INSERT INTO Prestamo (numReserva, fechaInicio, fechaFin, estado, tituloLibro, socio) VALUES (?, ?, ?, ?, ?, '?')";
+    private static final String INSERT_QUERY = "INSERT INTO Prestamo (numReserva, fechaInicio, fechaFin, estado, tituloLibro, socio) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Prestamo";
     private static final String SELECT_BY_FECHAINICIO_QUERY = "SELECT * FROM Prestamo WHERE fechaInicio > ? ";
     private static final String SELECT_BY_ESTADO_QUERY = "SELECT * FROM Prestamo WHERE estado = ?";
@@ -46,7 +43,7 @@ public class PrestamoDAO {
             statement.setDate(3, prestamo.getFechaFin());
             statement.setString(4, prestamo.getEstado());
             statement.setString(5, prestamo.getTitulo());
-            statement.setString(5, prestamo.getNombreSocio());
+            statement.setString(6, prestamo.getNombreSocio());
 
             statement.executeUpdate();
         }
@@ -115,6 +112,11 @@ public class PrestamoDAO {
     public static void main(String[] args) throws SQLException {
         PrestamoDAO prestamo = new PrestamoDAO();
         System.out.println(prestamo.getAllPrestamos());
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+        Prestamo prestamo2 = new Prestamo(26, Date.valueOf("2024-06-25"), Date.valueOf("2024-06-30"), "Prestado", "Matar a un ruiseñor", "Juan Pérez");
+        prestamo.insertPrestamo(prestamo2);
+        System.out.println(prestamo.getAllPrestamos());
+
 
         System.out.println("---------------------------------------------------------------------------------------------------------------");
         //System.out.println(prestamo.getLibroByEstado("Devuelto"));
