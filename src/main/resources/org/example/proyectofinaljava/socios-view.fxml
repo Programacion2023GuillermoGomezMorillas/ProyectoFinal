@@ -11,88 +11,56 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<HBox prefHeight="567.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.SociosController">
+<HBox prefHeight="870.0" prefWidth="1287.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.SociosController">
     <children>
-        <AnchorPane prefHeight="566.0" prefWidth="214.0" style="-fx-background-color: LightCyan;">
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="872.0" prefWidth="1287.0">
             <children>
-                <Label layoutX="7.0" layoutY="14.0" text="Gestor de Socios">
-                    <font>
-                        <Font size="28.0" />
-                    </font>
-                </Label>
-                <Label layoutX="29.0" layoutY="69.0" prefHeight="34.0" prefWidth="142.0" text="Insertar Socio">
-                    <font>
-                        <Font size="23.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="tfNumero" layoutX="37.0" layoutY="143.0" prefHeight="25.0" prefWidth="142.0" promptText="Número de Socio" />
-                <Label layoutX="54.0" layoutY="126.0" text="Numero de Socio" />
-                <Label layoutX="78.0" layoutY="227.0" text="Teléfono" />
-                <Label layoutX="75.0" layoutY="281.0" text="Dirección" />
-                <Label layoutX="79.0" layoutY="177.0" text="Nombre" />
-                <Label layoutX="87.0" layoutY="322.0" text="Email" />
-                <TextField fx:id="tfNombre" layoutX="37.0" layoutY="194.0" prefHeight="25.0" prefWidth="142.0" promptText="Nombre" />
-                <TextField fx:id="tfTelefono" layoutX="37.0" layoutY="246.0" prefWidth="142.0" promptText="Teléfono" />
-                <TextField fx:id="tfDireccion" layoutX="37.0" layoutY="298.0" prefHeight="25.0" prefWidth="142.0" promptText="Dirección" />
-                <TextField fx:id="tfEmail" layoutX="37.0" layoutY="339.0" prefHeight="25.0" prefWidth="142.0" promptText="Email" />
-                <Button fx:id="btInsertar" layoutX="118.0" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#onClickInsertar" text="Insertar" />
-            </children>
-        </AnchorPane>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="891.0">
-            <children>
-                <TableView fx:id="tvLibros" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClickTvLibros" prefHeight="377.0" prefWidth="891.0" style="-fx-background-color: CadetBlue;">
+                <TableView fx:id="tvSocios" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClickTvSocios" prefHeight="688.0" prefWidth="1287.0" style="-fx-background-color: CadetBlue;">
                     <columns>
-                        <TableColumn fx:id="tcIsbn" prefWidth="105.0" text="Numero de Socio" />
-                        <TableColumn fx:id="tcTitulo" prefWidth="171.0" text="Nombre" />
-                        <TableColumn fx:id="tcAno" prefWidth="145.0" text="Teléfono" />
-                        <TableColumn fx:id="tcAutor" prefWidth="252.0" text="Dirección" />
-                        <TableColumn fx:id="tcGenero" prefWidth="217.0" text="Email" />
+                        <TableColumn fx:id="tcNumero" prefWidth="121.0" text="Número de Socio" />
+                        <TableColumn fx:id="tcNombre" prefWidth="338.0" text="Nombre" />
+                        <TableColumn fx:id="tcTelefono" prefWidth="190.0" text="Teléfono" />
+                        <TableColumn fx:id="tcDireccion" prefWidth="349.0" text="Dirección" />
+                        <TableColumn fx:id="tcEmail" prefWidth="288.0" text="Email" />
                     </columns>
                 </TableView>
-                <AnchorPane prefHeight="280.0" prefWidth="891.0" style="-fx-background-color: LightCyan;">
+                <AnchorPane prefHeight="370.0" prefWidth="1288.0" style="-fx-background-color: LightCyan;">
                     <children>
-                        <Label layoutX="437.0" layoutY="17.0" text="Buscar Socio">
+                        <Label layoutX="681.0" layoutY="18.0" prefHeight="36.0" prefWidth="241.0" text="Buscar Socio">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </Label>
-                        <Label layoutX="85.0" layoutY="13.0" prefHeight="36.0" prefWidth="178.0" text="Modificar Socio">
+                        <Label layoutX="33.0" layoutY="18.0" prefHeight="36.0" prefWidth="241.0" text="Gestionar Socios">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </Label>
-                        <Label layoutX="710.0" layoutY="17.0" text="Borrar Socio">
-                            <font>
-                                <Font size="25.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="32.0" layoutY="68.0" text="Introduca el Número de Socio" />
-                        <TextField fx:id="tfNumeroModif" layoutX="199.0" layoutY="64.0" prefHeight="25.0" prefWidth="108.0" promptText="Número" />
-                        <TextField fx:id="tfNombreModif" layoutX="199.0" layoutY="96.0" prefHeight="25.0" prefWidth="108.0" promptText="Nombre" />
-                        <TextField fx:id="tfTelefonoModif" layoutX="199.0" layoutY="131.0" prefHeight="25.0" prefWidth="108.0" promptText="Teléfono" />
-                        <TextField fx:id="tfDireccionModif" layoutX="199.0" layoutY="165.0" prefHeight="25.0" prefWidth="108.0" promptText="Dirección" />
-                        <TextField fx:id="tfEmailModif" layoutX="199.0" layoutY="197.0" prefHeight="25.0" prefWidth="108.0" promptText="Email" />
-                        <Button fx:id="btModificar" layoutX="137.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickModificar" text="Modificar" />
-                        <Label layoutX="32.0" layoutY="100.0" text="Nombre" />
-                        <Label layoutX="32.0" layoutY="169.0" text="Dirección" />
-                        <Label layoutX="33.0" layoutY="135.0" text="Teléfono" />
-                        <Label layoutX="34.0" layoutY="201.0" text="Email" />
-                        <ComboBox fx:id="cbBuscar" layoutX="505.0" layoutY="80.0" prefWidth="150.0" />
-                        <TextField fx:id="tfBuscar" layoutX="419.0" layoutY="156.0" promptText="Valor" />
-                        <Button fx:id="btBuscar" layoutX="468.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" text="Buscar" />
-                        <Line endX="-31.0" endY="250.0" layoutX="391.0" layoutY="13.0" startX="-31.0" startY="-13.0" />
-                        <TextField fx:id="tfNumeroBor" layoutX="701.0" layoutY="157.0" promptText="Valor" />
-                        <Button fx:id="btBorrar" layoutX="751.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onClickBorrar" text="Borrar" />
-                        <Line endX="-30.0" endY="180.0" layoutX="694.0" layoutY="86.0" startX="-30.0" startY="-86.0" />
-                        <Line endX="-290.0" endY="164.0" layoutX="290.0" layoutY="96.0" startX="-290.0" startY="-96.0" />
-                        <Label layoutX="374.0" layoutY="80.0" text="Busqueda Por :">
+                        <Label layoutX="77.0" layoutY="68.0" prefHeight="17.0" prefWidth="103.0" text="Numero de socio" />
+                        <TextField fx:id="tfNumero" layoutX="244.0" layoutY="67.0" prefHeight="25.0" prefWidth="167.0" promptText="Numero" />
+                        <Label layoutX="77.0" layoutY="100.0" prefHeight="17.0" prefWidth="103.0" text="Nombre" />
+                        <Label layoutX="77.0" layoutY="169.0" prefHeight="17.0" prefWidth="103.0" text="Dirección" />
+                        <Label layoutX="78.0" layoutY="135.0" prefHeight="17.0" prefWidth="103.0" text="Teléfono" />
+                        <Label layoutX="79.0" layoutY="201.0" prefHeight="17.0" prefWidth="103.0" text="Email" />
+                        <TextField fx:id="tfTelefono" layoutX="244.0" layoutY="133.0" prefHeight="25.0" prefWidth="167.0" promptText="Teléfono" />
+                        <TextField fx:id="tfDireccion" layoutX="244.0" layoutY="166.0" prefHeight="25.0" prefWidth="167.0" promptText="Dirección" />
+                        <TextField fx:id="tfNombre" layoutX="243.0" layoutY="100.0" prefHeight="25.0" prefWidth="167.0" promptText="Nombre" />
+                        <Line endX="-601.0" endY="283.0" layoutX="391.0" layoutY="-48.0" startX="896.0" startY="283.0" />
+                        <Button fx:id="btModificar" layoutX="445.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#onClickModificar" text="Modificar socio" />
+                        <Button fx:id="btBorrar" layoutX="445.0" layoutY="181.0" mnemonicParsing="false" onMouseClicked="#onClickBorrar" prefHeight="25.0" prefWidth="98.0" text="Borrar socio" />
+                        <Button fx:id="btBuscar" layoutX="1053.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" prefHeight="25.0" prefWidth="94.0" text="Buscar" />
+                        <Line endX="-30.0" endY="180.0" layoutX="674.0" layoutY="55.0" startX="-30.0" startY="-55.0" />
+                        <Label layoutX="725.0" layoutY="105.0" text="Busqueda Por :">
                             <font>
                                 <Font size="17.0" />
-                            </font>
-                        </Label>
-                        <Text layoutX="691.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona un socio de la tabla para eliminarlo" textAlignment="CENTER" wrappingWidth="170.0" />
+                            </font></Label>
+                        <ComboBox fx:id="cbBuscar" layoutX="856.0" layoutY="105.0" prefWidth="150.0" />
+                        <TextField fx:id="tfBuscar" layoutX="857.0" layoutY="161.0" promptText="Valor" />
+                        <Button fx:id="btVolver" layoutX="1180.0" layoutY="244.0" mnemonicParsing="false" onMouseClicked="#onClickVolver" prefHeight="25.0" prefWidth="94.0" text="Volver" />
+                        <Button fx:id="btInsertar" layoutX="445.0" layoutY="134.0" mnemonicParsing="false" onMouseClicked="#onClickInsertar" prefHeight="25.0" prefWidth="98.0" text="Insertar socio" />
+                        <Button fx:id="btQuitarFiltro" layoutX="1053.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#onClickQuitarFiltro" prefHeight="25.0" prefWidth="94.0" text="Quitar filtro" />
+                  <TextField fx:id="tfEmail" layoutX="244.0" layoutY="199.0" prefHeight="25.0" prefWidth="167.0" promptText="Email" />
                     </children>
                 </AnchorPane>
             </children>

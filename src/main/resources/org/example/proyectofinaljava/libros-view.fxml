@@ -18,11 +18,11 @@
          <children>
             <TableView fx:id="tvLibros" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClickTvLibros" prefHeight="688.0" prefWidth="1287.0" style="-fx-background-color: CadetBlue;">
               <columns>
-                <TableColumn fx:id="tcIsbn" prefWidth="183.0" text="ISBN" />
-                <TableColumn fx:id="tcTitulo" prefWidth="224.0" text="Título" />
-                  <TableColumn fx:id="tcAno" prefWidth="158.0" text="Año" />
-                  <TableColumn fx:id="tcAutor" prefWidth="325.0" text="Autor" />
-                  <TableColumn fx:id="tcGenero" prefWidth="224.0" text="Género" />
+                <TableColumn fx:id="tcIsbn" prefWidth="223.0" text="ISBN" />
+                <TableColumn fx:id="tcTitulo" prefWidth="301.0" text="Título" />
+                  <TableColumn fx:id="tcAno" prefWidth="166.0" text="Año" />
+                  <TableColumn fx:id="tcAutor" prefWidth="301.0" text="Autor" />
+                  <TableColumn fx:id="tcGenero" prefWidth="295.0" text="Género" />
               </columns>
             </TableView>
             <AnchorPane prefHeight="370.0" prefWidth="1288.0" style="-fx-background-color: LightCyan;">
@@ -38,19 +38,19 @@
                      </font>
                   </Label>
                   <Label layoutX="77.0" layoutY="68.0" text="Introduca el ISBN" />
-                  <TextField fx:id="tfIsbnModif" layoutX="244.0" layoutY="67.0" prefHeight="25.0" prefWidth="108.0" promptText="ISBN a modificar" />
+                  <TextField fx:id="tfIsbnModif" layoutX="244.0" layoutY="67.0" prefHeight="25.0" prefWidth="163.0" promptText="ISBN a modificar" />
                   <Label layoutX="77.0" layoutY="100.0" text="Autor" />
                   <Label layoutX="77.0" layoutY="169.0" text="Año de publicación" />
                   <Label layoutX="78.0" layoutY="135.0" text="Título" />
                   <Label layoutX="79.0" layoutY="201.0" text="Género" />
-                  <TextField fx:id="tfTituloModif" layoutX="244.0" layoutY="134.0" prefHeight="25.0" prefWidth="108.0" promptText="Título" />
-                  <TextField fx:id="tfAnoModif" layoutX="244.0" layoutY="168.0" prefHeight="25.0" prefWidth="108.0" promptText="Año" />
-                  <TextField fx:id="tfAutorModif" layoutX="243.0" layoutY="100.0" prefHeight="25.0" prefWidth="108.0" promptText="Autor" />
+                  <TextField fx:id="tfTituloModif" layoutX="244.0" layoutY="134.0" prefHeight="25.0" prefWidth="163.0" promptText="Título" />
+                  <TextField fx:id="tfAnoModif" layoutX="244.0" layoutY="168.0" prefHeight="25.0" prefWidth="163.0" promptText="Año" />
+                  <TextField fx:id="tfAutorModif" layoutX="243.0" layoutY="100.0" prefHeight="25.0" prefWidth="163.0" promptText="Autor" />
                   <Line endX="-601.0" endY="283.0" layoutX="391.0" layoutY="-48.0" startX="896.0" startY="283.0" />
                   <Button fx:id="btModificar" layoutX="445.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#onClickModificar" text="Modificar libro" />
                   <Button fx:id="btBorrar" layoutX="445.0" layoutY="181.0" mnemonicParsing="false" onMouseClicked="#onClickBorrar" prefHeight="25.0" prefWidth="94.0" text="Borrar libro" />
                   <Button fx:id="btBuscar" layoutX="1053.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" prefHeight="25.0" prefWidth="94.0" text="Buscar" />
-                  <ComboBox fx:id="cbGeneroModif" layoutX="245.0" layoutY="200.0" prefHeight="25.0" prefWidth="108.0" />
+                  <ComboBox fx:id="cbGeneroModif" layoutX="245.0" layoutY="200.0" prefHeight="25.0" prefWidth="163.0" />
                   <Line endX="-30.0" endY="180.0" layoutX="674.0" layoutY="55.0" startX="-30.0" startY="-55.0" />
                   <Label layoutX="725.0" layoutY="105.0" text="Busqueda Por :">
                      <font>

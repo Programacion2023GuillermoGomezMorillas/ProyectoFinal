@@ -9,9 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase LibroDAO para realizar operaciones CRUD en la base de datos para la entidad Libros.
+ */
 public class LibroDAO {
-    // Objeto de conexión a la base de datos. Recuerda el patrón singleton de DBConnection
-    private Connection connection=DBConnection.getConnection();
+    // Objeto de conexión a la base de datos utilizando el patrón singleton de DBConnection
+    private Connection connection = DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Libro
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero) VALUES (?, ?, ?, ?, ?)";
@@ -24,22 +27,23 @@ public class LibroDAO {
 
     // Clase singleton
     public static LibroDAO instance;
+
     // Constructor privado para evitar instancias directas
-    private LibroDAO() {}
+    private LibroDAO() {
+    }
+
     // Método estático para obtener la instancia única de la conexión
     public static LibroDAO getConnection() {
         if (instance == null) {
             // Bloqueo sincronizado para evitar concurrencia
             synchronized (LibroDAO.class) {
                 if (instance == null) {
-                    // Generamos la clase
                     instance = new LibroDAO();
                 }
             }
         }
         return instance;
     }
-
 
     /**
      * Método para insertar un nuevo libro en la base de datos
@@ -86,7 +90,10 @@ public class LibroDAO {
         }
         return libros;
     }
-    // Método para obtener un libro por su Genero
+
+    /**
+     * Método para obtener un libro por su Genero
+     */
     public List<Libro> getLibroByGenero(String genero) throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_GENERO_QUERY)) {
@@ -99,7 +106,10 @@ public class LibroDAO {
         }
         return libros;
     }
-    // Método para obtener un libro por su Nombre
+
+    /**
+     * Método para obtener un libro por su Nombre
+     */
     public List<Libro> getLibroByTitulo(String titulo) throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_TITULO_QUERY)) {
@@ -113,7 +123,9 @@ public class LibroDAO {
         return libros;
     }
 
-    // Método para actualizar los datos de un libro en la base de datos
+    /**
+     * Método para actualizar los datos de un libro en la base de datos
+     */
     public void updateLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setString(1, libro.getTitulo());
@@ -125,14 +137,16 @@ public class LibroDAO {
             statement.executeUpdate();
         }
     }
-    // Método para eliminar un libro de la base de datos por su DNI
+
+    /**
+     * Método para eliminar un libro de la base de datos por su ISBN
+     */
     public void deleteLibroByIsbn(String isbn) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
             statement.setString(1, isbn);
             statement.executeUpdate();
         }
     }
-
 
     // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Libro
     private Libro resulSetToLibro(ResultSet resultSet) throws SQLException {
@@ -145,21 +159,9 @@ public class LibroDAO {
         return libro;
     }
 
-
     public static void main(String[] args) throws SQLException {
         LibroDAO libro = new LibroDAO();
-        //System.out.println(libro.getAllLibros());
+        // Ejemplo de uso para probar los métodos implementados
         System.out.println(libro.getLibroByIsbn("978006"));
-        System.out.println("---------------------------------------------------------------------------------------------------------------");
-        //Libro libroNuevo = new Libro("8945156456456", "LibroNuevo", "Jose Luis", "2005", "Fantasia");
-        //libro.insertLibro(libroNuevo);
-        System.out.println("---------------------------------------------------------------------------------------------------------------");
-        //System.out.println(libro.getAllLibros());
-        //System.out.println("---------------------------------------------------------------------------------------------------------------");
-
     }
-
-
-
-
 }

@@ -19,10 +19,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
+/**
+ * Controlador para la gestión de libros en la aplicación.
+ */
 public class LibrosController implements Initializable {
     private ObservableList<Libro> listaLibros;
     private LibroDAO libroDAO;
     private GeneroDAO generoDAO;
+
     @FXML
     private Button btBorrar;
 
@@ -65,7 +69,6 @@ public class LibrosController implements Initializable {
     @FXML
     private TextField tfAnoModif;
 
-
     @FXML
     private TextField tfAutorModif;
 
@@ -77,19 +80,20 @@ public class LibrosController implements Initializable {
 
     @FXML
     private TextField tfTituloModif;
+
     @FXML
     private TableView<Libro> tvLibros;
 
     /**
-     * Metodo para cuando se haga click en la tabla
-     * En este caso rellenará ciertos campos de texto con los valores de la tabla
+     * Método que se ejecuta al hacer clic en la tabla de libros.
+     * Rellena los campos de texto con los valores del libro seleccionado en la tabla.
      *
-     * @param event
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickTvLibros(MouseEvent event) {
         Libro libro = tvLibros.getSelectionModel().getSelectedItem();
-        //si hay un libro seleccionado mostramos los datos
+        // Si hay un libro seleccionado, muestra sus datos en los campos de texto correspondientes.
         if (libro != null) {
             tfIsbnModif.setText(libro.getIsbn());
             tfTituloModif.setText(libro.getTitulo());
@@ -100,36 +104,34 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * Este metodo se ejecutará cuando se abra la ventana
+     * Método inicializador que se ejecuta al abrir la ventana.
      *
-     * @param url
-     * @param resourceBundle
+     * @param url la URL base para la inicialización.
+     * @param resourceBundle el ResourceBundle específico para el inicializador.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generoDAO = GeneroDAO.getConnection();
         libroDAO = LibroDAO.getConnection();
         actualizarTvLibros();
-        //Metemos en los combobox
+        // Actualiza los ComboBoxes
         actualizarCbBuscar();
         actualizarCbGenero();
-        //Asociamos la lista a la tabla
+        // Asocia la lista de libros a la tabla
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
-
     }
 
     /**
-     * Actualiza la tabla para que se visualicen los libros en la tabla
+     * Actualiza la tabla de libros con los datos más recientes de la base de datos.
      */
     public void actualizarTvLibros() {
         try {
             listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        //Con esto se asocia la lista a la tabla
+        // Configura las columnas de la tabla con los atributos de la clase Libro
         tcIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         tcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tcAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
@@ -140,9 +142,9 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * Método para borrar un libro
+     * Método para manejar el evento de clic en el botón "Borrar".
      *
-     * @param event
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickBorrar(MouseEvent event) {
@@ -160,34 +162,34 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * Método para buscar un libro
+     * Método para manejar el evento de clic en el botón "Buscar".
      *
-     * @param event
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickBuscar(MouseEvent event) {
-        //buscamos el libro seleccionado
-
+        // Realiza la búsqueda de libros según el criterio seleccionado
         if (tfBuscar.getText().isEmpty()) {
-            alertaDeError("Introduce una busqueda");
+            alertaDeError("Introduce un criterio de búsqueda");
         } else {
             try {
-                ObservableList<Libro> libros = FXCollections.observableArrayList(libroDAO.getAllLibros());
+                ObservableList<Libro> libros;
                 if (cbBuscar.getValue() == null) {
-                    alertaDeError("Seleccione un método de busqueda");
+                    alertaDeError("Selecciona un método de búsqueda");
+                    return;
+                } else if (cbBuscar.getValue().equals("GENERO")) {
+                    libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
+                } else if (cbBuscar.getValue().equals("ISBN")) {
+                    libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
+                } else if (cbBuscar.getValue().equals("TITULO")) {
+                    libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
                 } else {
-                    if (cbBuscar.getValue().equals("GENERO")) {
-                        libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
-                    } else if (cbBuscar.getValue().equals("ISBN")) {
-                        libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
-                    } else if (cbBuscar.getValue().equals("TITULO")) {
-                        libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
-                    }
+                    alertaDeError("Método de búsqueda no válido");
+                    return;
                 }
-                //Asociamos la lista a la tabla
+                // Actualiza la tabla con los resultados de la búsqueda
                 tvLibros.setItems(libros);
                 tvLibros.refresh();
-
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -195,59 +197,32 @@ public class LibrosController implements Initializable {
     }
 
     /**
-     * Método para insertar un libro
+     * Método para manejar el evento de clic en el botón "Insertar".
      *
-     * @param event
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickInsertar(MouseEvent event) {
-        Libro libro = null;
-
-        if (comprobarDatos()) {
-            libro = new Libro(
-                    tfIsbnModif.getText(),
-                    tfTituloModif.getText(),
-                    tfAutorModif.getText(),
-                    tfAnoModif.getText(),
-                    cbGeneroModif.getValue()
-            );
-        }
-
+        Libro libro = crearLibroDesdeFormulario();
         if (libro != null) {
-            if (listaLibros.contains(libro)) {
-                alertaDeError("Ya existe un libro con ese ISBN");
-            } else {
-                try {
-                    libroDAO.insertLibro(libro);
-                    actualizarTvLibros();
-                    limpiarDatosModif();
-                } catch (SQLException e) {
-                    System.out.println("Error al guardar: " + libro);
-                }
+            try {
+                libroDAO.insertLibro(libro);
+                actualizarTvLibros();
+                limpiarDatosModif();
+            } catch (SQLException e) {
+                System.out.println("Error al guardar: " + libro);
             }
         }
     }
 
     /**
-     * Método para modificar un libro
+     * Método para manejar el evento de clic en el botón "Modificar".
      *
-     * @param event
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickModificar(MouseEvent event) {
-        Libro libro = null;
-
-        if (comprobarDatos()) {
-            libro = new Libro(
-                    tfIsbnModif.getText(),
-                    tfTituloModif.getText(),
-                    tfAutorModif.getText(),
-                    tfAnoModif.getText(),
-                    cbGeneroModif.getValue()
-
-            );
-        }
-
+        Libro libro = crearLibroDesdeFormulario();
         if (libro != null) {
             try {
                 libroDAO.updateLibro(libro);
@@ -257,94 +232,122 @@ public class LibrosController implements Initializable {
                 System.err.println(e.getMessage());
             }
         }
-
     }
 
     /**
-     * Metodo para quitar los filtros puestos en Buscar Libro
+     * Método para manejar el evento de clic en el botón "Quitar Filtro".
      *
-     * @param event
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickQuitarFiltro(MouseEvent event) {
+        // Actualiza la tabla mostrando todos los libros sin filtro
         actualizarTvLibros();
     }
 
     /**
-     * Método para volver a la anterior ventana
+     * Método para manejar el evento de clic en el botón "Volver".
      *
-     * @param event
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickVolver(MouseEvent event) {
+        // Cierra la ventana actual y vuelve a la ventana anterior
         Stage stage = (Stage) btVolver.getScene().getWindow();
         stage.close();
     }
 
     /**
-     * Metodo para actualizar el ComboBox que se encarga de listar los generos
+     * Método auxiliar para crear un objeto Libro con los datos ingresados en el formulario.
+     *
+     * @return el objeto Libro creado o null si los datos no son válidos.
+     */
+    private Libro crearLibroDesdeFormulario() {
+        Libro libro = null;
+        if (comprobarDatos()) {
+             libro = new Libro(
+                    tfIsbnModif.getText(),
+                    tfTituloModif.getText(),
+                    tfAutorModif.getText(),
+                    tfAnoModif.getText(),
+                    cbGeneroModif.getValue()
+            );
+        }
+            return libro;
+    }
+
+    /**
+     * Actualiza el ComboBox de géneros con los valores disponibles en la base de datos.
      */
     public void actualizarCbGenero() {
         try {
             List<String> listaGeneros = generoDAO.getAllGeneros();
             for (String genero : listaGeneros) {
-                //Añadimos el valor al comboBox
                 cbGeneroModif.getItems().add(genero);
             }
-            //seleccionamos el primero
-            cbGeneroModif.setValue(listaGeneros.get(0));
+            if (!listaGeneros.isEmpty()) {
+                cbGeneroModif.setValue(listaGeneros.get(0));
+            }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
+    /**
+     * Actualiza el ComboBox de métodos de búsqueda.
+     */
     public void actualizarCbBuscar() {
-        //Añadimos el valor al comboBox
-        cbBuscar.getItems().add("GENERO");
-        cbBuscar.getItems().add("TITULO");
-        cbBuscar.getItems().add("ISBN");
+        // Añade los métodos de búsqueda al ComboBox
+        cbBuscar.getItems().addAll("GENERO", "TITULO", "ISBN");
     }
 
     /**
-     * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
+     * Verifica si los datos ingresados en el formulario son válidos.
+     *
+     * @return true si los datos son válidos, false si no lo son.
      */
     public boolean comprobarDatos() {
-        boolean bool = true;
+        boolean result = true;
         if (!tfIsbnModif.getText().matches("^[0-9]{13}$")) {
-            alertaDeError("El ISBN es incorrecto o esta vacio");
+            alertaDeError("El ISBN debe tener 13 dígitos numéricos");
             tfIsbnModif.requestFocus();
-            bool = false;
-        } else if (tfTituloModif.getText().isEmpty()) {
-            alertaDeError("El título no puede ser un campo vacio");
-            tfTituloModif.requestFocus();
-            bool = false;
-        } else if (!tfAnoModif.getText().matches("^[0-9]{1,4}$")) {
-            alertaDeError("El año no es correcto o esta vacio ");
-            tfAnoModif.requestFocus();
-            bool = false;
-        } else if (tfAutorModif.getText().isEmpty()) {
-            alertaDeError("El autor no puede ser un campo vacio");
-            tfAutorModif.requestFocus();
-            bool = false;
+            result = false;
         }
-        return bool;
+        if (tfTituloModif.getText().isEmpty()) {
+            alertaDeError("El título no puede estar vacío");
+            tfTituloModif.requestFocus();
+            result = false;
+        }
+        // Comprueba si el año no es un número válido
+        if (!tfAnoModif.getText().matches("^[0-9]{1,4}$")) {
+            alertaDeError("El año debe ser un número válido");
+            tfAnoModif.requestFocus();
+            result = false;
+        }
+        // Comprueba si el autor está vacío
+        if (tfAutorModif.getText().isEmpty()) {
+            alertaDeError("El autor no puede estar vacío");
+            tfAutorModif.requestFocus();
+            result = false;
+        }
+        return result;
     }
 
     /**
-     * @param mensaje Muestra el mensaje en forma de error
+     * Muestra una alerta de error con el mensaje especificado.
+     *
+     * @param mensaje el mensaje de error a mostrar.
      */
     private void alertaDeError(String mensaje) {
-        //creamos la alerta de tipo Error
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle("Error");
-        //Mostramos el mensaje por pantalla
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
 
     /**
-     * Metodo para limpiar los campos
+     * Limpia todos los campos de texto del formulario de modificación de libros.
      */
     public void limpiarDatosModif() {
         tfIsbnModif.setText("");
@@ -353,8 +356,4 @@ public class LibrosController implements Initializable {
         tfAutorModif.setText("");
         cbGeneroModif.setValue("");
     }
-
 }
-
-
-

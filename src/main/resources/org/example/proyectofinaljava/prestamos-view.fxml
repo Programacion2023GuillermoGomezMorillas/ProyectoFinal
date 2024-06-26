@@ -14,11 +14,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="669.0" prefWidth="1224.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.PrestamosController">
+<HBox prefHeight="872.0" prefWidth="1225.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinaljava.Controller.PrestamosController">
     <children>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1225.0">
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="872.0" prefWidth="1225.0">
             <children>
-                <TableView fx:id="tvPrestamos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClicktvPrestamos" prefHeight="447.0" prefWidth="1225.0" style="-fx-background-color: CadetBlue;">
+                <TableView fx:id="tvPrestamos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClicktvPrestamos" prefHeight="657.0" prefWidth="1225.0" style="-fx-background-color: CadetBlue;">
                     <columns>
                         <TableColumn fx:id="tcNumRef" prefWidth="132.0" text="Nº Referencia" />
                         <TableColumn fx:id="tcTitulo" prefWidth="239.0" text="Titulo" />
@@ -28,7 +28,7 @@
                   <TableColumn fx:id="tcEstado" prefWidth="256.0" text="Estado" />
                     </columns>
                 </TableView>
-                <AnchorPane prefHeight="301.0" prefWidth="1225.0" style="-fx-background-color: LightCyan;">
+                <AnchorPane prefHeight="301.0" prefWidth="1226.0" style="-fx-background-color: LightCyan;">
                     <children>
                         <Label layoutX="522.0" layoutY="18.0" text="Buscar Prestamo">
                             <font>

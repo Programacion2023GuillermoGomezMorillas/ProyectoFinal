@@ -7,8 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.example.proyectofinaljava.db.SocioDAO;
-import org.example.proyectofinaljava.model.Libro;
 import org.example.proyectofinaljava.model.Socio;
 
 import java.net.URL;
@@ -32,127 +32,65 @@ public class SociosController implements Initializable {
     private Button btModificar;
 
     @FXML
+    private Button btQuitarFiltro;
+
+    @FXML
+    private Button btVolver;
+
+    @FXML
     private ComboBox<String> cbBuscar;
 
     @FXML
-    private ComboBox<String> cbGenero;
+    private TableColumn<Socio, String> tcDireccion;
 
     @FXML
-    private ComboBox<String> cbGeneroModif;
+    private TableColumn<Socio, String> tcEmail;
 
     @FXML
-    private TableColumn<Socio, String> tcAno;
+    private TableColumn<Socio, String> tcNombre;
 
     @FXML
-    private TableColumn<Socio, String> tcAutor;
+    private TableColumn<Socio, String> tcNumero;
 
     @FXML
-    private TableColumn<Socio, String> tcGenero;
-
-    @FXML
-    private TableColumn<Socio, String> tcIsbn;
-
-    @FXML
-    private TableColumn<Socio, String> tcTitulo;
-
-    @FXML
-    private TextField tfTelefono;
-
-    @FXML
-    private TextField tfTelefonoModif;
-
-    @FXML
-    private TextField tfDireccion;
-
-    @FXML
-    private TextField tfDireccionModif;
-
-    @FXML
-    private TextField tfEmail;
-
-    @FXML
-    private TextField tfEmailModif;
+    private TableColumn<Socio, String> tcTelefono;
 
     @FXML
     private TextField tfBuscar;
 
     @FXML
-    private TextField tfNumero;
+    private TextField tfDireccion;
 
     @FXML
-    private TextField tfNumeroBor;
-
-    @FXML
-    private TextField tfNumeroModif;
+    private TextField tfEmail;
 
     @FXML
     private TextField tfNombre;
 
     @FXML
-    private TextField tfNombreModif;
-    @FXML
-    private TableView<Socio> tvLibros;
+    private TextField tfNumero;
 
     @FXML
-    void onClickTvLibros(MouseEvent event) {
-        Socio socio = tvLibros.getSelectionModel().getSelectedItem();
-        //si hay un socio seleccionado mostramos los datos
-        if (socio != null) {
-            tfNumeroModif.setText(String.valueOf(socio.getNumeroSocio()));
-            tfNombreModif.setText(socio.getNombreSocio());
-            tfTelefonoModif.setText(socio.getTelefonoSocio());
-            tfDireccionModif.setText(socio.getDireccionSocio());
-            tfEmailModif.setText(socio.getEmailSocio());
-            tfNumeroBor.setText(String.valueOf(socio.getNumeroSocio()));
-        }
-    }
+    private TextField tfTelefono;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        socioDAO = SocioDAO.getConnection();
-        actualizarTvLibros();
-        //Metemos en los combobox
-        actualizarCbBuscar();
-
-        //Asociamos la lista a la tabla
-        tvLibros.setItems(listaSocios);
-        tvLibros.refresh();
-
-    }
-
-    public void actualizarTvLibros() {
-        try {
-            listaSocios = FXCollections.observableArrayList(socioDAO.getAllSocios());
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        //Con esto se asocia la lista a la tabla
-        tcIsbn.setCellValueFactory(new PropertyValueFactory<>("numeroSocio"));
-        tcTitulo.setCellValueFactory(new PropertyValueFactory<>("nombreSocio"));
-        tcAutor.setCellValueFactory(new PropertyValueFactory<>("direccionSocio"));
-        tcAno.setCellValueFactory(new PropertyValueFactory<>("telefonoSocio"));
-        tcGenero.setCellValueFactory(new PropertyValueFactory<>("emailSocio"));
-        tvLibros.setItems(listaSocios);
-        tvLibros.refresh();
-
-    }
+    @FXML
+    private TableView<Socio> tvSocios;
 
     /**
      * @param event para borrar un libro
      */
     @FXML
     void onClickBorrar(MouseEvent event) {
-        if (tvLibros.getSelectionModel().isEmpty()) {
-            alertaDeError("Selecciona un libro que quieras eliminar");
+        if (tvSocios.getSelectionModel().isEmpty()) {
+            alertaDeError("Selecciona un socio que quieras eliminar");
         } else {
             try {
-                socioDAO.deleteLibroByNumeroSocio(tfNumeroBor.getText());
+                socioDAO.deleteSocioByNumeroSocio(tfNumero.getText());
                 tfNumero.setText("");
                 tfNombre.setText("");
                 tfTelefono.setText("");
                 tfDireccion.setText("");
-                actualizarTvLibros();
+                actualizarTvSocios();
 
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
@@ -161,7 +99,6 @@ public class SociosController implements Initializable {
         }
 
     }
-
 
     /**
      * @param event para buscar un libro
@@ -174,17 +111,17 @@ public class SociosController implements Initializable {
             alertaDeError("Introduce una busqueda");
         } else {
             try {
-                ObservableList<Socio> libros;
+                ObservableList<Socio> socios;
 
                 if (cbBuscar.getValue().equals("NUMERO")) {
-                    libros = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
+                    socios = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
                 } else {
-                    libros = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfNumero.getText()));
+                    socios = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfBuscar.getText()));
                 }
 
                 //Asociamos la lista a la tabla
-                tvLibros.setItems(libros);
-                tvLibros.refresh();
+                tvSocios.setItems(socios);
+                tvSocios.refresh();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -214,13 +151,102 @@ public class SociosController implements Initializable {
             } else {
                 try {
                     socioDAO.insertSocio(socio);
-                    actualizarTvLibros();
-                    limpiarDatosModif();
+                    actualizarTvSocios();
                 } catch (SQLException e) {
                     System.out.println("Error al guardar: " + socio);
                 }
             }
         }
+    }
+
+    /**
+     * @param event para modificar un libro
+     */
+    @FXML
+    void onClickModificar(MouseEvent event) {
+        Socio socio = null;
+
+        if (comprobarDatos()) {
+            socio = new Socio(
+                    Integer.parseInt(tfNumero.getText()),
+                    tfNombre.getText(),
+                    tfDireccion.getText(),
+                    tfTelefono.getText(),
+                    tfEmail.getText()
+            );
+        }
+
+        if (socio != null) {
+            try {
+                socioDAO.updateSocio(socio);
+                actualizarTvSocios();
+                limpiarDatosModif();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+    }
+
+    @FXML
+    void onClickQuitarFiltro(MouseEvent event) {
+    actualizarTvSocios();
+    }
+
+    @FXML
+    void onClickTvSocios(MouseEvent event) {
+        Socio socio = tvSocios.getSelectionModel().getSelectedItem();
+        //si hay un socio seleccionado mostramos los datos
+        if (socio != null) {
+            tfNumero.setText(String.valueOf(socio.getNumeroSocio()));
+            tfNombre.setText(socio.getNombreSocio());
+            tfTelefono.setText(socio.getTelefonoSocio());
+            tfDireccion.setText(socio.getDireccionSocio());
+            tfEmail.setText(socio.getEmailSocio());
+        }
+    }
+
+    /**
+     * Método para manejar el evento de clic en el botón "Volver".
+     *
+     * @param event el evento de clic del ratón.
+     */
+    @FXML
+    void onClickVolver(MouseEvent event) {
+        // Cierra la ventana actual y vuelve a la ventana anterior
+        Stage stage = (Stage) btVolver.getScene().getWindow();
+        stage.close();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        socioDAO = SocioDAO.getConnection();
+        actualizarTvSocios();
+        //Metemos en los combobox
+        actualizarCbBuscar();
+
+        //Asociamos la lista a la tabla
+        tvSocios.setItems(listaSocios);
+        tvSocios.refresh();
+
+    }
+
+    public void actualizarTvSocios() {
+        try {
+            listaSocios = FXCollections.observableArrayList(socioDAO.getAllSocios());
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        //Con esto se asocia la lista a la tabla
+        tcNumero.setCellValueFactory(new PropertyValueFactory<>("numeroSocio"));
+        tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombreSocio"));
+        tcDireccion.setCellValueFactory(new PropertyValueFactory<>("direccionSocio"));
+        tcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefonoSocio"));
+        tcEmail.setCellValueFactory(new PropertyValueFactory<>("emailSocio"));
+        tvSocios.setItems(listaSocios);
+        tvSocios.refresh();
+
     }
 
     private boolean comprobarDatosInsert() {
@@ -242,9 +268,9 @@ public class SociosController implements Initializable {
             tfDireccion.requestFocus();
             bool = false;
         }
-        else if (tfEmailModif.getText().matches("^(\\.+)@(\\S+)$")) {
+        else if (tfEmail.getText().matches("^(\\.+)@(\\S+)$")) {
             alertaDeError("El email no es correcto");
-            tfEmailModif.requestFocus();
+            tfEmail.requestFocus();
             bool = false;
         }
 
@@ -252,36 +278,6 @@ public class SociosController implements Initializable {
         return bool;
     }
 
-
-    /**
-     * @param event para modificar un libro
-     */
-    @FXML
-    void onClickModificar(MouseEvent event) {
-        Socio socio = null;
-
-        if (comprobarDatos()) {
-            socio = new Socio(
-                    Integer.parseInt(tfNumeroModif.getText()),
-                    tfNombreModif.getText(),
-                    tfDireccionModif.getText(),
-                    tfTelefonoModif.getText(),
-                    tfEmailModif.getText()
-
-            );
-        }
-
-        if (socio != null) {
-            try {
-                socioDAO.updateLibro(socio);
-                actualizarTvLibros();
-                limpiarDatosModif();
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-
-    }
 
     /**
      * Metodo para actualizar el ComboBox que se encarga de listar los generos
@@ -304,29 +300,27 @@ public class SociosController implements Initializable {
     public boolean comprobarDatos() {
         boolean bool = true;
 
-        if (!tfNumeroModif.getText().matches("^[0-9]+$")) {
+        if (!tfNumero.getText().matches("^[0-9]+$")) {
             alertaDeError("El numero es incorrecto o esta vacio");
-            tfNumeroModif.requestFocus();
+            tfNumero.requestFocus();
             bool = false;
-        } else if (tfNombreModif.getText().isEmpty()) {
+        } else if (tfNombre.getText().isEmpty()) {
             alertaDeError("El nombre no puede ser un campo vacio");
-            tfNombreModif.requestFocus();
-        } else if (!tfDireccionModif.getText().matches("^[0-9]+$")) {
+            tfNombre.requestFocus();
+        } else if (!tfTelefono.getText().matches("^[0-9]+$")) {
             alertaDeError("El Teléfono no es correcto o esta vacio ");
-            tfDireccionModif.requestFocus();
+            tfTelefono.requestFocus();
             bool = false;
-        } else if (tfTelefonoModif.getText().isEmpty()) {
+        } else if (tfDireccion.getText().isEmpty()) {
             alertaDeError("La dirección no puede estar vacia");
-            tfTelefonoModif.requestFocus();
+            tfDireccion.requestFocus();
             bool = false;
         }
-         else if (tfEmailModif.getText().matches("^(.+)@(\\S+)$")) {
+         else if (tfEmail.getText().matches("^(.+)@(\\S+)$")) {
             alertaDeError("El email no es correcto");
-            tfDireccionModif.requestFocus();
+            tfEmail.requestFocus();
             bool = false;
          }
-
-
         return bool;
     }
 
@@ -347,17 +341,10 @@ public class SociosController implements Initializable {
      * Metodo para limpiar los campos
      */
     public void limpiarDatosModif() {
-        tfNumeroModif.setText("");
-        tfNombreModif.setText("");
-        tfTelefonoModif.setText("");
-        tfDireccionModif.setText("");
         tfEmail.setText("");
-        tfEmailModif.setText("");
         tfNumero.setText("");
         tfNombre.setText("");
         tfTelefono.setText("");
         tfDireccion.setText("");
-        tfNumeroBor.setText("");
-
     }
 }
