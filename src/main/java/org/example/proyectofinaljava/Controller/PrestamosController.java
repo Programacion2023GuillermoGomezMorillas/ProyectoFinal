@@ -19,17 +19,16 @@ import javafx.scene.input.MouseEvent;
 import org.example.proyectofinaljava.model.Prestamo;
 import org.example.proyectofinaljava.model.Socio;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controlador para la gestión de préstamos en la biblioteca.
+ */
 public class PrestamosController implements Initializable {
     private ObservableList<Prestamo> listaPrestamos;
     private PrestamoDAO prestamoDAO;
@@ -41,134 +40,113 @@ public class PrestamosController implements Initializable {
 
     @FXML
     private Button BtNuevoPrest;
-
     @FXML
     private Button btDevolver;
-
     @FXML
     private Button btBuscar;
-
     @FXML
     private Button btDelete;
-
     @FXML
     private Button btNuevoLibro;
-
     @FXML
     private Button btNuevoSocio;
-
     @FXML
     private Button btRefrescar;
-
     @FXML
     private ComboBox<String> cbBuscar;
-
     @FXML
     private ComboBox<String> cbEstado;
-
     @FXML
     private DatePicker dpFechaFin;
-
     @FXML
     private DatePicker dpFechaInicio;
     @FXML
     private TableColumn<Prestamo, String> tcEstado;
-
     @FXML
     private TableColumn<Prestamo, String> tcNomSocio;
-
     @FXML
     private TableColumn<Prestamo, String> tcFechaInicio;
-
     @FXML
     private TableColumn<Prestamo, String> tcFechaFin;
-
     @FXML
     private TableColumn<Prestamo, String> tcNumRef;
-
     @FXML
     private TableColumn<Prestamo, String> tcTitulo;
-
     @FXML
     private TextField tfNumRefBor;
-
     @FXML
     private TableView<Prestamo> tvPrestamos;
 
+    /**
+     * Inicializa el controlador, configurando DAOs y actualizando la tabla de préstamos.
+     *
+     * @param url            la URL para inicializar el controlador.
+     * @param resourceBundle el ResourceBundle para inicializar el controlador.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         socioDAO = SocioDAO.getConnection();
         libroDAO = LibroDAO.getConnection();
         prestamoDAO = PrestamoDAO.getConnection();
         actualizartvPrestamos();
-        //Actualizar el comboBox del estado del prestamo
         actualizarCbEstado();
 
-        //Asociamos la lista a la tabla
         tvPrestamos.setItems(listaPrestamos);
         tvPrestamos.refresh();
-
     }
 
+    /**
+     * Maneja el evento de hacer clic en el botón de borrar préstamo.
+     *
+     * @param event el evento del clic del ratón.
+     */
     @FXML
     void OnClickDelete(MouseEvent event) {
         if (comprobarDatos()) {
             try {
                 prestamoDAO.deletePrestamoByReferencia(tfNumRefBor.getText());
                 actualizartvPrestamos();
-
             } catch (SQLException e) {
-                alertaDeError("No se ha podido borrar ese prestamo");
+                alertaDeError("No se ha podido borrar ese préstamo");
             }
         } else {
-            alertaDeError("Tiene que ser un número de referencia válido");
-
+            alertaDeError("Debe ser un número de referencia válido");
         }
     }
 
     /**
-     * Metodo para devolver un libro
+     * Maneja el evento de hacer clic en el botón de devolver un libro.
      *
-     * @param event
+     * @param event el evento del clic del ratón.
      */
     @FXML
     void onClickDevolver(MouseEvent event) {
         if (comprobarDatos()) {
             try {
                 Prestamo prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
-                prestamoDAO.updatePrestamo(prestamo);
-                actualizartvPrestamos();
-
+                if (prestamo == null) {
+                    alertaDeError("Ese número de referencia no existe");
+                } else {
+                    prestamoDAO.updatePrestamo(prestamo);
+                    actualizartvPrestamos();
+                }
             } catch (SQLException e) {
                 alertaDeError("No se ha podido devolver ese libro");
             }
         } else {
-            alertaDeError("Tiene que ser un número de referencia válido");
-
+            alertaDeError("Debe ser un número de referencia válido");
         }
-
     }
 
-
     /**
-     * @param event Buscar un prestamo por estado
+     * Maneja el evento de buscar un préstamo por estado.
+     *
+     * @param event el evento del clic del ratón.
      */
     @FXML
     void onClickBuscar(MouseEvent event) {
-        //buscamos el prestamo si esta devuelto o pendiente
         try {
-            ObservableList<Prestamo> prestamos;
-/*
-            if (cbBuscar.getValue().equals("DEVUELTO")) {
-                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado(cbBuscar.getValue()));
-            } else if (cbBuscar.getValue().equals("PENDIENTE")) {
-                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado(cbBuscar.getValue()));
-            } else{
-
-        }
- */
-                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado(String.valueOf(cbBuscar.getValue())));
-            //Asociamos la lista a la tabla
+            ObservableList<Prestamo> prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado(String.valueOf(cbBuscar.getValue())));
             tvPrestamos.setItems(prestamos);
             tvPrestamos.refresh();
         } catch (SQLException e) {
@@ -177,24 +155,20 @@ public class PrestamosController implements Initializable {
     }
 
     /**
-     * Este metodo abre primero la ventana de libros para elegir alguno de los que hay en la tabla, seguidamente,
-     * cuando se hace doble click a algun libro se cierra y se abre la ventana de socios para escoger el socio al que se le va a hacer el prestamo.
+     * Maneja el evento de crear un nuevo préstamo.
      *
-     * @param event
+     * @param event el evento del clic del ratón.
      */
     @FXML
     void onClickNuevoPrest(MouseEvent event) {
         if (dpFechaInicio.getValue() == null || dpFechaFin.getValue() == null) {
-            alertaDeError("Debe elegir la fecha de inicio y fin del prestamo");
+            alertaDeError("Debe elegir la fecha de inicio y fin del préstamo");
         } else {
-
             try {
-                //Cargamos la ventana de la gestion de los Prestamos
                 FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamoSeleccionarLibro-view.fxml"));
                 Parent root = loader.load();
 
                 NuevoPrestamoSeleccionarLibroController nuevoPrestamoSeleccionarLibroController = loader.getController();
-
                 nuevoPrestamoSeleccionarLibroController.setOnGetLibro(libro -> {
                     Libro libroPrest = new Libro(libro.getIsbn(), libro.getTitulo(), libro.getAnio(), libro.getAutor(), libro.getGenero());
                     this.libroPrest = libroPrest;
@@ -206,18 +180,15 @@ public class PrestamosController implements Initializable {
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.showAndWait();
-
-
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
+
             try {
-                //Cargamos la ventana de la gestion de los Prestamos
                 FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamoSeleccionarSocio-view.fxml"));
                 Parent root = loader.load();
 
                 NuevoPrestamoSeleccionarSocioController nuevoPrestamoSeleccionarSocioController = loader.getController();
-
                 nuevoPrestamoSeleccionarSocioController.setOnGetSocio(socio -> {
                     Socio socioPrest = new Socio(socio.getNumeroSocio(), socio.getNombreSocio(), socio.getDireccionSocio(), socio.getTelefonoSocio(), socio.getEmailSocio());
                     this.socioPrest = socioPrest;
@@ -229,11 +200,10 @@ public class PrestamosController implements Initializable {
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.showAndWait();
-
-
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
+
             if (libroPrest != null && socioPrest != null) {
                 try {
                     cont = prestamoDAO.getNumeroReserva() + 1;
@@ -246,29 +216,26 @@ public class PrestamosController implements Initializable {
                             socioPrest.getNombreSocio());
 
                     if (listaPrestamos.contains(prestamo)) {
-                        alertaDeError("Ya existe un prestamo con ese Libro y ese Socio");
+                        alertaDeError("Ya existe un préstamo con ese libro y ese socio");
                     } else {
                         try {
                             prestamoDAO.insertPrestamo(prestamo);
                             actualizartvPrestamos();
                         } catch (SQLException e) {
-                            alertaDeError("No se ha podido hacer el prestamo");
+                            alertaDeError("No se ha podido hacer el préstamo");
                         }
                     }
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
-
-
             }
         }
-
     }
 
     /**
-     * Metodo para refresar la tabla
+     * Maneja el evento de refrescar la tabla de préstamos.
      *
-     * @param event
+     * @param event el evento del clic del ratón.
      */
     @FXML
     void onClickRefrescar(MouseEvent event) {
@@ -276,9 +243,10 @@ public class PrestamosController implements Initializable {
     }
 
     /**
-     * Metodo para cuando se haga click en la tabla aparezca el Numero de Referencia en un campo de texto para poder devolverlo sin tener que escribir el número
+     * Maneja el evento de seleccionar un préstamo en la tabla,
+     * llenando el campo de texto con el número de referencia del préstamo seleccionado.
      *
-     * @param event
+     * @param event el evento del clic del ratón.
      */
     @FXML
     void onClicktvPrestamos(MouseEvent event) {
@@ -288,10 +256,14 @@ public class PrestamosController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de abrir la ventana para añadir un nuevo libro.
+     *
+     * @param event el evento del clic del ratón.
+     */
     @FXML
     void onClickNuevoLibro(MouseEvent event) {
         try {
-            //Cargamos la ventana de la gestion de los Prestamos
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("libros-view.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -300,17 +272,19 @@ public class PrestamosController implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.showAndWait();
-
-
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
+    /**
+     * Maneja el evento de abrir la ventana para añadir un nuevo socio.
+     *
+     * @param event el evento del clic del ratón.
+     */
     @FXML
     void onClickNuevoSocio(MouseEvent event) {
         try {
-            //Cargamos la ventana de la gestion de los Prestamos
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("socios-view.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -319,27 +293,21 @@ public class PrestamosController implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.showAndWait();
-
-
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-
     /**
-     * Actualiza la tabla de prestamos por si se añade o se quita alguno
+     * Actualiza la tabla de préstamos, obteniendo los datos más recientes desde la base de datos.
      */
     public void actualizartvPrestamos() {
-
         try {
             listaPrestamos = FXCollections.observableArrayList(prestamoDAO.getAllPrestamos());
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
 
-        //Con esto se asocia la lista a la tabla
         tcNumRef.setCellValueFactory(new PropertyValueFactory<>("numReserva"));
         tcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tcNomSocio.setCellValueFactory(new PropertyValueFactory<>("nombreSocio"));
@@ -348,17 +316,14 @@ public class PrestamosController implements Initializable {
         tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tvPrestamos.setItems(listaPrestamos);
         tvPrestamos.refresh();
-
-
     }
 
     /**
-     * Actualiza el comboBox de estado
+     * Actualiza el ComboBox de estado con valores predefinidos.
      */
     public void actualizarCbEstado() {
         try {
             List<Prestamo> listaPrestamo = prestamoDAO.getAllPrestamos();
-            //Añadimos el valor al comboBox
             cbBuscar.getItems().add("DEVUELTO");
             cbBuscar.getItems().add("PENDIENTE");
             cbBuscar.getItems().add("VENCIDO");
@@ -368,7 +333,9 @@ public class PrestamosController implements Initializable {
     }
 
     /**
-     * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
+     * Verifica si los datos introducidos son válidos.
+     *
+     * @return true si los datos son válidos, false en caso contrario.
      */
     public boolean comprobarDatos() {
         boolean bool = true;
@@ -379,25 +346,16 @@ public class PrestamosController implements Initializable {
         return bool;
     }
 
-
     /**
-     * @param mensaje Muestra el mensaje en forma de error
+     * Muestra una alerta de error con un mensaje especificado.
+     *
+     * @param mensaje el mensaje de error a mostrar.
      */
     private void alertaDeError(String mensaje) {
-        //creamos la alerta de tipo Error
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle("Error");
-        //Mostramos el mensaje por pantalla
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
 }
-
-
-
-
-
-
-

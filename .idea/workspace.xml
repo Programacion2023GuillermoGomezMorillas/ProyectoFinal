@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Añadir Libro casi completo">
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Añadir Libro completo con comprobantes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/PrestamoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Libro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Libro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Prestamo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/model/Prestamo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -415,7 +413,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719342262556</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Añadir Libro completo con comprobantes">
+      <option name="closed" value="true" />
+      <created>1719410068614</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1719410068614</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -442,7 +448,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Conexion base de datos" />
     <MESSAGE value="Conexion base de datos completada" />
     <MESSAGE value="Pruebas" />
     <MESSAGE value="LibroDAO" />
@@ -467,7 +472,8 @@
     <MESSAGE value="Fallo al guardar el prestamo" />
     <MESSAGE value="Completa la funcion prestar un libro a un socio" />
     <MESSAGE value="Añadir Libro casi completo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Añadir Libro casi completo" />
+    <MESSAGE value="Añadir Libro completo con comprobantes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Añadir Libro completo con comprobantes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -476,15 +482,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/DBConnection.java</url>
           <line>7</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java</url>
-          <line>202</line>
-          <properties class="org.example.proyectofinaljava.Controller.LibrosController" method="onClickInsertar">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

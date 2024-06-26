@@ -299,15 +299,10 @@ public class LibrosController implements Initializable {
     }
 
     public void actualizarCbBuscar() {
-        try {
-            List<String> listaGeneros = generoDAO.getAllGeneros();
-            //Añadimos el valor al comboBox
-            cbBuscar.getItems().add("GENERO");
-            cbBuscar.getItems().add("TITULO");
-            cbBuscar.getItems().add("ISBN");
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
+        //Añadimos el valor al comboBox
+        cbBuscar.getItems().add("GENERO");
+        cbBuscar.getItems().add("TITULO");
+        cbBuscar.getItems().add("ISBN");
     }
 
     /**
@@ -319,8 +314,7 @@ public class LibrosController implements Initializable {
             alertaDeError("El ISBN es incorrecto o esta vacio");
             tfIsbnModif.requestFocus();
             bool = false;
-        }
-        else if (tfTituloModif.getText().isEmpty()) {
+        } else if (tfTituloModif.getText().isEmpty()) {
             alertaDeError("El título no puede ser un campo vacio");
             tfTituloModif.requestFocus();
             bool = false;

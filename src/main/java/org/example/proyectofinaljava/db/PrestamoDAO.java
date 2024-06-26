@@ -1,35 +1,43 @@
 package org.example.proyectofinaljava.db;
 
 import org.example.proyectofinaljava.model.Prestamo;
-import org.example.proyectofinaljava.model.Socio;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase PrestamoDAO para realizar operaciones CRUD en la base de datos para la entidad Prestamo.
+ */
 public class PrestamoDAO {
-    private Connection connection=DBConnection.getConnection();
+    private Connection connection = DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Prestamo
     private static final String INSERT_QUERY = "INSERT INTO Prestamo (numReserva, fechaInicio, fechaFin, estado, tituloLibro, socio) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Prestamo";
-    private static final String SELECT_BY_FECHAINICIO_QUERY = "SELECT * FROM Prestamo WHERE fechaInicio > ? ";
+    private static final String SELECT_BY_FECHAINICIO_QUERY = "SELECT * FROM Prestamo WHERE fechaInicio > ?";
     private static final String SELECT_BY_ESTADO_QUERY = "SELECT * FROM Prestamo WHERE estado = ?";
-    private static final String UPDATE_QUERY = "UPDATE Prestamo SET fechaInicio = ?, fechaFin = ?, estado = ?, tituloLibro = ?, socio = ?  WHERE numReserva = ?";
+    private static final String UPDATE_QUERY = "UPDATE Prestamo SET fechaInicio = ?, fechaFin = ?, estado = ?, tituloLibro = ?, socio = ? WHERE numReserva = ?";
     private static final String DELETE_QUERY = "DELETE FROM Prestamo WHERE numReserva = ?";
     private static final String SELECT_MAX_NUMREF = "SELECT max(numReserva) from Prestamo";
+    private static final String UPDATE_FECHAFIN = "UPDATE Prestamo SET estado = 'Vencido' WHERE fechaFin < curdate()";
 
     // Clase singleton
     public static PrestamoDAO instance;
+
     // Constructor privado para evitar instancias directas
-    private PrestamoDAO() {}
-    // Método estático para obtener la instancia única de la conexión
+    private PrestamoDAO() {
+    }
+
+    /**
+     * Obtiene la instancia única de PrestamoDAO.
+     *
+     * @return la instancia única de PrestamoDAO.
+     */
     public static PrestamoDAO getConnection() {
         if (instance == null) {
-            // Bloqueo sincronizado para evitar concurrencia
             synchronized (PrestamoDAO.class) {
                 if (instance == null) {
-                    // Generamos la clase
                     instance = new PrestamoDAO();
                 }
             }
@@ -37,7 +45,12 @@ public class PrestamoDAO {
         return instance;
     }
 
-    // Método para insertar un nuevo prestamo en la base de datos
+    /**
+     * Inserta un nuevo prestamo en la base de datos.
+     *
+     * @param prestamo el objeto Prestamo a insertar.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
     public void insertPrestamo(Prestamo prestamo) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
             statement.setLong(1, prestamo.getNumReserva());
@@ -51,7 +64,12 @@ public class PrestamoDAO {
         }
     }
 
-    // Método para obtener todos los prestamos de la base de datos
+    /**
+     * Obtiene todos los prestamos de la base de datos.
+     *
+     * @return una lista de todos los prestamos.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
     public List<Prestamo> getAllPrestamos() throws SQLException {
         List<Prestamo> prestamos = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
@@ -59,25 +77,37 @@ public class PrestamoDAO {
 
             while (resultSet.next()) {
                 Prestamo prestamo = resulSetToPrestamo(resultSet);
+                comprobarFechaFin(prestamo);
                 prestamos.add(prestamo);
             }
         }
         return prestamos;
     }
 
+    /**
+     * Obtiene el número máximo de reserva de la base de datos.
+     *
+     * @return el número máximo de reserva.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
     public long getNumeroReserva() throws SQLException {
         long numRef = 0;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_MAX_NUMREF)) {
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()){
-             numRef = resultSet.getLong(1);
+            if (resultSet.next()) {
+                numRef = resultSet.getLong(1);
             }
         }
         return numRef;
     }
 
-
-    // Método para obtener un prestamo por su Estado
+    /**
+     * Obtiene una lista de prestamos por su estado.
+     *
+     * @param estado el estado de los prestamos a obtener.
+     * @return una lista de prestamos con el estado especificado.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
     public List<Prestamo> getLibroByEstado(String estado) throws SQLException {
         List<Prestamo> prestamos = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ESTADO_QUERY)) {
@@ -91,7 +121,12 @@ public class PrestamoDAO {
         return prestamos;
     }
 
-    // Método para actualizar los datos de un prestamo en la base de datos
+    /**
+     * Actualiza los datos de un prestamo en la base de datos.
+     *
+     * @param prestamo el objeto Prestamo con los datos actualizados.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
     public void updatePrestamo(Prestamo prestamo) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setDate(1, prestamo.getFechaInicio());
@@ -104,7 +139,13 @@ public class PrestamoDAO {
             statement.executeUpdate();
         }
     }
-    // Método para eliminar un prestamo de la base de datos por su DNI
+
+    /**
+     * Elimina un prestamo de la base de datos por su número de referencia.
+     *
+     * @param numReferencia el número de referencia del prestamo a eliminar.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
     public void deletePrestamoByReferencia(String numReferencia) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
             statement.setString(1, numReferencia);
@@ -112,7 +153,13 @@ public class PrestamoDAO {
         }
     }
 
-    // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Prestamo
+    /**
+     * Convierte un ResultSet en la posición actual a un objeto Prestamo.
+     *
+     * @param resultSet el ResultSet a convertir.
+     * @return el objeto Prestamo correspondiente al ResultSet.
+     * @throws SQLException si ocurre un error al acceder al ResultSet.
+     */
     private Prestamo resulSetToPrestamo(ResultSet resultSet) throws SQLException {
         Prestamo prestamo = new Prestamo(
                 resultSet.getLong("numReserva"),
@@ -121,21 +168,19 @@ public class PrestamoDAO {
                 resultSet.getString("estado"),
                 resultSet.getString("tituloLibro"),
                 resultSet.getString("socio"));
+
         return prestamo;
     }
 
-    public static void main(String[] args) throws SQLException {
-        PrestamoDAO prestamo = new PrestamoDAO();
-        System.out.println(prestamo.getNumeroReserva());
-        System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("---------------------------------------------------------------------------------------------------------------");
-        //System.out.println(prestamo.getLibroByEstado("Devuelto"));
-        //Libro libroNuevo = new Libro("8945156456456", "LibroNuevo", "Jose Luis", "2005", "Fantasia");
-        //libro.insertLibro(libroNuevo);
-        //System.out.println(prestamo.getPrestamoByFechaInicio("Misterio"));
-        System.out.println("---------------------------------------------------------------------------------------------------------------");
-        //System.out.println(libro.getAllLibros());
-        //System.out.println("---------------------------------------------------------------------------------------------------------------");
-
+    /**
+     * Comprueba si la fecha de fin de un prestamo ha pasado y actualiza su estado a 'Vencido' si es necesario.
+     *
+     * @param prestamo el objeto Prestamo a comprobar.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
+    private void comprobarFechaFin(Prestamo prestamo) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_FECHAFIN)) {
+            statement.executeUpdate();
+        }
     }
 }
