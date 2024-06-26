@@ -88,6 +88,11 @@ public class PrestamosController implements Initializable {
         socioDAO = SocioDAO.getConnection();
         libroDAO = LibroDAO.getConnection();
         prestamoDAO = PrestamoDAO.getConnection();
+        try {
+            libroDAO.updateLibroEstado();
+        } catch (SQLException e) {
+            System.err.println("Error al cargar los libros");
+        }
         actualizartvPrestamos();
         actualizarCbEstado();
 
@@ -170,7 +175,7 @@ public class PrestamosController implements Initializable {
 
                 NuevoPrestamoSeleccionarLibroController nuevoPrestamoSeleccionarLibroController = loader.getController();
                 nuevoPrestamoSeleccionarLibroController.setOnGetLibro(libro -> {
-                    Libro libroPrest = new Libro(libro.getIsbn(), libro.getTitulo(), libro.getAnio(), libro.getAutor(), libro.getGenero());
+                    Libro libroPrest = new Libro(libro.getIsbn(), libro.getTitulo(), libro.getAnio(), libro.getAutor(), libro.getGenero(), "Prestado");
                     this.libroPrest = libroPrest;
                 });
 
@@ -207,13 +212,7 @@ public class PrestamosController implements Initializable {
             if (libroPrest != null && socioPrest != null) {
                 try {
                     cont = prestamoDAO.getNumeroReserva() + 1;
-                    Prestamo prestamo = new Prestamo(
-                            cont,
-                            Date.valueOf(String.valueOf(dpFechaInicio.getValue())),
-                            Date.valueOf(String.valueOf(dpFechaFin.getValue())),
-                            "Pendiente",
-                            libroPrest.getTitulo(),
-                            socioPrest.getNombreSocio());
+                    Prestamo prestamo = new Prestamo(cont, Date.valueOf(String.valueOf(dpFechaInicio.getValue())), Date.valueOf(String.valueOf(dpFechaFin.getValue())), "Pendiente", libroPrest.getTitulo(), socioPrest.getNombreSocio());
 
                     if (listaPrestamos.contains(prestamo)) {
                         alertaDeError("Ya existe un préstamo con ese libro y ese socio");
@@ -304,6 +303,7 @@ public class PrestamosController implements Initializable {
     public void actualizartvPrestamos() {
         try {
             listaPrestamos = FXCollections.observableArrayList(prestamoDAO.getAllPrestamos());
+            libroDAO.updateLibroEstado();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }

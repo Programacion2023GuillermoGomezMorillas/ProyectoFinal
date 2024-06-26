@@ -52,6 +52,9 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
     private TableColumn<Libro, String> tcAutor;
 
     @FXML
+    private TableColumn<Libro, String> tcEstado;
+
+    @FXML
     private TableColumn<Libro, String> tcGenero;
 
     @FXML
@@ -179,6 +182,7 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         tcAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
         tcAno.setCellValueFactory(new PropertyValueFactory<>("anio"));
         tcGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+        tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
 

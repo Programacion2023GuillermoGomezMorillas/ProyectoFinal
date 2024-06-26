@@ -253,6 +253,7 @@ public class SeleccionarLibroController implements Initializable {
                     tfTituloModif.getText(),
                     tfAutorModif.getText(),
                     tfAnoModif.getText(),
+                    cbGeneroModif.getValue(),
                     cbGeneroModif.getValue()
             );
         //cerramos la ventana

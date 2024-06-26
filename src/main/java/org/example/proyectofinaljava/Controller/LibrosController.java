@@ -58,6 +58,9 @@ public class LibrosController implements Initializable {
     private TableColumn<Libro, String> tcAutor;
 
     @FXML
+    private TableColumn<Libro, String> tcEstado;
+
+    @FXML
     private TableColumn<Libro, String> tcGenero;
 
     @FXML
@@ -106,7 +109,7 @@ public class LibrosController implements Initializable {
     /**
      * Método inicializador que se ejecuta al abrir la ventana.
      *
-     * @param url la URL base para la inicialización.
+     * @param url            la URL base para la inicialización.
      * @param resourceBundle el ResourceBundle específico para el inicializador.
      */
     @Override
@@ -137,6 +140,7 @@ public class LibrosController implements Initializable {
         tcAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
         tcAno.setCellValueFactory(new PropertyValueFactory<>("anio"));
         tcGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+        tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
     }
@@ -204,13 +208,18 @@ public class LibrosController implements Initializable {
     @FXML
     void onClickInsertar(MouseEvent event) {
         Libro libro = crearLibroDesdeFormulario();
+
         if (libro != null) {
-            try {
-                libroDAO.insertLibro(libro);
-                actualizarTvLibros();
-                limpiarDatosModif();
-            } catch (SQLException e) {
-                System.out.println("Error al guardar: " + libro);
+            if (listaLibros.contains(libro)) {
+                alertaDeError("Ya existe un libro con ese ISBN");
+            } else {
+                try {
+                    libroDAO.insertLibro(libro);
+                    actualizarTvLibros();
+                    limpiarDatosModif();
+                } catch (SQLException e) {
+                    alertaDeError("Error al guardar: " + libro.getTitulo());
+                }
             }
         }
     }
@@ -229,7 +238,7 @@ public class LibrosController implements Initializable {
                 actualizarTvLibros();
                 limpiarDatosModif();
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("No se puede modificar un libro prestado");
             }
         }
     }
@@ -265,15 +274,16 @@ public class LibrosController implements Initializable {
     private Libro crearLibroDesdeFormulario() {
         Libro libro = null;
         if (comprobarDatos()) {
-             libro = new Libro(
+            libro = new Libro(
                     tfIsbnModif.getText(),
                     tfTituloModif.getText(),
                     tfAutorModif.getText(),
                     tfAnoModif.getText(),
-                    cbGeneroModif.getValue()
+                    cbGeneroModif.getValue(),
+                    "Disponible"
             );
         }
-            return libro;
+        return libro;
     }
 
     /**

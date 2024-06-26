@@ -8,14 +8,16 @@ public class Libro {
     private String anio;
     private String genero;
     private String autor;
+    private String estado;
 
 
-    public Libro(String isbn, String titulo, String autor, String anio, String genero) {
+    public Libro(String isbn, String titulo, String autor, String anio, String genero, String estado) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.anio = anio;
         this.genero = genero;
+        this.estado = estado;
     }
 
     //**********************Getters y Setter**********************
@@ -60,14 +62,23 @@ public class Libro {
         this.autor = autor;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return  "\nLibro{" +
-                "ISBN='" + isbn + '\'' +
+        return "Libro{" +
+                "isbn='" + isbn + '\'' +
                 ", titulo='" + titulo + '\'' +
-                ", autor=" + autor +
-                ", anio=" + anio +
+                ", anio='" + anio + '\'' +
                 ", genero='" + genero + '\'' +
+                ", autor='" + autor + '\'' +
+                ", estado='" + estado + '\'' +
                 '}';
     }
 

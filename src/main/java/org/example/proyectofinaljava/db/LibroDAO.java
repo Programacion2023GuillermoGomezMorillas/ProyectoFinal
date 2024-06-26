@@ -17,13 +17,15 @@ public class LibroDAO {
     private Connection connection = DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Libro
-    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero, estado) VALUES (?, ?, ?, ?, ?, ))";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN RLIKE ?";
     private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE genero RLIKE ?";
     private static final String SELECT_BY_TITULO_QUERY = "SELECT * FROM Libro WHERE titulo RLIKE ?";
     private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, autor = ?, anio = ?, genero = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
+    private static final String UPDATE_PRESTADO = "update Libro set estado = 'Prestado' where titulo in (select tituloLibro from Prestamo);";
+
 
     // Clase singleton
     public static LibroDAO instance;
@@ -55,6 +57,7 @@ public class LibroDAO {
             statement.setString(3, libro.getAutor());
             statement.setString(4, libro.getAnio());
             statement.setString(5, libro.getGenero());
+            statement.setString(6, "No Prestado");
 
             statement.executeUpdate();
         }
@@ -138,6 +141,12 @@ public class LibroDAO {
         }
     }
 
+    public void updateLibroEstado() throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_PRESTADO)) {
+            statement.executeUpdate();
+        }
+    }
+
     /**
      * Método para eliminar un libro de la base de datos por su ISBN
      */
@@ -155,7 +164,8 @@ public class LibroDAO {
                 resultSet.getString("titulo"),
                 resultSet.getString("autor"),
                 resultSet.getString("anio"),
-                resultSet.getString("genero"));
+                resultSet.getString("genero"),
+                resultSet.getString("estado"));
         return libro;
     }
 

@@ -21,8 +21,9 @@
                 <TableColumn fx:id="tcIsbn" prefWidth="223.0" text="ISBN" />
                 <TableColumn fx:id="tcTitulo" prefWidth="301.0" text="Título" />
                   <TableColumn fx:id="tcAno" prefWidth="166.0" text="Año" />
-                  <TableColumn fx:id="tcAutor" prefWidth="301.0" text="Autor" />
-                  <TableColumn fx:id="tcGenero" prefWidth="295.0" text="Género" />
+                  <TableColumn fx:id="tcAutor" prefWidth="276.0" text="Autor" />
+                  <TableColumn fx:id="tcGenero" prefWidth="176.0" text="Género" />
+                  <TableColumn fx:id="tcEstado" prefWidth="144.0" text="Estado" />
               </columns>
             </TableView>
             <AnchorPane prefHeight="370.0" prefWidth="1288.0" style="-fx-background-color: LightCyan;">

@@ -19,10 +19,11 @@
                 <TableView fx:id="tvLibros" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClickTvLibros" prefHeight="695.0" prefWidth="1105.0" style="-fx-background-color: CadetBlue;">
                     <columns>
                         <TableColumn fx:id="tcIsbn" prefWidth="206.0" text="ISBN" />
-                        <TableColumn fx:id="tcTitulo" prefWidth="265.0" text="Título" />
-                        <TableColumn fx:id="tcAutor" prefWidth="210.0" text="Autor" />
-                        <TableColumn fx:id="tcAno" prefWidth="176.0" text="Año" />
-                        <TableColumn fx:id="tcGenero" prefWidth="247.0" text="Género" />
+                        <TableColumn fx:id="tcTitulo" prefWidth="242.0" text="Título" />
+                        <TableColumn fx:id="tcAutor" prefWidth="221.0" text="Autor" />
+                        <TableColumn fx:id="tcAno" prefWidth="148.0" text="Año" />
+                        <TableColumn fx:id="tcGenero" prefWidth="158.0" text="Género" />
+                  <TableColumn fx:id="tcEstado" prefWidth="129.0" text="Estado" />
                     </columns>
                 </TableView>
                 <AnchorPane prefHeight="320.0" prefWidth="1105.0" style="-fx-background-color: LightCyan;">
