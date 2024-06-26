@@ -40,7 +40,10 @@ public class LibroDAO {
         return instance;
     }
 
-    // Método para insertar un nuevo libro en la base de datos
+
+    /**
+     * Método para insertar un nuevo libro en la base de datos
+     */
     public void insertLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
             statement.setString(1, libro.getIsbn());
@@ -53,7 +56,9 @@ public class LibroDAO {
         }
     }
 
-    // Método para obtener todos los libros de la base de datos
+    /**
+     * Método para obtener todos los libros de la base de datos
+     */
     public List<Libro> getAllLibros() throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
@@ -66,7 +71,9 @@ public class LibroDAO {
         return libros;
     }
 
-    // Método para obtener un libro por su ISBN
+    /**
+     * Método para obtener un libro por su ISBN
+     */
     public List<Libro> getLibroByIsbn(String isbn) throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
@@ -142,7 +149,7 @@ public class LibroDAO {
     public static void main(String[] args) throws SQLException {
         LibroDAO libro = new LibroDAO();
         //System.out.println(libro.getAllLibros());
-        System.out.println(libro.getAllLibros());
+        System.out.println(libro.getLibroByIsbn("978006"));
         System.out.println("---------------------------------------------------------------------------------------------------------------");
         //Libro libroNuevo = new Libro("8945156456456", "LibroNuevo", "Jose Luis", "2005", "Fantasia");
         //libro.insertLibro(libroNuevo);

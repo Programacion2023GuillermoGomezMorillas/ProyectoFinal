@@ -1,5 +1,7 @@
 package org.example.proyectofinaljava.model;
 
+import java.util.Objects;
+
 public class Libro {
     private String isbn;
     private String titulo;
@@ -69,5 +71,16 @@ public class Libro {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Libro libro = (Libro) o;
+        return Objects.equals(isbn, libro.isbn);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn);
+    }
 }

@@ -1,6 +1,7 @@
 package org.example.proyectofinaljava.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Prestamo {
     private long numReserva;
@@ -11,10 +12,10 @@ public class Prestamo {
     private String nombreSocio;
 
     public Prestamo(long numReserva, Date fechaInicio, Date fechaFin, String estado, String titulo, String nombreSocio) {
-        this.numReserva=numReserva;
+        this.numReserva = numReserva;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.estado = estado;
+        setEstado(estado);
         this.titulo = titulo;
         this.nombreSocio = nombreSocio;
     }
@@ -52,7 +53,12 @@ public class Prestamo {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        if (LocalDate.now().isAfter(fechaFin.toLocalDate())) {
+            this.estado = "Vencido";
+        }
+        else {
+            this.estado = estado;
+        }
     }
 
     public String getTitulo() {
@@ -78,4 +84,5 @@ public class Prestamo {
                 ", socio=" + nombreSocio +
                 '}';
     }
+
 }

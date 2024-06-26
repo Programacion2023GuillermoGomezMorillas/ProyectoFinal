@@ -137,7 +137,6 @@ public class LibrosController implements Initializable {
         tcGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
-
     }
 
     /**
@@ -154,15 +153,11 @@ public class LibrosController implements Initializable {
                 libroDAO.deleteLibroByIsbn(tfIsbnModif.getText());
                 limpiarDatosModif();
                 actualizarTvLibros();
-
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
-
         }
-
     }
-
 
     /**
      * Método para buscar un libro
@@ -175,8 +170,7 @@ public class LibrosController implements Initializable {
 
         if (tfBuscar.getText().isEmpty()) {
             alertaDeError("Introduce una busqueda");
-        }
-        else {
+        } else {
             try {
                 ObservableList<Libro> libros = FXCollections.observableArrayList(libroDAO.getAllLibros());
                 if (cbBuscar.getValue() == null) {
@@ -268,6 +262,7 @@ public class LibrosController implements Initializable {
 
     /**
      * Metodo para quitar los filtros puestos en Buscar Libro
+     *
      * @param event
      */
     @FXML
@@ -309,7 +304,7 @@ public class LibrosController implements Initializable {
             //Añadimos el valor al comboBox
             cbBuscar.getItems().add("GENERO");
             cbBuscar.getItems().add("TITULO");
-            cbBuscar.getItems().add("IBSN");
+            cbBuscar.getItems().add("ISBN");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -320,14 +315,15 @@ public class LibrosController implements Initializable {
      */
     public boolean comprobarDatos() {
         boolean bool = true;
-
-        if (!tfIsbnModif.getText().matches("^[0-9]{10,13}$")) {
+        if (!tfIsbnModif.getText().matches("^[0-9]{13}$")) {
             alertaDeError("El ISBN es incorrecto o esta vacio");
             tfIsbnModif.requestFocus();
             bool = false;
-        } else if (tfTituloModif.getText().isEmpty()) {
-            alertaDeError("El título no peude ser un campo vacio");
+        }
+        else if (tfTituloModif.getText().isEmpty()) {
+            alertaDeError("El título no puede ser un campo vacio");
             tfTituloModif.requestFocus();
+            bool = false;
         } else if (!tfAnoModif.getText().matches("^[0-9]{1,4}$")) {
             alertaDeError("El año no es correcto o esta vacio ");
             tfAnoModif.requestFocus();
@@ -363,7 +359,6 @@ public class LibrosController implements Initializable {
         tfAutorModif.setText("");
         cbGeneroModif.setValue("");
     }
-
 
 }
 

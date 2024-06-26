@@ -56,6 +56,7 @@ public class PrestamoDAO {
         List<Prestamo> prestamos = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
                 Prestamo prestamo = resulSetToPrestamo(resultSet);
                 prestamos.add(prestamo);

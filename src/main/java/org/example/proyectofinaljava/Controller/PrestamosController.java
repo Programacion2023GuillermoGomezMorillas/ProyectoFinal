@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -157,12 +158,16 @@ public class PrestamosController implements Initializable {
         //buscamos el prestamo si esta devuelto o pendiente
         try {
             ObservableList<Prestamo> prestamos;
-
+/*
             if (cbBuscar.getValue().equals("DEVUELTO")) {
-                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado((String) cbBuscar.getValue()));
-            } else
-                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado((String) cbBuscar.getValue()));
+                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado(cbBuscar.getValue()));
+            } else if (cbBuscar.getValue().equals("PENDIENTE")) {
+                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado(cbBuscar.getValue()));
+            } else{
 
+        }
+ */
+                prestamos = FXCollections.observableArrayList(prestamoDAO.getLibroByEstado(String.valueOf(cbBuscar.getValue())));
             //Asociamos la lista a la tabla
             tvPrestamos.setItems(prestamos);
             tvPrestamos.refresh();
@@ -333,6 +338,7 @@ public class PrestamosController implements Initializable {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+
         //Con esto se asocia la lista a la tabla
         tcNumRef.setCellValueFactory(new PropertyValueFactory<>("numReserva"));
         tcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
@@ -387,9 +393,6 @@ public class PrestamosController implements Initializable {
         alert.showAndWait();
     }
 
-    public static void main(String[] args) {
-
-    }
 }
 
 
