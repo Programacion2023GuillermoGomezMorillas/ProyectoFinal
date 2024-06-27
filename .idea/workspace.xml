@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Comentarios en todo el programa">
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Retoques">
+      <change afterPath="$PROJECT_DIR$/Diagramas/Diagrama Entidad-Relacion.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Diagramas/Entidad-Relación.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SociosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SociosController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +78,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programas\ProyectoFinal\Diagramas" />
       <recent name="C:\Users\guigommor\IdeaProjects\ProyectoFinalJava\src\main\java\org\example\proyectofinaljava" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -475,7 +476,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719509148638</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Retoques">
+      <option name="closed" value="true" />
+      <created>1719510695250</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1719510695250</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -502,7 +511,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Error: No coge los libros para mostralos" />
     <MESSAGE value="Arreglos" />
     <MESSAGE value="Posible opcion para modificar LibrosController" />
     <MESSAGE value="Ya se ven los libros en la ventana cuando se inicia" />
@@ -527,6 +535,7 @@
     <MESSAGE value="Todas las funciuones terminadas" />
     <MESSAGE value="Ajustes" />
     <MESSAGE value="Comentarios en todo el programa" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comentarios en todo el programa" />
+    <MESSAGE value="Retoques" />
+    <option name="LAST_COMMIT_MESSAGE" value="Retoques" />
   </component>
 </project>
