@@ -17,7 +17,7 @@ public class LibroDAO {
     private Connection connection = DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Libro
-    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero, estado) VALUES (?, ?, ?, ?, ?, ))";
+    private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero, estado) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
     private static final String SELECT_ALL_QUERY_DISPONIBLE = "SELECT * FROM Libro where estado = 'Disponible'";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN RLIKE ?";
@@ -61,7 +61,7 @@ public class LibroDAO {
             statement.setString(3, libro.getAutor());
             statement.setString(4, libro.getAnio());
             statement.setString(5, libro.getGenero());
-            statement.setString(6, "No Prestado");
+            statement.setString(6, "Disponible");
 
             statement.executeUpdate();
         }

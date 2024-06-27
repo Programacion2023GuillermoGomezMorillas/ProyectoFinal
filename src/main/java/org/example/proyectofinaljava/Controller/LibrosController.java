@@ -213,11 +213,15 @@ public class LibrosController implements Initializable {
             if (listaLibros.contains(libro)) {
                 alertaDeError("Ya existe un libro con ese ISBN");
             } else {
+                    System.out.println(libro);
                 try {
+                    System.out.println(libro);
                     libroDAO.insertLibro(libro);
                     actualizarTvLibros();
                     limpiarDatosModif();
+
                 } catch (SQLException e) {
+                    System.out.println(libro);
                     alertaDeError("Error al guardar: " + libro.getTitulo());
                 }
             }

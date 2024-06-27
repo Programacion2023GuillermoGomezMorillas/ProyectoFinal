@@ -47,6 +47,7 @@ public class SocioDAO {
     private static final String SELECT_BY_NOMBRE_QUERY = "SELECT * FROM Socio WHERE nombreSocio RLIKE ?";
     private static final String UPDATE_QUERY = "UPDATE Socio SET nombreSocio = ?, direccionSocio = ?, telefonoSocio = ?, emailSocio = ? WHERE numeroSocio = ?";
     private static final String DELETE_QUERY = "DELETE FROM Socio WHERE numeroSocio = ?";
+    private static final String SELECT_MAX_NUMSOCIO = "SELECT max(numeroSocio) from Socio";
 
     // Método para insertar un socio en la base de datos
     /**
@@ -124,6 +125,23 @@ public class SocioDAO {
         return socios;
     }
 
+    /**
+     * Obtiene el número máximo de reserva de la base de datos.
+     *
+     * @return el número máximo de reserva.
+     * @throws SQLException si ocurre un error al ejecutar la consulta.
+     */
+    public long getNumeroReserva() throws SQLException {
+        long numRef = 0;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_MAX_NUMSOCIO)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                numRef = resultSet.getLong(1);
+            }
+        }
+        return numRef;
+    }
+
     // Método para actualizar los datos de un socio en la base de datos
     /**
      * Actualiza los datos de un socio en la base de datos.
@@ -171,4 +189,6 @@ public class SocioDAO {
                 resultSet.getString("emailSocio"));
         return socio;
     }
+
+
 }

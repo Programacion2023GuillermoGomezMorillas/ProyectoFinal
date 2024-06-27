@@ -49,17 +49,16 @@
                         </Label>
                         <ComboBox fx:id="cbBuscar" layoutX="539.0" layoutY="102.0" prefWidth="150.0" />
                         <Text layoutX="967.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona un libro para devolverlo" textAlignment="CENTER" wrappingWidth="170.0" />
-                        <TextField fx:id="tfNumRefBor" layoutX="883.0" layoutY="105.0" promptText="Nº Referencia" />
-                        <Button fx:id="btDevolver" layoutX="926.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onClickDevolver" prefHeight="25.0" prefWidth="104.0" text="Devolver" />
+                        <TextField fx:id="tfNumRefBor" layoutX="978.0" layoutY="109.0" promptText="Nº Referencia" />
+                        <Button fx:id="btDevolver" layoutX="933.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onClickDevolver" prefHeight="25.0" prefWidth="104.0" text="Devolver" />
                   <Button fx:id="BtNuevoPrest" layoutX="109.0" layoutY="174.0" mnemonicParsing="false" onMouseClicked="#onClickNuevoPrest" text="Añadir Prestamo" />
                       <Label layoutX="18.0" layoutY="18.0" prefHeight="40.0" prefWidth="266.0" text="Gestor de Prestamos">
                           <font>
                               <Font size="28.0" />
                           </font>
                       </Label>
-                  <ComboBox fx:id="cbEstado" layoutX="1062.0" layoutY="105.0" prefWidth="150.0" />
                   <Button fx:id="btNuevoLibro" layoutX="18.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#onClickNuevoLibro" prefHeight="25.0" prefWidth="104.0" text="Gesionar Libros" />
-                  <Button fx:id="btNuevoSocio" layoutX="134.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#onClickNuevoSocio" prefHeight="25.0" prefWidth="104.0" text="Nuevo Socio" />
+                  <Button fx:id="btNuevoSocio" layoutX="134.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#onClickNuevoSocio" prefHeight="25.0" prefWidth="104.0" text="Gestionar Socios" />
                   <DatePicker fx:id="dpFechaInicio" layoutX="196.0" layoutY="96.0" />
                   <DatePicker fx:id="dpFechaFin" layoutX="196.0" layoutY="141.0" />
                   <Label layoutX="37.0" layoutY="95.0" prefHeight="26.0" prefWidth="134.0" text="Fecha de inicio">
@@ -78,7 +77,7 @@
                      </font>
                   </Label>
                   <Button fx:id="btRefrescar" layoutX="622.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onClickRefrescar" prefHeight="25.0" prefWidth="104.0" text="Quitar filtro" />
-                  <Button fx:id="btDelete" layoutX="1062.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#OnClickDelete" prefHeight="25.0" prefWidth="104.0" text="Borrar" />
+                  <Button fx:id="btDelete" layoutX="1069.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#OnClickDelete" prefHeight="25.0" prefWidth="104.0" text="Borrar" />
                     </children>
                 </AnchorPane>
             </children>

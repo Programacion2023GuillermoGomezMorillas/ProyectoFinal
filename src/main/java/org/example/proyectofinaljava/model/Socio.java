@@ -1,5 +1,7 @@
 package org.example.proyectofinaljava.model;
 
+import java.util.Objects;
+
 public class Socio {
     private long numeroSocio;
     private String nombreSocio;
@@ -64,5 +66,18 @@ public class Socio {
                 ", telefonoSocio='" + telefonoSocio + '\'' +
                 ", emailSocio='" + emailSocio + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Socio socio = (Socio) o;
+        return numeroSocio == socio.numeroSocio || Objects.equals(telefonoSocio, socio.telefonoSocio) || Objects.equals(emailSocio, socio.emailSocio);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeroSocio, telefonoSocio, emailSocio);
     }
 }

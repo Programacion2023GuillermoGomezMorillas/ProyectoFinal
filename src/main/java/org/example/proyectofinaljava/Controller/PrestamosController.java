@@ -207,7 +207,7 @@ public class PrestamosController implements Initializable {
             if (libroPrest != null && socioPrest != null) {
                 try {
                     cont = prestamoDAO.getNumeroReserva() + 1;
-                    Prestamo prestamo = new Prestamo(cont, Date.valueOf(String.valueOf(dpFechaInicio.getValue())), Date.valueOf(String.valueOf(dpFechaFin.getValue())), "Pendiente", libroPrest.getTitulo(), socioPrest.getNombreSocio());
+                    Prestamo prestamo = new Prestamo(cont, Date.valueOf(String.valueOf(dpFechaInicio.getValue())), Date.valueOf(String.valueOf(dpFechaFin.getValue())), "Prestado", libroPrest.getTitulo(), socioPrest.getNombreSocio());
 
                     if (listaPrestamos.contains(prestamo)) {
                         alertaDeError("Ya existe un préstamo con ese libro y ese socio");

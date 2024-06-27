@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 public class SociosController implements Initializable {
     private ObservableList<Socio> listaSocios;
     private SocioDAO socioDAO;
+    private long cont;
+    private Socio socioComprobante;
     @FXML
     private Button btBorrar;
 
@@ -135,19 +137,23 @@ public class SociosController implements Initializable {
     void onClickInsertar(MouseEvent event) {
         Socio socio = null;
 
-        if (comprobarDatosInsert()) {
-            socio = new Socio(
-                    Integer.parseInt(tfNumero.getText()),
-                    tfNombre.getText(),
-                    tfDireccion.getText(),
-                    tfTelefono.getText(),
-                    tfEmail.getText()
-            );
+        if (comprobarDatosTextField()) {
+            try {
+                cont = socioDAO.getNumeroReserva() + 1;
+                socio = new Socio(
+                        cont,
+                        tfNombre.getText(),
+                        tfDireccion.getText(),
+                        tfTelefono.getText(),
+                        tfEmail.getText()
+                );
+            } catch (SQLException e) {
+                alertaDeError("Error al crear el socio");
+            }
         }
-
-        if (socio != null) {
+        if (socio != null && comprobarDatosIguales(socio)) {
             if (listaSocios.contains(socio)) {
-                alertaDeError("Ya existe un socio con ese número");
+                alertaDeError("Ya existe un socio con esos datos");
             } else {
                 try {
                     socioDAO.insertSocio(socio);
@@ -156,6 +162,9 @@ public class SociosController implements Initializable {
                     System.out.println("Error al guardar: " + socio);
                 }
             }
+        }
+        else {
+            alertaDeError("Ya existe un Socio con esos datos");
         }
     }
 
@@ -166,7 +175,7 @@ public class SociosController implements Initializable {
     void onClickModificar(MouseEvent event) {
         Socio socio = null;
 
-        if (comprobarDatos()) {
+        if (comprobarDatosTextField()) {
             socio = new Socio(
                     Integer.parseInt(tfNumero.getText()),
                     tfNombre.getText(),
@@ -188,21 +197,31 @@ public class SociosController implements Initializable {
 
     }
 
+    private boolean comprobarDatosIguales(Socio socio) {
+        boolean correcto=true;
+        for (Socio socioLista : listaSocios){
+            if (socioLista.equals(socio)){
+                correcto=false;
+            }
+        }
+        return correcto;
+    }
+
     @FXML
     void onClickQuitarFiltro(MouseEvent event) {
-    actualizarTvSocios();
+        actualizarTvSocios();
     }
 
     @FXML
     void onClickTvSocios(MouseEvent event) {
-        Socio socio = tvSocios.getSelectionModel().getSelectedItem();
+        this.socioComprobante = tvSocios.getSelectionModel().getSelectedItem();
         //si hay un socio seleccionado mostramos los datos
-        if (socio != null) {
-            tfNumero.setText(String.valueOf(socio.getNumeroSocio()));
-            tfNombre.setText(socio.getNombreSocio());
-            tfTelefono.setText(socio.getTelefonoSocio());
-            tfDireccion.setText(socio.getDireccionSocio());
-            tfEmail.setText(socio.getEmailSocio());
+        if (socioComprobante != null) {
+            tfNumero.setText(String.valueOf(socioComprobante.getNumeroSocio()));
+            tfNombre.setText(socioComprobante.getNombreSocio());
+            tfTelefono.setText(socioComprobante.getTelefonoSocio());
+            tfDireccion.setText(socioComprobante.getDireccionSocio());
+            tfEmail.setText(socioComprobante.getEmailSocio());
         }
     }
 
@@ -249,36 +268,6 @@ public class SociosController implements Initializable {
 
     }
 
-    private boolean comprobarDatosInsert() {
-        boolean bool = true;
-
-        if (!tfNumero.getText().matches("^[0-9]+$")) {
-            alertaDeError("El numero es incorrecto o esta vacio");
-            tfNumero.requestFocus();
-            bool = false;
-        } else if (tfNombre.getText().isEmpty()) {
-            alertaDeError("El nombre no puede ser un campo vacio");
-            tfNombre.requestFocus();
-        } else if (!tfTelefono.getText().matches("^[0-9]+$")) {
-            alertaDeError("El Teléfono no es correcto o esta vacio ");
-            tfTelefono.requestFocus();
-            bool = false;
-        } else if (tfDireccion.getText().isEmpty()) {
-            alertaDeError("La dirección no puede estar vacia");
-            tfDireccion.requestFocus();
-            bool = false;
-        }
-        else if (tfEmail.getText().matches("^(\\.+)@(\\S+)$")) {
-            alertaDeError("El email no es correcto");
-            tfEmail.requestFocus();
-            bool = false;
-        }
-
-
-        return bool;
-    }
-
-
     /**
      * Metodo para actualizar el ComboBox que se encarga de listar los generos
      */
@@ -297,7 +286,7 @@ public class SociosController implements Initializable {
     /**
      * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
      */
-    public boolean comprobarDatos() {
+    public boolean comprobarDatosTextField() {
         boolean bool = true;
 
         if (!tfNumero.getText().matches("^[0-9]+$")) {
@@ -307,7 +296,7 @@ public class SociosController implements Initializable {
         } else if (tfNombre.getText().isEmpty()) {
             alertaDeError("El nombre no puede ser un campo vacio");
             tfNombre.requestFocus();
-        } else if (!tfTelefono.getText().matches("^[0-9]+$")) {
+        } else if (!tfTelefono.getText().matches("^[0-9]{9}$")) {
             alertaDeError("El Teléfono no es correcto o esta vacio ");
             tfTelefono.requestFocus();
             bool = false;
@@ -315,12 +304,11 @@ public class SociosController implements Initializable {
             alertaDeError("La dirección no puede estar vacia");
             tfDireccion.requestFocus();
             bool = false;
-        }
-         else if (tfEmail.getText().matches("^(.+)@(\\S+)$")) {
+        } else if (!tfEmail.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$") || tfEmail.getText().isEmpty()) {
             alertaDeError("El email no es correcto");
             tfEmail.requestFocus();
             bool = false;
-         }
+        }
         return bool;
     }
 
@@ -346,5 +334,6 @@ public class SociosController implements Initializable {
         tfNombre.setText("");
         tfTelefono.setText("");
         tfDireccion.setText("");
+        tfEmail.setText("");
     }
 }
