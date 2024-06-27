@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase GeneroDAO para realizar operaciones CRUD en la base de datos para la entidad Genero.
+ */
 public class GeneroDAO {
-
 
     private Connection connection = DBConnection.getConnection();
 
@@ -35,7 +37,12 @@ public class GeneroDAO {
         return instance;
     }
 
-    // Método para obtener todos los generos de la base de datos
+    /**
+     * Método para obtener todos los géneros de la base de datos
+     *
+     * @return Lista de géneros
+     * @throws SQLException si ocurre un error durante la consulta SQL
+     */
     public List<String> getAllGeneros() throws SQLException {
         List<String> generos = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
@@ -46,5 +53,4 @@ public class GeneroDAO {
         }
         return generos;
     }
-
 }

@@ -16,11 +16,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la gestión de socios.
+ */
 public class SociosController implements Initializable {
     private ObservableList<Socio> listaSocios;
     private SocioDAO socioDAO;
     private long cont;
     private Socio socioComprobante;
+
     @FXML
     private Button btBorrar;
 
@@ -79,7 +83,9 @@ public class SociosController implements Initializable {
     private TableView<Socio> tvSocios;
 
     /**
-     * @param event para borrar un libro
+     * Método para manejar el evento de clic en el botón "Borrar".
+     *
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickBorrar(MouseEvent event) {
@@ -97,25 +103,22 @@ public class SociosController implements Initializable {
     }
 
     /**
-     * @param event para buscar un libro
+     * Método para manejar el evento de clic en el botón "Buscar".
+     *
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickBuscar(MouseEvent event) {
-        //buscamos el libro seleccionado
-
         if (tfBuscar.getText().isEmpty()) {
-            alertaDeError("Introduce una busqueda");
+            alertaDeError("Introduce una búsqueda");
         } else {
             try {
                 ObservableList<Socio> socios;
-
                 if (cbBuscar.getValue().equals("NUMERO")) {
                     socios = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
                 } else {
                     socios = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfBuscar.getText()));
                 }
-
-                //Asociamos la lista a la tabla
                 tvSocios.setItems(socios);
                 tvSocios.refresh();
             } catch (SQLException e) {
@@ -125,12 +128,13 @@ public class SociosController implements Initializable {
     }
 
     /**
-     * @param event para insertar un libro
+     * Método para manejar el evento de clic en el botón "Insertar".
+     *
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickInsertar(MouseEvent event) {
         Socio socio = null;
-
         if (comprobarDatosTextField()) {
             try {
                 cont = socioDAO.getNumeroReserva() + 1;
@@ -156,19 +160,19 @@ public class SociosController implements Initializable {
                     System.out.println("Error al guardar: " + socio);
                 }
             }
-        }
-        else {
+        } else {
             alertaDeError("Ya existe un Socio con esos datos");
         }
     }
 
     /**
-     * @param event para modificar un libro
+     * Método para manejar el evento de clic en el botón "Modificar".
+     *
+     * @param event el evento de clic del ratón.
      */
     @FXML
     void onClickModificar(MouseEvent event) {
         Socio socio = null;
-
         if (comprobarDatosTextField()) {
             socio = new Socio(
                     Integer.parseInt(tfNumero.getText()),
@@ -178,7 +182,6 @@ public class SociosController implements Initializable {
                     tfEmail.getText()
             );
         }
-
         if (socio != null) {
             try {
                 socioDAO.updateSocio(socio);
@@ -188,28 +191,42 @@ public class SociosController implements Initializable {
                 System.err.println(e.getMessage());
             }
         }
-
     }
 
+    /**
+     * Comprueba si los datos del socio son iguales a los de la lista de socios.
+     *
+     * @param socio El socio a comprobar.
+     * @return true si los datos son iguales, false en caso contrario.
+     */
     private boolean comprobarDatosIguales(Socio socio) {
-        boolean correcto=true;
-        for (Socio socioLista : listaSocios){
-            if (socioLista.equals(socio)){
-                correcto=false;
+        boolean correcto = true;
+        for (Socio socioLista : listaSocios) {
+            if (socioLista.equals(socio)) {
+                correcto = false;
             }
         }
         return correcto;
     }
 
+    /**
+     * Método para manejar el evento de clic en el botón "Quitar Filtro".
+     *
+     * @param event el evento de clic del ratón.
+     */
     @FXML
     void onClickQuitarFiltro(MouseEvent event) {
         actualizarTvSocios();
     }
 
+    /**
+     * Método para manejar el evento de clic en la tabla de socios.
+     *
+     * @param event el evento de clic del ratón.
+     */
     @FXML
     void onClickTvSocios(MouseEvent event) {
         this.socioComprobante = tvSocios.getSelectionModel().getSelectedItem();
-        //si hay un socio seleccionado mostramos los datos
         if (socioComprobante != null) {
             tfNumero.setText(String.valueOf(socioComprobante.getNumeroSocio()));
             tfNombre.setText(socioComprobante.getNombreSocio());
@@ -226,32 +243,35 @@ public class SociosController implements Initializable {
      */
     @FXML
     void onClickVolver(MouseEvent event) {
-        // Cierra la ventana actual y vuelve a la ventana anterior
         Stage stage = (Stage) btVolver.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Método que se ejecuta al inicializar la ventana.
+     *
+     * @param url URL de la localización.
+     * @param resourceBundle ResourceBundle de los recursos.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         socioDAO = SocioDAO.getConnection();
         actualizarTvSocios();
-        //Metemos en los combobox
         actualizarCbBuscar();
         tfNumero.setDisable(true);
-        //Asociamos la lista a la tabla
         tvSocios.setItems(listaSocios);
         tvSocios.refresh();
-
     }
 
+    /**
+     * Método para actualizar los datos de la tabla de socios.
+     */
     public void actualizarTvSocios() {
         try {
             listaSocios = FXCollections.observableArrayList(socioDAO.getAllSocios());
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        //Con esto se asocia la lista a la tabla
         tcNumero.setCellValueFactory(new PropertyValueFactory<>("numeroSocio"));
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombreSocio"));
         tcDireccion.setCellValueFactory(new PropertyValueFactory<>("direccionSocio"));
@@ -259,17 +279,14 @@ public class SociosController implements Initializable {
         tcEmail.setCellValueFactory(new PropertyValueFactory<>("emailSocio"));
         tvSocios.setItems(listaSocios);
         tvSocios.refresh();
-
     }
 
     /**
-     * Metodo para actualizar el ComboBox que se encarga de listar los generos
+     * Método para actualizar el ComboBox con las opciones de búsqueda.
      */
-
     public void actualizarCbBuscar() {
         try {
             List<Socio> listaSocio = socioDAO.getAllSocios();
-            //Añadimos el valor al comboBox
             cbBuscar.getItems().add("NUMERO");
             cbBuscar.getItems().add("NOMBRE");
         } catch (SQLException e) {
@@ -278,20 +295,21 @@ public class SociosController implements Initializable {
     }
 
     /**
-     * @return Devuelve true en el caso de que todas las comprobaciondes sean correctas
+     * Comprueba si los datos de los campos de texto son válidos.
+     *
+     * @return true si todos los datos son válidos, false en caso contrario.
      */
     public boolean comprobarDatosTextField() {
         boolean bool = true;
-
-         if (tfNombre.getText().isEmpty()) {
-            alertaDeError("El nombre no puede ser un campo vacio");
+        if (tfNombre.getText().isEmpty()) {
+            alertaDeError("El nombre no puede ser un campo vacío");
             tfNombre.requestFocus();
         } else if (!tfTelefono.getText().matches("^[0-9]{9}$")) {
-            alertaDeError("El Teléfono no es correcto o esta vacio ");
+            alertaDeError("El Teléfono no es correcto o está vacío");
             tfTelefono.requestFocus();
             bool = false;
         } else if (tfDireccion.getText().isEmpty()) {
-            alertaDeError("La dirección no puede estar vacia");
+            alertaDeError("La dirección no puede estar vacía");
             tfDireccion.requestFocus();
             bool = false;
         } else if (!tfEmail.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$") || tfEmail.getText().isEmpty()) {
@@ -303,20 +321,20 @@ public class SociosController implements Initializable {
     }
 
     /**
-     * @param mensaje Muestra el mensaje en forma de error
+     * Muestra una alerta de error con el mensaje especificado.
+     *
+     * @param mensaje El mensaje a mostrar en la alerta.
      */
     private void alertaDeError(String mensaje) {
-        //creamos la alerta de tipo Error
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle("Error");
-        //Mostramos el mensaje por pantalla
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
 
     /**
-     * Metodo para limpiar los campos
+     * Limpia los datos de los campos de texto.
      */
     public void limpiarDatosModif() {
         tfEmail.setText("");

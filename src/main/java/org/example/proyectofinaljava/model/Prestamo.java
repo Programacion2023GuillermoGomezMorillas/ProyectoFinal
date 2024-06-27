@@ -33,6 +33,8 @@ public class Prestamo {
         this.nombreSocio = nombreSocio;
     }
 
+    //**********************Getters y Setters**********************
+
     /**
      * Obtiene el número de reserva del préstamo.
      *

@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Todas las funciuones terminadas">
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Ajustes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/LibrosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/PrestamosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/InicioController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoSeleccionarLibroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoSeleccionarLibroController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoSeleccionarSocioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoSeleccionarSocioController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SociosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/SociosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/GeneroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/GeneroDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/LibroDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/SocioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/SocioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/proyectofinaljava/inicio-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -461,7 +466,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719499195603</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Ajustes">
+      <option name="closed" value="true" />
+      <created>1719507417083</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1719507417083</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -488,7 +501,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="escena Libro" />
     <MESSAGE value="MouseEvent Libros" />
     <MESSAGE value="Error: No coge los libros para mostralos" />
     <MESSAGE value="Arreglos" />
@@ -513,17 +525,7 @@
     <MESSAGE value="Añadir Estado del Libro" />
     <MESSAGE value="Funcion de prestamos en completo funcionamiento." />
     <MESSAGE value="Todas las funciuones terminadas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Todas las funciuones terminadas" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/db/DBConnection.java</url>
-          <line>7</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Ajustes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajustes" />
   </component>
 </project>

@@ -11,14 +11,17 @@ public class DBConnection {
     private static final String URL = "jdbc:mysql://databaseprogramacion.c30sqgs4ymao.us-east-1.rds.amazonaws.com/Biblioteca";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root1234";
-
     private static Connection connection;
 
-    // Constructor privado para evitar instancias directas
+    /**
+     * Constructor privado para evitar instancias directas
+     */
     private DBConnection() {
     }
 
-    // Método estático para obtener la instancia única de la conexión
+    /**
+     * Método estático para obtener la instancia única de la conexión
+     */
     public static Connection getConnection() {
         if (connection == null) {
             // Bloqueo sincronizado para evitar concurrencia
@@ -36,7 +39,10 @@ public class DBConnection {
         return connection;
     }
 
-    // Método para cerrar la conexión
+
+    /**
+     * Método para cerrar la conexión
+     */
     public static void closeConnection() {
         if (connection != null) {
             try {
@@ -47,4 +53,4 @@ public class DBConnection {
             }
         }
     }
-    }
+}

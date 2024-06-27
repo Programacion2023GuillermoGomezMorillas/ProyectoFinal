@@ -20,7 +20,6 @@ public class SocioDAO {
     // Constructor privado para evitar instancias directas
     private SocioDAO() {}
 
-    // Método estático para obtener la instancia única de SocioDAO
     /**
      * Obtiene la instancia única de SocioDAO utilizando el patrón Singleton.
      * @return instancia única de SocioDAO
@@ -49,7 +48,6 @@ public class SocioDAO {
     private static final String DELETE_QUERY = "DELETE FROM Socio WHERE numeroSocio = ?";
     private static final String SELECT_MAX_NUMSOCIO = "SELECT max(numeroSocio) from Socio";
 
-    // Método para insertar un socio en la base de datos
     /**
      * Inserta un nuevo socio en la base de datos.
      * @param socio objeto Socio que se va a insertar
@@ -67,7 +65,6 @@ public class SocioDAO {
         }
     }
 
-    // Método para obtener todos los socios de la base de datos
     /**
      * Obtiene todos los socios almacenados en la base de datos.
      * @return lista de objetos Socio que representa todos los socios en la base de datos
@@ -85,7 +82,6 @@ public class SocioDAO {
         return socios;
     }
 
-    // Método para obtener un socio por su número de socio
     /**
      * Obtiene un socio de la base de datos según su número de socio.
      * @param numeroSocio número de socio del socio que se desea obtener
@@ -105,7 +101,6 @@ public class SocioDAO {
         return socios;
     }
 
-    // Método para obtener un socio por su nombre
     /**
      * Obtiene un socio de la base de datos según su nombre.
      * @param nombre nombre del socio que se desea obtener o buscar parcialmente
@@ -142,7 +137,6 @@ public class SocioDAO {
         return numRef;
     }
 
-    // Método para actualizar los datos de un socio en la base de datos
     /**
      * Actualiza los datos de un socio en la base de datos.
      * @param socio objeto Socio con los datos actualizados que se desea guardar
@@ -160,7 +154,6 @@ public class SocioDAO {
         }
     }
 
-    // Método para eliminar un socio de la base de datos por su número de socio
     /**
      * Elimina un socio de la base de datos según su número de socio.
      * @param numeroSocio número de socio del socio que se desea eliminar
@@ -173,7 +166,6 @@ public class SocioDAO {
         }
     }
 
-    // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Socio
     /**
      * Convierte un ResultSet en un objeto Socio.
      * @param resultSet ResultSet que contiene los datos del socio en la posición actual

@@ -17,6 +17,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para seleccionar un socio a la hora de elegir un nuevo préstamo.
+ */
 public class NuevoPrestamoSeleccionarSocioController implements Initializable {
     ObservableList<Socio> listaSocios;
 
@@ -59,13 +62,14 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
     private TableView<Socio> tvSocio;
 
     /**
-     * Método para buscar dentro de la tabla socios
-     * @param event
+     * Método para buscar dentro de la tabla de socios.
+     *
+     * @param event Evento de ratón.
      */
     @FXML
     void onClickBuscar(MouseEvent event) {
         if (tfBuscar.getText().isEmpty()) {
-            alertaDeError("Introduce una busqueda");
+            alertaDeError("Introduce una búsqueda");
         } else {
             try {
                 ObservableList<Socio> socios;
@@ -86,8 +90,9 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
     }
 
     /**
-     * Refrsca la tabla de los socios
-     * @param event
+     * Refresca la tabla de los socios.
+     *
+     * @param event Evento de ratón.
      */
     @FXML
     void onClickRefrescar(MouseEvent event) {
@@ -95,8 +100,9 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
     }
 
     /**
-     * Metodo para cuando se haga click en la tabla de socios
-     * @param event
+     * Método para cuando se haga clic en la tabla de socios.
+     *
+     * @param event Evento de ratón.
      */
     @FXML
     void onClickTvSocios(MouseEvent event) {
@@ -111,13 +117,15 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
                 } else {
                     alertaDeError("Seleccione un socio");
                 }
-
             }
-
         });
-
     }
 
+    /**
+     * Método para volver a la ventana anterior.
+     *
+     * @param event Evento de ratón.
+     */
     @FXML
     void OnClickVolver(MouseEvent event) {
         this.onGetSocio = null;
@@ -126,9 +134,10 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
     }
 
     /**
-     * Metodo que se ejecuta cuando se inicia la ventaba
-     * @param url
-     * @param resourceBundle
+     * Método que se ejecuta cuando se inicia la ventana.
+     *
+     * @param url            URL de la localización.
+     * @param resourceBundle ResourceBundle de los recursos.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -141,25 +150,23 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
         //Asociamos la lista a la tabla
         tvSocio.setItems(listaSocios);
         tvSocio.refresh();
-
     }
 
     /**
-     * Metodo para añadir al comboBox las opciones para bucar
+     * Método para añadir al ComboBox las opciones para buscar.
      */
     private void actualizarCbBuscar() {
-        //Añadimos el valor al comboBox
+        //Añadimos el valor al ComboBox
         cbBuscar.getItems().add("NOMBRE");
         cbBuscar.getItems().add("NUMERO DE SOCIO");
     }
 
     /**
-     * Método para actualizar los campos de la tabla
+     * Método para actualizar los campos de la tabla.
      */
     public void actualizarTvSocios() {
         try {
             listaSocios = FXCollections.observableArrayList(socioDAO.getAllSocios());
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -171,12 +178,12 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
         tcEmail.setCellValueFactory(new PropertyValueFactory<>("emailSocio"));
         tvSocio.setItems(listaSocios);
         tvSocio.refresh();
-
     }
 
     /**
-     * Metodo para sacar un error al usuario
-     * @param mensaje
+     * Método para mostrar un mensaje de error al usuario.
+     *
+     * @param mensaje El mensaje a mostrar.
      */
     private void alertaDeError(String mensaje) {
         //creamos la alerta de tipo Error
@@ -187,19 +194,29 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-    //esta interface nos permite asignar la acción cuando volvamos de llamar a la ventana secundaria
+
+    /**
+     * Interfaz para asignar la acción cuando volvamos de llamar a la ventana secundaria.
+     */
     public interface OnGetSocio {
         void obtenSocio(Socio socio);
     }
 
-    //la instancia  a la que llamaremos cuando el usuario pulse a aceptar
+    //la instancia a la que llamaremos cuando el usuario pulse a aceptar
     private NuevoPrestamoSeleccionarSocioController.OnGetSocio onGetSocio;
 
-    //nos permitirá asignar la lambda en la principal con la acción que realizaremos
+    /**
+     * Método para asignar la acción a realizar al obtener el socio.
+     *
+     * @param onGetSocio La acción a realizar.
+     */
     public void setOnGetSocio(NuevoPrestamoSeleccionarSocioController.OnGetSocio onGetSocio) {
         this.onGetSocio = onGetSocio;
     }
 
+    /**
+     * Método vacío para seleccionar un socio.
+     */
     public void seleccionarSocio() {
     }
 }

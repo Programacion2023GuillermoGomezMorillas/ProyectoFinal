@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Esta clase es para seleccionar un libro a la hora de elegir un nuevo prestamo
+ * Esta clase es para seleccionar un libro a la hora de elegir un nuevo préstamo.
  */
 public class NuevoPrestamoSeleccionarLibroController implements Initializable {
 
@@ -85,21 +85,25 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
     @FXML
     private TableView<Libro> tvLibros;
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón de buscar.
+     *
+     * @param event El evento de ratón asociado al clic.
+     */
     @FXML
     void onClickBuscar(MouseEvent event) {
         if (tfBuscar.getText().isEmpty()) {
-            alertaDeError("Introduce una busqueda");
+            alertaDeError("Introduce una búsqueda");
         } else {
             try {
                 ObservableList<Libro> libros;
-                if (cbBuscar.getValue().equals("GENERO")) {
+                if (cbBuscar.getValue().matches("GENERO")) {
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
                 } else if (cbBuscar.getValue().matches("ISBN")) {
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
                 } else {
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
                 }
-
 
                 //Asociamos la lista a la tabla
                 tvLibros.setItems(libros);
@@ -108,14 +112,17 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
                 System.err.println(e.getMessage());
             }
         }
-
     }
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón de mostrar todos.
+     *
+     * @param event El evento de ratón asociado al clic.
+     */
     @FXML
     void onClickMostrarTodos(MouseEvent event) {
         try {
             listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -130,21 +137,29 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         tvLibros.refresh();
     }
 
-
+    /**
+     * Método que se ejecuta al hacer clic en el botón de refrescar.
+     *
+     * @param event El evento de ratón asociado al clic.
+     */
     @FXML
     void onClickRefrescar(MouseEvent event) {
         actualizarTvLibros();
     }
 
-
+    /**
+     * Método que se ejecuta al hacer clic en la tabla de libros.
+     *
+     * @param event El evento de ratón asociado al clic.
+     */
     @FXML
     void onClickTvLibros(MouseEvent event) {
-        // Evento para que cuando el usuario haga doble click en la algun libro de la tabla se guarden los valores para despues llevar a cabo el prestamo
+        // Evento para que cuando el usuario haga doble click en algún libro de la tabla se guarden los valores para después llevar a cabo el préstamo
         tvLibros.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
                 //cuando el usuario acepte, llamamos a la acción definida en la ventana principal y salimos
                 Libro libro = tvLibros.getSelectionModel().getSelectedItem();
-                if (onGetLibro != null && (libro.getEstado().matches("Disponible")))  {
+                if (onGetLibro != null && (libro.getEstado().matches("Disponible"))) {
                     onGetLibro.obtenLibro(tvLibros.getSelectionModel().getSelectedItem());
                     //cerramos la ventana
                     Stage stage = (Stage) tvLibros.getScene().getWindow();
@@ -152,15 +167,14 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
                 } else {
                     alertaDeError("Seleccione un libro disponible");
                 }
-
             }
-
         });
     }
+
     /**
-     * Cierra la ventana actual
+     * Cierra la ventana actual.
      *
-     * @param event
+     * @param event El evento de ratón asociado al clic.
      */
     @FXML
     void onClickVolver(MouseEvent event) {
@@ -169,9 +183,11 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         stage.close();
     }
 
-
     /**
-     * Al iniciar la ventana se ejecutará el siguiente método
+     * Al iniciar la ventana se ejecutará el siguiente método.
+     *
+     * @param url            La ubicación utilizada para resolver el objeto raíz, o nulo si no se ha especificado.
+     * @param resourceBundle Los recursos utilizados para localizar el objeto raíz, o nulo si no se ha especificado.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -188,24 +204,26 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
     }
 
     /**
-     * Añaidos al comboBox los tres valores para buscar sobre ellos
+     * Añade los valores al ComboBox para buscar por ellos.
      */
     public void actualizarCbBuscar() {
         try {
             List<String> listaGeneros = generoDAO.getAllGeneros();
-            //Añadimos el valor al comboBox
+            //Añadimos el valor al ComboBox
             cbBuscar.getItems().add("GENERO");
             cbBuscar.getItems().add("TITULO");
-            cbBuscar.getItems().add("IBSN");
+            cbBuscar.getItems().add("ISBN");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
+    /**
+     * Actualiza la TableView de libros con los libros disponibles.
+     */
     public void actualizarTvLibros() {
         try {
             listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibrosDisponibles());
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -218,11 +236,12 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tvLibros.setItems(listaLibros);
         tvLibros.refresh();
-
     }
 
     /**
-     * @param mensaje Muestra el mensaje en forma de error
+     * Muestra un mensaje de error en una alerta.
+     *
+     * @param mensaje El mensaje a mostrar en la alerta de error.
      */
     private void alertaDeError(String mensaje) {
         //creamos la alerta de tipo Error
@@ -234,19 +253,22 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         alert.showAndWait();
     }
 
-    //esta interface nos permite asignar la acción cuando volvamos de llamar a la ventana secundaria
+    /**
+     * Esta interfaz nos permite asignar la acción cuando volvamos de llamar a la ventana secundaria.
+     */
     public interface OnGetLibro {
         void obtenLibro(Libro libro);
     }
 
-    //la instancia  a la que llamaremos cuando el usuario pulse a aceptar
+    //la instancia a la que llamaremos cuando el usuario pulse a aceptar
     private NuevoPrestamoSeleccionarLibroController.OnGetLibro onGetLibro;
 
-    //nos permitirá asignar la lambda en la principal con la acción que realizaremos
+    /**
+     * Nos permitirá asignar la lambda en la principal con la acción que realizaremos.
+     *
+     * @param onGetLibro La acción a realizar al obtener el libro.
+     */
     public void setOnGetLibro(NuevoPrestamoSeleccionarLibroController.OnGetLibro onGetLibro) {
         this.onGetLibro = onGetLibro;
     }
-
 }
-
-

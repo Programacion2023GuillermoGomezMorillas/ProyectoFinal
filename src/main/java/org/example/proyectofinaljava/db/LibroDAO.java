@@ -30,7 +30,6 @@ public class LibroDAO {
     private static final String UPDATE_DISPONIBLE = "update Libro, Prestamo set Libro.estado = 'Disponible' where titulo = tituloLibro and Prestamo.estado = 'Devuelto';";
     private static final String SQL_SAFE_UPDATES = "SET SQL_SAFE_UPDATES = 0;";
 
-
     // Clase singleton
     public static LibroDAO instance;
 
@@ -53,6 +52,9 @@ public class LibroDAO {
 
     /**
      * Método para insertar un nuevo libro en la base de datos
+     *
+     * @param libro El objeto libro a insertar
+     * @throws SQLException si ocurre un error durante la inserción
      */
     public void insertLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
@@ -69,6 +71,9 @@ public class LibroDAO {
 
     /**
      * Método para obtener todos los libros de la base de datos
+     *
+     * @return Lista de libros
+     * @throws SQLException si ocurre un error durante la consulta SQL
      */
     public List<Libro> getAllLibros() throws SQLException {
         List<Libro> libros = new ArrayList<>();
@@ -83,7 +88,10 @@ public class LibroDAO {
     }
 
     /**
-     * Método para obtener todos los libros de la base de datos Disponibles para reservar
+     * Método para obtener todos los libros de la base de datos disponibles para reservar
+     *
+     * @return Lista de libros disponibles
+     * @throws SQLException si ocurre un error durante la consulta SQL
      */
     public List<Libro> getAllLibrosDisponibles() throws SQLException {
         List<Libro> libros = new ArrayList<>();
@@ -99,6 +107,10 @@ public class LibroDAO {
 
     /**
      * Método para obtener un libro por su ISBN
+     *
+     * @param isbn El ISBN del libro a buscar
+     * @return Lista de libros con el ISBN especificado
+     * @throws SQLException si ocurre un error durante la consulta SQL
      */
     public List<Libro> getLibroByIsbn(String isbn) throws SQLException {
         List<Libro> libros = new ArrayList<>();
@@ -114,7 +126,11 @@ public class LibroDAO {
     }
 
     /**
-     * Método para obtener un libro por su Estado
+     * Método para obtener un libro por su estado
+     *
+     * @param isbn El ISBN del libro a buscar por estado
+     * @return Lista de libros con el estado especificado
+     * @throws SQLException si ocurre un error durante la consulta SQL
      */
     public List<Libro> getLibroByEstado(String isbn) throws SQLException {
         List<Libro> libros = new ArrayList<>();
@@ -130,7 +146,11 @@ public class LibroDAO {
     }
 
     /**
-     * Método para obtener un libro por su Genero
+     * Método para obtener un libro por su género
+     *
+     * @param genero El género del libro a buscar
+     * @return Lista de libros con el género especificado
+     * @throws SQLException si ocurre un error durante la consulta SQL
      */
     public List<Libro> getLibroByGenero(String genero) throws SQLException {
         List<Libro> libros = new ArrayList<>();
@@ -146,7 +166,11 @@ public class LibroDAO {
     }
 
     /**
-     * Método para obtener un libro por su Nombre
+     * Método para obtener un libro por su título
+     *
+     * @param titulo El título del libro a buscar
+     * @return Lista de libros con el título especificado
+     * @throws SQLException si ocurre un error durante la consulta SQL
      */
     public List<Libro> getLibroByTitulo(String titulo) throws SQLException {
         List<Libro> libros = new ArrayList<>();
@@ -163,6 +187,9 @@ public class LibroDAO {
 
     /**
      * Método para actualizar los datos de un libro en la base de datos
+     *
+     * @param libro El objeto libro con los datos actualizados
+     * @throws SQLException si ocurre un error durante la actualización
      */
     public void updateLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
@@ -171,17 +198,26 @@ public class LibroDAO {
             statement.setString(3, libro.getAnio());
             statement.setString(4, libro.getGenero());
             statement.setString(5, libro.getIsbn());
-
             statement.executeUpdate();
         }
     }
 
+    /**
+     * Método para actualizar el estado de los libros a 'Prestado'
+     *
+     * @throws SQLException si ocurre un error durante la actualización
+     */
     public void updateLibroEstado() throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_PRESTADO)) {
             statement.executeUpdate();
         }
     }
 
+    /**
+     * Método para actualizar el estado de los libros a 'Disponible'
+     *
+     * @throws SQLException si ocurre un error durante la actualización
+     */
     public void updateLibroEstadoDisponible() throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_SAFE_UPDATES)) {
             statement.executeUpdate();
@@ -193,6 +229,9 @@ public class LibroDAO {
 
     /**
      * Método para eliminar un libro de la base de datos por su ISBN
+     *
+     * @param isbn El ISBN del libro a eliminar
+     * @throws SQLException si ocurre un error durante la eliminación
      */
     public void deleteLibroByIsbn(String isbn) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
@@ -201,7 +240,13 @@ public class LibroDAO {
         }
     }
 
-    // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Libro
+    /**
+     * Método auxiliar para mapear un ResultSet en la posición actual a un objeto Libro
+     *
+     * @param resultSet El ResultSet que contiene los datos del libro
+     * @return El objeto Libro con los datos mapeados
+     * @throws SQLException si ocurre un error durante el mapeo
+     */
     private Libro resulSetToLibro(ResultSet resultSet) throws SQLException {
         Libro libro = new Libro(
                 resultSet.getString("ISBN"),
@@ -212,10 +257,5 @@ public class LibroDAO {
                 resultSet.getString("estado"));
         return libro;
     }
-
-    public static void main(String[] args) throws SQLException {
-        LibroDAO libro = new LibroDAO();
-        // Ejemplo de uso para probar los métodos implementados
-        System.out.println(libro.getLibroByIsbn("978006"));
-    }
 }
+
