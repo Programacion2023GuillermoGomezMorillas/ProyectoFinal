@@ -88,11 +88,6 @@ public class PrestamosController implements Initializable {
         socioDAO = SocioDAO.getConnection();
         libroDAO = LibroDAO.getConnection();
         prestamoDAO = PrestamoDAO.getConnection();
-        try {
-            libroDAO.updateLibroEstado();
-        } catch (SQLException e) {
-            System.err.println("Error al cargar los libros");
-        }
         actualizartvPrestamos();
         actualizarCbEstado();
 
@@ -172,7 +167,7 @@ public class PrestamosController implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamoSeleccionarLibro-view.fxml"));
                 Parent root = loader.load();
-
+                libroPrest=null;
                 NuevoPrestamoSeleccionarLibroController nuevoPrestamoSeleccionarLibroController = loader.getController();
                 nuevoPrestamoSeleccionarLibroController.setOnGetLibro(libro -> {
                     Libro libroPrest = new Libro(libro.getIsbn(), libro.getTitulo(), libro.getAnio(), libro.getAutor(), libro.getGenero(), "Prestado");
@@ -192,7 +187,7 @@ public class PrestamosController implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("nuevoPrestamoSeleccionarSocio-view.fxml"));
                 Parent root = loader.load();
-
+                socioPrest=null;
                 NuevoPrestamoSeleccionarSocioController nuevoPrestamoSeleccionarSocioController = loader.getController();
                 nuevoPrestamoSeleccionarSocioController.setOnGetSocio(socio -> {
                     Socio socioPrest = new Socio(socio.getNumeroSocio(), socio.getNombreSocio(), socio.getDireccionSocio(), socio.getTelefonoSocio(), socio.getEmailSocio());
@@ -304,6 +299,7 @@ public class PrestamosController implements Initializable {
         try {
             listaPrestamos = FXCollections.observableArrayList(prestamoDAO.getAllPrestamos());
             libroDAO.updateLibroEstado();
+            libroDAO.updateLibroEstadoDisponible();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }

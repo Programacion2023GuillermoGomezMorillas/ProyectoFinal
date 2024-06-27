@@ -40,8 +40,7 @@
                             </font></Label>
                         <ComboBox fx:id="cbBuscar" layoutX="394.0" layoutY="29.0" prefWidth="150.0" />
                         <TextField fx:id="tfBuscar" layoutX="395.0" layoutY="80.0" promptText="Valor" />
-                        <Button fx:id="btVolver" layoutX="1034.0" layoutY="143.0" mnemonicParsing="false" text="Volver" />
-                        <Button fx:id="btNuevoLibro" layoutX="17.0" layoutY="143.0" mnemonicParsing="false" text="Nuevo Socio" />
+                        <Button fx:id="btVolver" layoutX="1034.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#OnClickVolver" text="Volver" />
                   <Button fx:id="btRefrescar" layoutX="785.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#onClickRefrescar" prefHeight="47.0" prefWidth="98.0" text="Refrescar" />
                     </children>
                 </AnchorPane>

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.example.proyectofinaljava.db.GeneroDAO;
 import org.example.proyectofinaljava.db.LibroDAO;
 import org.example.proyectofinaljava.model.Libro;
+import org.example.proyectofinaljava.model.Prestamo;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,6 +30,9 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
 
     @FXML
     private Button btBuscar;
+
+    @FXML
+    private Button btMostrarTodos;
 
     @FXML
     private Button btNuevoLibro;
@@ -88,18 +92,14 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         } else {
             try {
                 ObservableList<Libro> libros;
-
                 if (cbBuscar.getValue().equals("GENERO")) {
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
-
-
                 } else if (cbBuscar.getValue().matches("ISBN")) {
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
                 } else {
                     libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
-
-
                 }
+
 
                 //Asociamos la lista a la tabla
                 tvLibros.setItems(libros);
@@ -110,6 +110,26 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         }
 
     }
+
+    @FXML
+    void onClickMostrarTodos(MouseEvent event) {
+        try {
+            listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        //Con esto se asocia la lista a la tabla
+        tcIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        tcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        tcAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+        tcAno.setCellValueFactory(new PropertyValueFactory<>("anio"));
+        tcGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+        tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        tvLibros.setItems(listaLibros);
+        tvLibros.refresh();
+    }
+
 
     @FXML
     void onClickRefrescar(MouseEvent event) {
@@ -123,18 +143,30 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
         tvLibros.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
                 //cuando el usuario acepte, llamamos a la acción definida en la ventana principal y salimos
-                if (onGetLibro != null) {
+                Libro libro = tvLibros.getSelectionModel().getSelectedItem();
+                if (onGetLibro != null && (libro.getEstado().matches("Disponible")))  {
                     onGetLibro.obtenLibro(tvLibros.getSelectionModel().getSelectedItem());
                     //cerramos la ventana
                     Stage stage = (Stage) tvLibros.getScene().getWindow();
                     stage.close();
                 } else {
-                    alertaDeError("Seleccione un libro");
+                    alertaDeError("Seleccione un libro disponible");
                 }
 
             }
 
         });
+    }
+    /**
+     * Cierra la ventana actual
+     *
+     * @param event
+     */
+    @FXML
+    void onClickVolver(MouseEvent event) {
+        this.onGetLibro = null;
+        Stage stage = (Stage) btVolver.getScene().getWindow();
+        stage.close();
     }
 
 
@@ -145,6 +177,7 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generoDAO = GeneroDAO.getConnection();
         libroDAO = LibroDAO.getConnection();
+        this.onGetLibro = null;
         actualizarTvLibros();
         //Metemos en los combobox
         actualizarCbBuscar();
@@ -171,7 +204,7 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
 
     public void actualizarTvLibros() {
         try {
-            listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
+            listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibrosDisponibles());
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -212,9 +245,6 @@ public class NuevoPrestamoSeleccionarLibroController implements Initializable {
     //nos permitirá asignar la lambda en la principal con la acción que realizaremos
     public void setOnGetLibro(NuevoPrestamoSeleccionarLibroController.OnGetLibro onGetLibro) {
         this.onGetLibro = onGetLibro;
-    }
-
-    public void seleccionarLibro() {
     }
 
 }

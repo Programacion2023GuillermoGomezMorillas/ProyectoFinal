@@ -118,6 +118,13 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
 
     }
 
+    @FXML
+    void OnClickVolver(MouseEvent event) {
+        this.onGetSocio = null;
+        Stage stage = (Stage) btVolver.getScene().getWindow();
+        stage.close();
+    }
+
     /**
      * Metodo que se ejecuta cuando se inicia la ventaba
      * @param url
@@ -126,7 +133,7 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         socioDAO = SocioDAO.getConnection();
-
+        this.onGetSocio = null;
         actualizarTvSocios();
         //Metemos en los combobox
         actualizarCbBuscar();

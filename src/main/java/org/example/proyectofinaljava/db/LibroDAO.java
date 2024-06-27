@@ -19,12 +19,16 @@ public class LibroDAO {
     // Consultas SQL para manipular la tabla Libro
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, autor, anio, genero, estado) VALUES (?, ?, ?, ?, ?, ))";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
+    private static final String SELECT_ALL_QUERY_DISPONIBLE = "SELECT * FROM Libro where estado = 'Disponible'";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN RLIKE ?";
     private static final String SELECT_BY_GENERO_QUERY = "SELECT * FROM Libro WHERE genero RLIKE ?";
     private static final String SELECT_BY_TITULO_QUERY = "SELECT * FROM Libro WHERE titulo RLIKE ?";
+    private static final String SELECT_BY_ESTADO_QUERY = "SELECT * FROM Libro WHERE estado = 'Disponible'";
     private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, autor = ?, anio = ?, genero = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
     private static final String UPDATE_PRESTADO = "update Libro set estado = 'Prestado' where titulo in (select tituloLibro from Prestamo);";
+    private static final String UPDATE_DISPONIBLE = "update Libro set estado = 'Disponible' where titulo not in (select tituloLibro from Prestamo) or 'Devuelto' in (select estado from Prestamo);";
+    private static final String SQL_SAFE_UPDATES = "SET SQL_SAFE_UPDATES = 0;";
 
 
     // Clase singleton
@@ -79,11 +83,42 @@ public class LibroDAO {
     }
 
     /**
+     * Método para obtener todos los libros de la base de datos Disponibles para reservar
+     */
+    public List<Libro> getAllLibrosDisponibles() throws SQLException {
+        List<Libro> libros = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY_DISPONIBLE)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Libro libro = resulSetToLibro(resultSet);
+                libros.add(libro);
+            }
+        }
+        return libros;
+    }
+
+    /**
      * Método para obtener un libro por su ISBN
      */
     public List<Libro> getLibroByIsbn(String isbn) throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
+            statement.setString(1, isbn);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Libro libro = resulSetToLibro(resultSet);
+                libros.add(libro);
+            }
+        }
+        return libros;
+    }
+
+    /**
+     * Método para obtener un libro por su Estado
+     */
+    public List<Libro> getLibroByEstado(String isbn) throws SQLException {
+        List<Libro> libros = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ESTADO_QUERY)) {
             statement.setString(1, isbn);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -143,6 +178,15 @@ public class LibroDAO {
 
     public void updateLibroEstado() throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_PRESTADO)) {
+            statement.executeUpdate();
+        }
+    }
+
+    public void updateLibroEstadoDisponible() throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SAFE_UPDATES)) {
+            statement.executeUpdate();
+        }
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_DISPONIBLE)) {
             statement.executeUpdate();
         }
     }

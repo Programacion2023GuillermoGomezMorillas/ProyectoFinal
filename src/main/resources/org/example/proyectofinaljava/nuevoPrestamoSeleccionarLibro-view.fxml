@@ -34,16 +34,16 @@
                             </font>
                         </Label>
                         <Line endX="-583.0" endY="239.0" layoutX="575.0" layoutY="-106.0" startX="522.0" startY="239.0" />
-                        <Button fx:id="btBuscar" layoutX="563.0" layoutY="43.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" prefHeight="47.0" prefWidth="98.0" text="Buscar" />
+                        <Button fx:id="btBuscar" layoutX="563.0" layoutY="43.0" mnemonicParsing="false" onMouseClicked="#onClickBuscar" prefHeight="47.0" prefWidth="132.0" text="Buscar" />
                         <Label layoutX="228.0" layoutY="49.0" prefHeight="36.0" prefWidth="121.0" text="Busqueda Por :">
                             <font>
                                 <Font size="17.0" />
                             </font></Label>
                         <ComboBox fx:id="cbBuscar" layoutX="394.0" layoutY="29.0" prefWidth="150.0" />
                         <TextField fx:id="tfBuscar" layoutX="395.0" layoutY="80.0" promptText="Valor" />
-                        <Button fx:id="btVolver" layoutX="1034.0" layoutY="143.0" mnemonicParsing="false" text="Volver" />
-                        <Button fx:id="btNuevoLibro" layoutX="17.0" layoutY="143.0" mnemonicParsing="false" text="Nuevo Libro" />
-                        <Button fx:id="btRefrescar" layoutX="785.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#onClickRefrescar" prefHeight="47.0" prefWidth="98.0" text="Refrescar" />
+                        <Button fx:id="btVolver" layoutX="1034.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#onClickVolver" text="Volver" />
+                        <Button fx:id="btRefrescar" layoutX="736.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#onClickRefrescar" prefHeight="47.0" prefWidth="132.0" text="Mostrar Disponibles" />
+                  <Button fx:id="btMostrarTodos" layoutX="902.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#onClickMostrarTodos" prefHeight="47.0" prefWidth="132.0" text="Mostrar Todos" />
                     </children>
                 </AnchorPane>
             </children>
