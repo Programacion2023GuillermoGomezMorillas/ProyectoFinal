@@ -88,18 +88,12 @@ public class SociosController implements Initializable {
         } else {
             try {
                 socioDAO.deleteSocioByNumeroSocio(tfNumero.getText());
-                tfNumero.setText("");
-                tfNombre.setText("");
-                tfTelefono.setText("");
-                tfDireccion.setText("");
                 actualizarTvSocios();
-
+                limpiarDatosModif();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
-
         }
-
     }
 
     /**
@@ -243,7 +237,7 @@ public class SociosController implements Initializable {
         actualizarTvSocios();
         //Metemos en los combobox
         actualizarCbBuscar();
-
+        tfNumero.setDisable(true);
         //Asociamos la lista a la tabla
         tvSocios.setItems(listaSocios);
         tvSocios.refresh();
@@ -289,11 +283,7 @@ public class SociosController implements Initializable {
     public boolean comprobarDatosTextField() {
         boolean bool = true;
 
-        if (!tfNumero.getText().matches("^[0-9]+$")) {
-            alertaDeError("El numero es incorrecto o esta vacio");
-            tfNumero.requestFocus();
-            bool = false;
-        } else if (tfNombre.getText().isEmpty()) {
+         if (tfNombre.getText().isEmpty()) {
             alertaDeError("El nombre no puede ser un campo vacio");
             tfNombre.requestFocus();
         } else if (!tfTelefono.getText().matches("^[0-9]{9}$")) {

@@ -27,7 +27,7 @@ public class LibroDAO {
     private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, autor = ?, anio = ?, genero = ? WHERE isbn = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
     private static final String UPDATE_PRESTADO = "update Libro set estado = 'Prestado' where titulo in (select tituloLibro from Prestamo);";
-    private static final String UPDATE_DISPONIBLE = "update Libro set estado = 'Disponible' where titulo not in (select tituloLibro from Prestamo) or 'Devuelto' in (select estado from Prestamo);";
+    private static final String UPDATE_DISPONIBLE = "update Libro, Prestamo set Libro.estado = 'Disponible' where titulo = tituloLibro and Prestamo.estado = 'Devuelto';";
     private static final String SQL_SAFE_UPDATES = "SET SQL_SAFE_UPDATES = 0;";
 
 

@@ -131,6 +131,8 @@ public class LibrosController implements Initializable {
     public void actualizarTvLibros() {
         try {
             listaLibros = FXCollections.observableArrayList(libroDAO.getAllLibros());
+            libroDAO.updateLibroEstado();
+            libroDAO.updateLibroEstadoDisponible();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }

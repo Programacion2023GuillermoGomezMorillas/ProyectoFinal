@@ -321,7 +321,7 @@ public class PrestamosController implements Initializable {
         try {
             List<Prestamo> listaPrestamo = prestamoDAO.getAllPrestamos();
             cbBuscar.getItems().add("DEVUELTO");
-            cbBuscar.getItems().add("PENDIENTE");
+            cbBuscar.getItems().add("PRESTADO");
             cbBuscar.getItems().add("VENCIDO");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
