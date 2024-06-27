@@ -97,7 +97,7 @@ public class SociosController implements Initializable {
                 actualizarTvSocios();
                 limpiarDatosModif();
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("No puedes eliminar un socio con un libro prestado");
             }
         }
     }
@@ -113,16 +113,24 @@ public class SociosController implements Initializable {
             alertaDeError("Introduce una búsqueda");
         } else {
             try {
-                ObservableList<Socio> socios;
-                if (cbBuscar.getValue().equals("NUMERO")) {
-                    socios = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
+                ObservableList<Socio> socios = null;
+                if (cbBuscar.getValue() == null) {
+                    alertaDeError("Tiene que seleccionar una busqueda");
                 } else {
-                    socios = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfBuscar.getText()));
+                    if (cbBuscar.getValue().equals("NUMERO")) {
+                        socios = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
+                    } else if (cbBuscar.getValue().equals("NOMBRE")) {
+                        socios = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfBuscar.getText()));
+                    }
                 }
-                tvSocios.setItems(socios);
-                tvSocios.refresh();
+                if (socios.isEmpty()) {
+                    alertaDeError("No existe esa busqueda");
+                } else {
+                    tvSocios.setItems(socios);
+                    tvSocios.refresh();
+                }
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("Busqueda no encontrada");
             }
         }
     }
@@ -157,7 +165,7 @@ public class SociosController implements Initializable {
                     socioDAO.insertSocio(socio);
                     actualizarTvSocios();
                 } catch (SQLException e) {
-                    System.out.println("Error al guardar: " + socio);
+                    alertaDeError("Error al guardar:");
                 }
             }
         } else {
@@ -188,7 +196,7 @@ public class SociosController implements Initializable {
                 actualizarTvSocios();
                 limpiarDatosModif();
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("No se puedo modificar");
             }
         }
     }
@@ -250,7 +258,7 @@ public class SociosController implements Initializable {
     /**
      * Método que se ejecuta al inicializar la ventana.
      *
-     * @param url URL de la localización.
+     * @param url            URL de la localización.
      * @param resourceBundle ResourceBundle de los recursos.
      */
     @Override

@@ -162,7 +162,7 @@ public class LibrosController implements Initializable {
                 limpiarDatosModif();
                 actualizarTvLibros();
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("No se puede eliminar un libro prestado");
             }
         }
     }
@@ -179,25 +179,31 @@ public class LibrosController implements Initializable {
             alertaDeError("Introduce un criterio de búsqueda");
         } else {
             try {
-                ObservableList<Libro> libros;
+                ObservableList<Libro> libros = null;
                 if (cbBuscar.getValue() == null) {
-                    alertaDeError("Selecciona un método de búsqueda");
-                    return;
-                } else if (cbBuscar.getValue().equals("GENERO")) {
-                    libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
-                } else if (cbBuscar.getValue().equals("ISBN")) {
-                    libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
-                } else if (cbBuscar.getValue().equals("TITULO")) {
-                    libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
+                    alertaDeError("Tiene que seleccionar una busqueda");
                 } else {
-                    alertaDeError("Método de búsqueda no válido");
-                    return;
+
+                    if (cbBuscar.getValue() == null) {
+                        alertaDeError("Selecciona un método de búsqueda");
+                        return;
+                    } else if (cbBuscar.getValue().equals("GENERO")) {
+                        libros = FXCollections.observableArrayList(libroDAO.getLibroByGenero(tfBuscar.getText()));
+                    } else if (cbBuscar.getValue().equals("ISBN")) {
+                        libros = FXCollections.observableArrayList(libroDAO.getLibroByIsbn(tfBuscar.getText()));
+                    } else if (cbBuscar.getValue().equals("TITULO")) {
+                        libros = FXCollections.observableArrayList(libroDAO.getLibroByTitulo(tfBuscar.getText()));
+                    }
                 }
                 // Actualiza la tabla con los resultados de la búsqueda
-                tvLibros.setItems(libros);
-                tvLibros.refresh();
+                if (libros.isEmpty()) {
+                    alertaDeError("No existe esa busqueda");
+                } else {
+                    tvLibros.setItems(libros);
+                    tvLibros.refresh();
+                }
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("Busqueda no encontrada");
             }
         }
     }
