@@ -117,7 +117,10 @@ public class SociosController implements Initializable {
                 if (cbBuscar.getValue() == null) {
                     alertaDeError("Tiene que seleccionar una busqueda");
                 } else {
-                    if (cbBuscar.getValue().equals("NUMERO")) {
+                    if (cbBuscar.getValue() == null) {
+                        alertaDeError("Selecciona un método de búsqueda");
+                        return;
+                    } else if (cbBuscar.getValue().equals("NUMERO")) {
                         socios = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
                     } else if (cbBuscar.getValue().equals("NOMBRE")) {
                         socios = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfBuscar.getText()));

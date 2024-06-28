@@ -72,19 +72,27 @@ public class NuevoPrestamoSeleccionarSocioController implements Initializable {
             alertaDeError("Introduce una búsqueda");
         } else {
             try {
-                ObservableList<Socio> socios;
-
-                if (cbBuscar.getValue().equals("NOMBRE")) {
-                    socios = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfBuscar.getText()));
+                ObservableList<Socio> socios = null;
+                if (cbBuscar.getValue() == null) {
+                    alertaDeError("Tiene que seleccionar una busqueda");
                 } else {
-                    socios = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
+                    if (cbBuscar.getValue() == null) {
+                        alertaDeError("Selecciona un método de búsqueda");
+                        return;
+                    } else if (cbBuscar.getValue().equals("NUMERO")) {
+                        socios = FXCollections.observableArrayList(socioDAO.getSocioByNumeroSocio(tfBuscar.getText()));
+                    } else if (cbBuscar.getValue().equals("NOMBRE")) {
+                        socios = FXCollections.observableArrayList(socioDAO.getSocioByNombre(tfBuscar.getText()));
+                    }
                 }
-
-                //Asociamos la lista a la tabla
-                tvSocio.setItems(socios);
-                tvSocio.refresh();
+                if (socios.isEmpty()) {
+                    alertaDeError("No existe esa busqueda");
+                } else {
+                    tvSocio.setItems(socios);
+                    tvSocio.refresh();
+                }
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                alertaDeError("Busqueda no encontrada");
             }
         }
     }

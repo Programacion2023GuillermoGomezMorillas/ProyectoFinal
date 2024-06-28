@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Diagramas" />
+    <list default="true" id="6bce6cbe-196f-4fd5-bfb3-b737fad7a1ef" name="Changes" comment="Diagramas ajustes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoSeleccionarLibroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/proyectofinaljava/Controller/NuevoPrestamoSeleccionarLibroController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -488,7 +491,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719517569817</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Diagramas ajustes">
+      <option name="closed" value="true" />
+      <created>1719518336896</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1719518336896</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -515,7 +526,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Posible opcion para modificar LibrosController" />
     <MESSAGE value="Ya se ven los libros en la ventana cuando se inicia" />
     <MESSAGE value="Final Gestion de Libros" />
     <MESSAGE value="Gestion de Socios 80%" />
@@ -540,6 +550,7 @@
     <MESSAGE value="Comentarios en todo el programa" />
     <MESSAGE value="Retoques" />
     <MESSAGE value="Diagramas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Diagramas" />
+    <MESSAGE value="Diagramas ajustes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Diagramas ajustes" />
   </component>
 </project>
